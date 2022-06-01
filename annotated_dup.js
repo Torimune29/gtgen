@@ -1,4 +1,4 @@
 var annotated_dup =
 [
-    [ "Dummy", "class_dummy.html", "class_dummy" ]
+    [ "AbstractCodeParser", "class_abstract_code_parser.html", "class_abstract_code_parser" ]
 ];
