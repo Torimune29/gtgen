@@ -8,11 +8,15 @@
  */
 class AbstractCodeParser {
  public:
-  explicit AbstractCodeParser(const std::string &path);
+  AbstractCodeParser(const std::string &file_path, const std::string &compile_database_path);
   virtual ~AbstractCodeParser();
 
-  std::string GetPath() const;
+  virtual bool Ready();
+
+  std::string GetFilePath() const;
+  std::string GetCompileDatabasePath() const;
 
  protected:
   std::string path_;
+  std::string compile_database_path_;
 };

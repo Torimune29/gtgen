@@ -32,6 +32,7 @@ find_lto(CXX)
 # --------------------------------------------------------------------------------
 set(SOURCES          # All .cpp files in src/
     src/AbstractCodeParser.cpp
+    src/CodeParserCppAst.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
@@ -44,7 +45,7 @@ set(LIBRARY_NAME project)  # Default name for the library built from src/*.cpp (
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 # Link external libs or includes.
-target_link_libraries(${LIBRARY_NAME} cli11)
+target_link_libraries(${LIBRARY_NAME} cli11 cppast)
 
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

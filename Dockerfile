@@ -9,7 +9,9 @@ WORKDIR /tmp/${PROJECT_NAME}
 RUN apt-get -qq update && \
   apt-get install -qqy --no-install-recommends \
     lcov llvm ccache \
-    doxygen graphviz
+    doxygen graphviz \
+    # for develop
+    libclang-dev
 
 RUN echo "cache_dir = /tmp/${PROJECT_NAME}/ccache" > /etc/ccache.conf
 
