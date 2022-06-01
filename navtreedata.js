@@ -26,11 +26,13 @@ var NAVTREE =
 [
   [ "Dev C++ OSS Template", "index.html", [
     [ "gtgen", "index.html", [
-      [ "How to develop", "index.html#autotoc_md1", null ]
+      [ "How to Build", "index.html#autotoc_md1", null ],
+      [ "How to Develop", "index.html#autotoc_md2", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ]
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
