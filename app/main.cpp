@@ -7,7 +7,7 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "example.h"
+#include "AbstractCodeParser.h"
 #include "exampleConfig.h"
 
 /*
@@ -15,14 +15,14 @@
  * CMake definitions (here the version number) from source code.
  */
 int main(int argc, char *argv[]) {
-  std::cout << "Dev C++ OSS Template" << PROJECT_VERSION_MAJOR << "." << PROJECT_VERSION_MINOR << "."
+  std::cout << "gtget version: " << PROJECT_VERSION_MAJOR << "." << PROJECT_VERSION_MINOR << "."
             << PROJECT_VERSION_PATCH << "." << PROJECT_VERSION_TWEAK << std::endl;
 
-  CLI::App app{"Sample App description"};
-  std::string filename = "../LICENSE";
-  app.add_option("-f,--file", filename, "Path");
+  CLI::App app{"gtget"};
+  std::string file = "src/AbstcractCodeParser.cpp";
+  app.add_option("-f,--file", file, "Path");
   CLI11_PARSE(app, argc, argv)
-  // Bring in the dummy class from the example source,
-  // just to show that it is accessible from main.cpp.
-  return Dummy::DoSomething() ? 0 : -1;
+  AbstractCodeParser parser(file);
+  std::cout << "file: " << parser.GetPath() << std::endl;
+  return 0;
 }
