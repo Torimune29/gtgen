@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+		"C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
+		"C_Cpp.codeAnalysis.clangTidy.enabled": true
+	}
+}

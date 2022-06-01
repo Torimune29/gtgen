@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+
+    name: ${{ matrix.toolchain }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        toolchain:
+          - linux-gcc
+          - linux-clang
+
+        include:
+          - toolchain: linux-gcc
+            os: ubuntu-latest
+            compiler: gcc
+            check_command: "make check"
+            install_command: "make install"
+
+          - toolchain: linux-clang
+            os: ubuntu-latest
+            compiler: clang
+            check_command: "make check"
+            install_command: "make install"
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Configure Debug
+      run: cmake -S . -Bbuild -DCMAKE_BUILD_TYPE=Debug
+
+    - name: Build with ${{ matrix.compiler }}
+      run: cmake --build build
+
+    - name: Test
+      working-directory: build/tests
+      env:
+        CTEST_OUTPUT_ON_FAILURE: 1
+      run: ${{ matrix.check_command }}
+
+    - name: Configure Release
+      run: cmake -S . -Bbuild -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build with ${{ matrix.compiler }}
+      run: cmake --build build
+
+    - name: Install
+      working-directory: build
+      run: ${{ matrix.install_command }}
+
+  build-and-test-container:
+
+    name: docker-clang
+    runs-on: Ubuntu-20.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: sh ./run-docker.sh build
+
+      - name: Run
+        run: sh ./run-docker.sh run
+
+      - name: Coverage
+        run: sh ./run-docker.sh cov
+
+      - name: Coverage upload
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage_out.info
+
