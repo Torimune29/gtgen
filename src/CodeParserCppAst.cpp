@@ -1,6 +1,7 @@
 #include "CodeParserCppAst.h"
 #include <iostream>
 #include <type_traits>
+#include <cppast/visitor.hpp>
 
 
 const char kSettingsNameCompileDatabase[] = "compile_database_path";
@@ -28,3 +29,19 @@ bool CodeParserCppAst::Ready() {
   return ready_;
 }
 
+std::vector<std::string> CodeParserCppAst::GetFunctionNames() {
+  std::string prefix;
+  for (auto &file: p_parser_->files()) {
+    cppast::visit(file, [&prefix](const cppast::cpp_entity& e, cppast::visitor_info info) {
+        if (info.event == cppast::visitor_info::container_entity_exit) // exiting an old container
+            prefix.pop_back();
+        else if (info.event == cppast::visitor_info::container_entity_enter) {// entering a new container
+            std::cout << prefix << "'" << e.name() << "' - " << cppast::to_string(e.kind()) << '\n';
+            prefix += "\t";
+        }
+        else // if (info.event == cppast::visitor_info::leaf_entity) // a non-container entity
+            std::cout << prefix << "'" << e.name() << "' - " << cppast::to_string(e.kind()) << '\n';
+    });
+  }
+  return {prefix};
+}

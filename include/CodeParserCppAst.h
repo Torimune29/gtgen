@@ -19,6 +19,8 @@ class CodeParserCppAst : public AbstractCodeParser {
   ~CodeParserCppAst() override;
 
   bool Ready() final;
+  std::vector<std::string> GetFunctionNames();
+
  private:
   ResultTypeIndex index_;
   std::unique_ptr<ParserType> p_parser_;

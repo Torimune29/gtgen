@@ -37,4 +37,7 @@ TEST(CodeParserCppAstTest, Ready) {
   CodeParserCppAst parser(paths, compile_database);
 
   EXPECT_TRUE(parser.Ready());
+  for (const auto &it : parser.GetFunctionNames()) {
+    std::cout << it << std::endl;
+  }
 }
