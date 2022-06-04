@@ -7,7 +7,7 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "AbstractCodeParser.h"
+#include "CodeParserCppAst.h"
 #include "exampleConfig.h"
 
 /*
@@ -24,8 +24,23 @@ int main(int argc, char *argv[]) {
   app.add_option("-f,--file", file, "Path");
   app.add_option("-p,--compile-database", compile_database, "Compile Database Path(like compile_commands.json)");
   CLI11_PARSE(app, argc, argv)
-  AbstractCodeParser parser(file, compile_database);
-  std::cout << "file: " << parser.GetFilePath() << std::endl;
-  std::cout << "file: " << parser.GetCompileDatabasePath() << std::endl;
-  return 0;
+
+  CodeParserCppAst parser({file}, compile_database);
+
+  std::cout << "file: ";
+  for (const auto &it : parser.GetFilePaths()) {
+    std::cout << it << ",";
+  }
+  std::cout << std::endl;
+
+  std::cout << "settings: " << std::endl;
+  for (const auto &it : parser.GetSettings()) {
+    std::cout << "  " << it.first << ": " << it.second << std::endl;
+  }
+  auto ready = parser.Ready();
+  int return_code = 1;
+  if (ready) {
+    return_code = 0;
+  }
+  return return_code;
 }

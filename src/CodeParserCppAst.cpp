@@ -1,9 +1,15 @@
 #include "CodeParserCppAst.h"
 #include <iostream>
+#include <type_traits>
 
 
-CodeParserCppAst::CodeParserCppAst(const std::string &path, const std::string &compile_database_path)
-  : AbstractCodeParser(std::move(path), std::move(compile_database_path)) {
+const char kSettingsNameCompileDatabase[] = "compile_database_path";
+
+CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path)
+  : AbstractCodeParser(std::move(file_paths))
+  , ready_(false) {
+  settings_.insert({kSettingsNameCompileDatabase, compile_database_path});
+  p_parser_ =  std::unique_ptr<ParserType>(new ParserType(type_safe::ref(index_)));
 }
 
 
@@ -11,14 +17,13 @@ CodeParserCppAst::~CodeParserCppAst() = default;
 
 
 bool CodeParserCppAst::Ready() {
-  cppast::cpp_entity_index index = {};
-  cppast::libclang_compilation_database database(GetCompileDatabasePath()); // the compilation database
-  cppast::simple_file_parser<cppast::libclang_parser> parser(type_safe::ref(index));
+  if (ready_) return ready_;
   try {
-    cppast::parse_database(parser, database);
+    p_database_ = std::unique_ptr<DatabaseType>(new DatabaseType(settings_[kSettingsNameCompileDatabase]));
+    cppast::parse_database(*p_parser_, *p_database_);
+    ready_ = true;
   } catch (cppast::libclang_error& ex) {
     std::cerr << "fatal libclang error: " << ex.what() << '\n';
-    return false;
   }
-  return true;
+  return ready_;
 }

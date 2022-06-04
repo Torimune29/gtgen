@@ -1,9 +1,8 @@
 #include "AbstractCodeParser.h"
 
 
-AbstractCodeParser::AbstractCodeParser(const std::string &path, const std::string &compile_database_path)
-  : path_(std::move(path))
-  , compile_database_path_(std::move(compile_database_path)) {
+AbstractCodeParser::AbstractCodeParser(const std::vector<std::string> &file_paths)
+  : file_paths_(std::move(file_paths)) {
 }
 
 
@@ -11,15 +10,16 @@ AbstractCodeParser::~AbstractCodeParser() = default;
 
 
 bool AbstractCodeParser::Ready() {
-  return true;
+  return false;
 }
 
 
-std::string AbstractCodeParser::GetFilePath() const {
-  return path_;
+std::vector<std::string> AbstractCodeParser::GetFilePaths() const {
+  return file_paths_;
 }
 
-std::string AbstractCodeParser::GetCompileDatabasePath() const {
-  return compile_database_path_;
+
+std::unordered_map<std::string, std::string> AbstractCodeParser::GetSettings() const {
+  return settings_;
 }
 

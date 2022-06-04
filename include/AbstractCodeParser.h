@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <unordered_map>
 
 /**
  * @brief Abstract Code Parser Class
@@ -8,15 +10,15 @@
  */
 class AbstractCodeParser {
  public:
-  AbstractCodeParser(const std::string &file_path, const std::string &compile_database_path);
+  explicit AbstractCodeParser(const std::vector<std::string> &file_paths);
   virtual ~AbstractCodeParser();
 
   virtual bool Ready();
 
-  std::string GetFilePath() const;
-  std::string GetCompileDatabasePath() const;
+  std::vector<std::string> GetFilePaths() const;
+  std::unordered_map<std::string, std::string> GetSettings() const;
 
  protected:
-  std::string path_;
-  std::string compile_database_path_;
+  std::vector<std::string> file_paths_;
+  std::unordered_map<std::string, std::string> settings_;
 };
