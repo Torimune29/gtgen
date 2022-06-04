@@ -35,6 +35,7 @@ jobs:
           options: -v ${{ github.workspace }}:/tmp/project
           shell: bash
           run: |
+            apt-get install -y --no-install-recommends libclang-dev
             cmake -DCMAKE_BUILD_TYPE=Coverage -S /tmp/project -B /tmp/build
             make -j4 -C /tmp/build
             make check -C /tmp/build
