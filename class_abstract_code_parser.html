@@ -108,27 +108,27 @@ Inheritance diagram for AbstractCodeParser:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af07515a6dc6cf3d524086d33ed4d49a0"><td class="memItemLeft" align="right" valign="top"><a id="af07515a6dc6cf3d524086d33ed4d49a0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AbstractCodeParser</b> (const std::string &amp;file_path, const std::string &amp;compile_database_path)</td></tr>
-<tr class="separator:af07515a6dc6cf3d524086d33ed4d49a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad64516de2319ef2c36560e693b7c27b0"><td class="memItemLeft" align="right" valign="top"><a id="ad64516de2319ef2c36560e693b7c27b0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AbstractCodeParser</b> (const std::vector&lt; std::string &gt; &amp;file_paths)</td></tr>
+<tr class="separator:ad64516de2319ef2c36560e693b7c27b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38a9c734306f6531e3ff8ab1ff3f089e"><td class="memItemLeft" align="right" valign="top"><a id="a38a9c734306f6531e3ff8ab1ff3f089e"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Ready</b> ()</td></tr>
 <tr class="separator:a38a9c734306f6531e3ff8ab1ff3f089e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a073f26509754e4042d2d668eabd229ba"><td class="memItemLeft" align="right" valign="top"><a id="a073f26509754e4042d2d668eabd229ba"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePath</b> () const</td></tr>
-<tr class="separator:a073f26509754e4042d2d668eabd229ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a571dc499509a78468f495b34e28134a1"><td class="memItemLeft" align="right" valign="top"><a id="a571dc499509a78468f495b34e28134a1"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetCompileDatabasePath</b> () const</td></tr>
-<tr class="separator:a571dc499509a78468f495b34e28134a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52bae5428b0484dfb022a38f8557db12"><td class="memItemLeft" align="right" valign="top"><a id="a52bae5428b0484dfb022a38f8557db12"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePaths</b> () const</td></tr>
+<tr class="separator:a52bae5428b0484dfb022a38f8557db12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae599fb89ab667b5890dbaeaa2fa8391d"><td class="memItemLeft" align="right" valign="top"><a id="ae599fb89ab667b5890dbaeaa2fa8391d"></a>
+std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetSettings</b> () const</td></tr>
+<tr class="separator:ae599fb89ab667b5890dbaeaa2fa8391d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a83a20653364cf90ecaebb4da83c9b439"><td class="memItemLeft" align="right" valign="top"><a id="a83a20653364cf90ecaebb4da83c9b439"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>path_</b></td></tr>
-<tr class="separator:a83a20653364cf90ecaebb4da83c9b439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af50c69df2ba0381f5697ea82b7420979"><td class="memItemLeft" align="right" valign="top"><a id="af50c69df2ba0381f5697ea82b7420979"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>compile_database_path_</b></td></tr>
-<tr class="separator:af50c69df2ba0381f5697ea82b7420979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad36ec20d6177fff1a776ea5671ce776d"><td class="memItemLeft" align="right" valign="top"><a id="ad36ec20d6177fff1a776ea5671ce776d"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>file_paths_</b></td></tr>
+<tr class="separator:ad36ec20d6177fff1a776ea5671ce776d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5dc559d1e9b358dace88350cbe1d20"><td class="memItemLeft" align="right" valign="top"><a id="a5a5dc559d1e9b358dace88350cbe1d20"></a>
+std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>settings_</b></td></tr>
+<tr class="separator:a5a5dc559d1e9b358dace88350cbe1d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Code Parser Class. </p>

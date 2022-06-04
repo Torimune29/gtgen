@@ -1,10 +1,10 @@
 var class_abstract_code_parser =
 [
-    [ "AbstractCodeParser", "class_abstract_code_parser.html#af07515a6dc6cf3d524086d33ed4d49a0", null ],
+    [ "AbstractCodeParser", "class_abstract_code_parser.html#ad64516de2319ef2c36560e693b7c27b0", null ],
     [ "~AbstractCodeParser", "class_abstract_code_parser.html#a1a9cade4a4e28c02747f079c30743eb3", null ],
-    [ "GetCompileDatabasePath", "class_abstract_code_parser.html#a571dc499509a78468f495b34e28134a1", null ],
-    [ "GetFilePath", "class_abstract_code_parser.html#a073f26509754e4042d2d668eabd229ba", null ],
+    [ "GetFilePaths", "class_abstract_code_parser.html#a52bae5428b0484dfb022a38f8557db12", null ],
+    [ "GetSettings", "class_abstract_code_parser.html#ae599fb89ab667b5890dbaeaa2fa8391d", null ],
     [ "Ready", "class_abstract_code_parser.html#a38a9c734306f6531e3ff8ab1ff3f089e", null ],
-    [ "compile_database_path_", "class_abstract_code_parser.html#af50c69df2ba0381f5697ea82b7420979", null ],
-    [ "path_", "class_abstract_code_parser.html#a83a20653364cf90ecaebb4da83c9b439", null ]
+    [ "file_paths_", "class_abstract_code_parser.html#ad36ec20d6177fff1a776ea5671ce776d", null ],
+    [ "settings_", "class_abstract_code_parser.html#a5a5dc559d1e9b358dace88350cbe1d20", null ]
 ];
