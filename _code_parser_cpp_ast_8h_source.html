@@ -104,12 +104,14 @@ $(document).ready(function(){initNavTree('_code_parser_cpp_ast_8h_source.html','
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  ~<a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">bool</span> Ready() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  ResultTypeIndex index_;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  std::unique_ptr&lt;ParserType&gt; p_parser_;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  std::unique_ptr&lt;DatabaseType&gt; p_database_;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">bool</span> ready_;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::vector&lt;std::string&gt; GetFunctionNames();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ResultTypeIndex index_;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::unique_ptr&lt;ParserType&gt; p_parser_;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  std::unique_ptr&lt;DatabaseType&gt; p_database_;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">bool</span> ready_;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
 <div class="ttc" id="aclass_abstract_code_parser_html"><div class="ttname"><a href="class_abstract_code_parser.html">AbstractCodeParser</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractCodeParser.h:11</div></div>
 <div class="ttc" id="aclass_code_parser_cpp_ast_html"><div class="ttname"><a href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></div><div class="ttdoc">Code ParserCppAst Class.</div><div class="ttdef"><b>Definition:</b> CodeParserCppAst.h:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
