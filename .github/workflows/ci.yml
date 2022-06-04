@@ -8,10 +8,6 @@ on:
 
 jobs:
   build-and-test-container:
-    strategy:
-      fail-fast: false
-      matrix:
-        clang-version: [ '3.4' , '12' ]
 
     name: docker-clang
     runs-on: Ubuntu-20.04
@@ -19,23 +15,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      # - name: Build
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: .
-      #     push: false
-      #     tags: project:latest
-      #     build-args: |
-      #       PROJECT_NAME=project
+      - name: Build
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+          tags: project:latest
+          build-args: |
+            PROJECT_NAME=project
 
       - name: Run Test
         uses: addnab/docker-run-action@v3
         with:
-          image: silkeh/clang:${{ matrix.clang-version }}
+          image: project:latest
           options: -v ${{ github.workspace }}:/tmp/project
           shell: bash
           run: |
-            apt-get install -y --no-install-recommends libclang-dev
             cmake -DCMAKE_BUILD_TYPE=Coverage -S /tmp/project -B /tmp/build
             make -j4 -C /tmp/build
             make check -C /tmp/build
@@ -47,4 +42,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage_out.info
+
 
