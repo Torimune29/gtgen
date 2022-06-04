@@ -7,82 +7,9 @@ on:
   pull_request:
 
 jobs:
-  # build-and-test:
-
-  #   name: ${{ matrix.toolchain }}
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       toolchain:
-  #         - linux-gcc
-  #         - linux-clang
-
-  #       include:
-  #         - toolchain: linux-gcc
-  #           os: ubuntu-latest
-  #           compiler: gcc
-  #           check_command: "make check"
-  #           install_command: "make install"
-
-  #         - toolchain: linux-clang
-  #           os: ubuntu-latest
-  #           compiler: clang
-  #           check_command: "make check"
-  #           install_command: "make install"
-
-  #   steps:
-  #   - name: Checkout Code
-  #     uses: actions/checkout@v2
-
-  #   - name: Configure Debug
-  #     run: cmake -S . -Bbuild -DCMAKE_BUILD_TYPE=Debug
-
-  #   - name: Build with ${{ matrix.compiler }}
-  #     run: cmake --build build
-
-  #   - name: Test
-  #     working-directory: build/tests
-  #     env:
-  #       CTEST_OUTPUT_ON_FAILURE: 1
-  #     run: ${{ matrix.check_command }}
-
-  #   - name: Configure Release
-  #     run: cmake -S . -Bbuild -DCMAKE_BUILD_TYPE=Release
-
-  #   - name: Build with ${{ matrix.compiler }}
-  #     run: cmake --build build
-
-  #   - name: Install
-  #     working-directory: build
-  #     run: ${{ matrix.install_command }}
-
   build-and-test-container:
 
     name: docker-clang
-    runs-on: Ubuntu-20.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: sh ./run-docker.sh build
-
-      - name: Run
-        run: sh ./run-docker.sh run
-
-      - name: Coverage
-        run: sh ./run-docker.sh cov
-
-      - name: Coverage upload
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage_out.info
-
-  build-and-test-container-2:
-
-    name: docker-clang-2
     runs-on: Ubuntu-20.04
     steps:
       - name: Checkout Code
@@ -95,23 +22,22 @@ jobs:
           push: false
           tags: project:latest
 
-      - name: Run
-        uses: addnab/docker-run-action@v3
-        with:
-          image: project:latest
-          options: -v ${{ github.workspace }}:/tmp/project
-
-      - name: Run Coverage
+      - name: Run Test
         uses: addnab/docker-run-action@v3
         with:
           image: project:latest
           options: -v ${{ github.workspace }}:/tmp/project
           shell: bash
           run: |
-            rm -rf /tmp/build
-            mkdir -p /tmp/build
-            cd /tmp/build
-            cmake -DCMAKE_BUILD_TYPE=Coverage /tmp/project
-            make
-            make check
-            make coverage
+            cmake -DCMAKE_BUILD_TYPE=Coverage -S /tmp/project -B /tmp/build
+            make -C /tmp/build
+            make check -C /tmp/build
+            make coverage -C /tmp/build
+            cp /tmp/build/coverage_out.info .
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage_out.info
+
