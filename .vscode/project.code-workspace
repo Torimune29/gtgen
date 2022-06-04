@@ -7,6 +7,33 @@
 	"settings": {
 		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
 		"C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
-		"C_Cpp.codeAnalysis.clangTidy.enabled": true
+		"C_Cpp.codeAnalysis.clangTidy.enabled": true,
+		"files.associations": {
+			"*.tcc": "cpp",
+			"bitset": "cpp",
+			"complex": "cpp",
+			"deque": "cpp",
+			"forward_list": "cpp",
+			"list": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"vector": "cpp",
+			"optional": "cpp",
+			"fstream": "cpp",
+			"iomanip": "cpp",
+			"ios": "cpp",
+			"istream": "cpp",
+			"limits": "cpp",
+			"mutex": "cpp",
+			"ostream": "cpp",
+			"sstream": "cpp",
+			"streambuf": "cpp",
+			"thread": "cpp",
+			"regex": "cpp",
+			"type_traits": "cpp",
+			"tuple": "cpp",
+			"variant": "cpp"
+		}
 	}
 }
