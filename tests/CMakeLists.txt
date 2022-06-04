@@ -34,3 +34,6 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -V)
 
 # Adds a 'coverage' target, global.
 include(${PROJECT_SOURCE_DIR}/tests/cmake/test.cmake)
+
+# referring source tree class definition for testing
+target_compile_definitions(${TEST_MAIN} PUBLIC SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../")

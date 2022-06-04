@@ -5,6 +5,8 @@
 // Tests that don't naturally fit in the headers/.cpp files directly
 // can be placed in a tests/*.cpp file. Integration tests are a good example.
 
+const std::string kSourceTreePath = SOURCE_DIR;
+
 TEST(AbstractCodeParserTest, NotReady) {
   std::vector<std::string> paths_expected = {"test", "test1", "test2"};
   AbstractCodeParser parser(paths_expected);
@@ -29,7 +31,8 @@ TEST(CodeParserCppAstTest, GetPaths_Settings_NotReady) {
 }
 
 TEST(CodeParserCppAstTest, Ready) {
-  std::vector<std::string> paths= {"../src/AbstractCodeParser.cpp"};
+  std::string path_parser = kSourceTreePath + "src/AbstractCodeParser.cpp";
+  std::vector<std::string> paths= {path_parser};
   std::string compile_database = "./";
   CodeParserCppAst parser(paths, compile_database);
 
