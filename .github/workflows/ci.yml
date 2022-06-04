@@ -95,7 +95,23 @@ jobs:
           push: false
           tags: project:latest
 
-      - uses: addnab/docker-run-action@v3
+      - name: Run
+        uses: addnab/docker-run-action@v3
         with:
           image: project:latest
           options: -v ${{ github.workspace }}:/tmp/project
+
+      - name: Run Coverage
+        uses: addnab/docker-run-action@v3
+        with:
+          image: project:latest
+          options: -v ${{ github.workspace }}:/tmp/project
+          shell: bash
+          run: |
+            rm -rf /tmp/build
+            mkdir -p /tmp/build
+            cd /tmp/build
+            cmake -DCMAKE_BUILD_TYPE=Coverage /tmp/project
+            make
+            make check
+            make coverage
