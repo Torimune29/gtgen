@@ -20,7 +20,6 @@ bool CodeParserCppAst::Ready() {
   if (ready_) return ready_;
   try {
     p_database_ = std::unique_ptr<DatabaseType>(new DatabaseType(settings_[kSettingsNameCompileDatabase]));
-    // cppast::parse_database(*p_parser_, *p_database_);
     cppast::parse_files(*p_parser_, file_paths_, *p_database_);
     ready_ = true;
   } catch (cppast::libclang_error& ex) {
@@ -28,3 +27,4 @@ bool CodeParserCppAst::Ready() {
   }
   return ready_;
 }
+
