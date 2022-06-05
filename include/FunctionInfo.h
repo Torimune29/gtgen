@@ -21,8 +21,14 @@ typedef struct FunctionInfoBase {
  *
  */
 typedef struct MemberFunctionInfo {
+  enum class AccessSpecifier : int {
+    Public,
+    Private,
+    Protected
+  };
   FunctionInfoBase base;
   std::string class_name;
+  enum AccessSpecifier access_specifier;
   bool is_const = false;
   bool is_polymorphic = false;
 } MemberFunctionInfo;

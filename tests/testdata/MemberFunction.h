@@ -15,6 +15,15 @@ class foo {
     void with_definition() {}
     /// delete (unsupported)
     void deleted() = delete;
+  /// scope test
+  private:
+    void private_function();
+    void private_function_2();
+  protected:
+    void protected_function_2();
+  private:
+  public:
+    void public_function();
 };
 /// definition
 template <typename T>
@@ -26,4 +35,10 @@ class bar : foo<int> {
     void virtual_function() override;
     /// virtual void h() override final;
     virtual auto pure_virtual() const -> void override final ;
+};
+
+
+/// struct test
+struct baz {
+    void struct_function();
 };

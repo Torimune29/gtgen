@@ -34,7 +34,8 @@
 			"type_traits": "cpp",
 			"tuple": "cpp",
 			"variant": "cpp",
-			"string_view": "cpp"
+			"string_view": "cpp",
+			"typeinfo": "cpp"
 		}
 	}
 }

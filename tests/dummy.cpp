@@ -37,6 +37,7 @@ TEST(FunctionParserCppAstTest, Ready) {
       << ", return: " << it.base.return_type
       << ", noexcept: " << it.base.is_noexcept
       << ", class: " << it.class_name
+      << ", access_specifier: " << static_cast<int>(it.access_specifier)
       << ", const: " << it.is_const
       << ", polymorphic: " << it.is_polymorphic << std::endl;
   }
@@ -190,7 +191,8 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // EXPECT_STREQ(it.class_name.c_str(), "");
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -201,7 +203,8 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // EXPECT_STREQ(it.class_name.c_str(), "");
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -212,7 +215,8 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // EXPECT_STREQ(it.class_name.c_str(), "");
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -223,7 +227,12 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // EXPECT_STREQ(it.class_name.c_str(), "");
+      {
+        SCOPED_TRACE( ::testing::Message() << it.class_name );
+        EXPECT_TRUE(it.class_name == "foo"
+          || it.class_name == "bar");
+      }
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
       EXPECT_FALSE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
     }
@@ -234,9 +243,62 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // EXPECT_STREQ(it.class_name.c_str(), "");
+      {
+        SCOPED_TRACE( ::testing::Message() << it.class_name );
+        EXPECT_TRUE(it.class_name == "foo"
+          || it.class_name == "bar");
+      }
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
       EXPECT_TRUE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
+    }
+    if (it.base.name == "struct_function") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.class_name.c_str(), "baz");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+    }
+    if (it.base.name == "private_function" || it.base.name == "private_function_2") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Private);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+    }
+    if (it.base.name == "protected") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Protected);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+    }
+    if (it.base.name == "public_function") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
     }
   }
 }

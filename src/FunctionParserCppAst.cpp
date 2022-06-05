@@ -10,6 +10,7 @@
 #include "FunctionInfo.h"
 
 namespace {
+
 template <typename T>
 FunctionBase GetFunctionBase(const T &func) {
   FunctionBase base = {};
@@ -45,7 +46,7 @@ FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_
                                            const std::string &compile_database_path)
     : CodeParserCppAst(
           std::move(file_paths),
-          cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::member_function_t>(),
+          cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>(),
           std::move(compile_database_path)) {}
 
 FunctionParserCppAst::~FunctionParserCppAst() = default;
@@ -92,25 +93,42 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
     cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
-      if (e.kind() == cppast::cpp_member_function::kind()) {
-        auto &func = reinterpret_cast<const cppast::cpp_member_function &>(e);
-        if (func.is_declaration()) {  // use declaration only
-          MemberFunctionInfo function_info = {};
-          // function base
-          function_info.base = GetFunctionBase(func);
-          // class_name
-          function_info.class_name = func.semantic_scope();
-          auto it_delimiter = func.semantic_scope().find("::");
-          if (it_delimiter != std::string::npos) {
-            function_info.class_name = func.semantic_scope().substr(0, it_delimiter);
+      if (e.kind() == cppast::cpp_class::kind()) {
+        auto &class_e = reinterpret_cast<const cppast::cpp_class &>(e);
+        const auto class_name = class_e.name();
+        auto access_specifier = (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
+        for (auto &&child : class_e) {
+          switch (child.kind()) {
+            case cppast::cpp_entity_kind::access_specifier_t: {
+              access_specifier = reinterpret_cast<const cppast::cpp_access_specifier&>(child).access_specifier();
+              break;
+            }
+            case cppast::cpp_entity_kind::member_function_t: {
+              // if (!public_method) break;
+              auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
+              MemberFunctionInfo function_info = {};
+              // function base
+              function_info.base = GetFunctionBase(func);
+              // access specifier
+              if (access_specifier == cppast::cpp_public)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Public;
+              else if (access_specifier == cppast::cpp_private)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Private;
+              else if (access_specifier == cppast::cpp_protected) function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Protected;
+              // class_name
+              function_info.class_name = class_name;
+              // const
+              function_info.is_const =
+                  (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+              // polymorphic
+              function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+              infos.push_back(function_info);
+              break;
+            }
+            default: {
+              break;
+            }
           }
-          // const
-          function_info.is_const =
-              (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-          // polymorphic
-          function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
-
-          infos.push_back(function_info);
         }
       }
       return true;
