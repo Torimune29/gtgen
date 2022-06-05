@@ -8,12 +8,11 @@
  */
 typedef struct FunctionInfoBase {
   std::string name;
-  std::string return_type;   // func.return_type()
-  std::string signature;     // func.signature() ex: (int, float) <-  int b(int a, float* b = nullptr);  ex: () const <-
-                             // void c() const;
-  bool is_noexcept = false;  // func.noexcept_condition()
-  bool is_constexpr = false;  // func.is_constxpr()
-  bool is_consteval = false;  // func.is_consteval()
+  std::string return_type;
+  std::string signature;
+  bool is_noexcept = false;
+  bool is_constexpr = false;
+  bool is_consteval = false;
 } FunctionBase;
 
 /**
@@ -23,7 +22,7 @@ typedef struct FunctionInfoBase {
 typedef struct MemberFunctionInfo {
   FunctionInfoBase base;
   std::string class_name;
-  bool is_const = false;  // func.cv_qualifier() == cpp_cv_const || func.cv_qualifier() == cpp_cv_const_volatile
+  bool is_const = false;
   bool is_polymorphic = false;
 } MemberFunctionInfo;
 
@@ -33,6 +32,7 @@ typedef struct MemberFunctionInfo {
  */
 typedef struct FunctionInfo {
   FunctionInfoBase base;
-  bool is_extern = false;  // func.storage_class() == cpp_storage_class_extern
-  bool is_static = false;  // func.storage_class() == cpp_storage_class_static
+  std::string namespace_name;
+  bool is_extern = false;
+  bool is_static = false;
 } FunctionInfo;

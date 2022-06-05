@@ -1,36 +1,43 @@
-// from cppast/test/cpp_member_function.cpp
+// from cppast/test/cpp_function.cpp
 
-template <typename T>
-struct foo
+/// void a();
+void a();
+/// int b(int a,float* b=nullptr);
+int b(int a, float* b = nullptr);
+/// auto c(decltype(42) a,...)->int(&)[10];
+int (&c(decltype(42) a, ...))[10];
+// noexcept conditions
+/// void d()noexcept;
+void d() noexcept;
+/// void e()noexcept(false);
+void e() noexcept(false);
+/// void f()noexcept(noexcept(d()));
+void f() noexcept(noexcept(d()));
+// storage class + constexpr
+/// extern void g();
+extern void g();
+/// static void h();
+static void h();
+/// constexpr void i();
+constexpr void i();
+/// static constexpr void j();
+static constexpr void j();
+// body
+namespace ns
 {
-    /// void a(int array[]);
-    void a(int array[]); // throw in an array argument for good measure
-    /// void b()noexcept;
-    void b() noexcept;
-    /// void c()const;
-    void c() const;
-    /// void d()const volatile noexcept;
-    auto d() const volatile noexcept -> void;
-    /// void e()&;
-    void e() &;
-    /// void f()const volatile&&;
-    void f() const volatile &&;
-    /// virtual void g();
-    virtual void g();
-    /// virtual void h()=0;
-    virtual void h() = 0;
-    /// void i();
-    void i() {}
-    /// void j()=delete;
-    void j() = delete;
-};
-/// void foo<T>::a(int array[]);
-template <typename T>
-void foo<T>::a(int array[]) {}
-struct bar : foo<int>
+    /// void k()=delete;
+    void k() = delete;
+    /// void l();
+    void l();
+    using m = int;
+}
+/// void ns::l();
+void ns::l()
 {
-    /// virtual void g() override;
-    void g();
-    /// virtual void h() override final;
-    virtual auto h() -> void override final;
-};
+    // might confuse parser
+    auto b = noexcept(g());
+}
+/// ns::m m();
+ns::m m();
+/// void n(int i=int());
+void n(int i = int());

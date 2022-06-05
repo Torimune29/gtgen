@@ -15,5 +15,6 @@ class FunctionParserCppAst : public CodeParserCppAst {
   FunctionParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path);
   ~FunctionParserCppAst() override;
 
+  std::vector<FunctionInfo> GetFunctionInfos();
   std::vector<MemberFunctionInfo> GetMemberFunctionInfos();
 };

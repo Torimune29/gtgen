@@ -33,7 +33,8 @@
 			"regex": "cpp",
 			"type_traits": "cpp",
 			"tuple": "cpp",
-			"variant": "cpp"
+			"variant": "cpp",
+			"string_view": "cpp"
 		}
 	}
 }

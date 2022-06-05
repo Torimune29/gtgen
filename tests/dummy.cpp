@@ -25,17 +25,28 @@ TEST(FunctionParserCppAstTest, Ready) {
     kSourceTreePath + "src/CodeParserCppAst.cpp",
     kSourceTreePath + "src/FunctionParserCppAst.cpp",
     kSourceTreePath + "tests/testdata/Function.h",
+    kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
   FunctionParserCppAst parser(paths, compile_database);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunctionInfos()) {
-    std::cout << "Class: " << it.class_name
-      << ", Function Name: " << it.base.name
-      << ", Signature: " << it.base.signature
+    std::cout << "function: " << it.base.name
+      << ", signature: " << it.base.signature
+      << ", return: " << it.base.return_type
       << ", noexcept: " << it.base.is_noexcept
+      << ", class: " << it.class_name
       << ", const: " << it.is_const
       << ", polymorphic: " << it.is_polymorphic << std::endl;
+  }
+  for (const auto &it : parser.GetFunctionInfos()) {
+    std::cout << "function: " << it.base.name
+      << ", signature: " << it.base.signature
+      << ", return: " << it.base.return_type
+      << ", noexcept: " << it.base.is_noexcept
+      << ", namespace: " << it.namespace_name
+      << ", const: " << it.is_extern
+      << ", polymorphic: " << it.is_static << std::endl;
   }
 }
