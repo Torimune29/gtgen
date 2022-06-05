@@ -20,7 +20,7 @@ class foo {
     void private_function();
     void private_function_2();
   protected:
-    void protected_function_2();
+    void protected_function();
   private:
   public:
     void public_function();

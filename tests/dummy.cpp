@@ -276,7 +276,7 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
-    if (it.base.name == "protected") {
+    if (it.base.name == "protected_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
