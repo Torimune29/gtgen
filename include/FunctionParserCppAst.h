@@ -1,9 +1,10 @@
 #pragma once
 
+#include <memory>
+#include <string>
+
 #include "CodeParserCppAst.h"
 #include "FunctionInfo.h"
-#include <string>
-#include <memory>
 
 /**
  * @brief  Code ParserCppAst Class

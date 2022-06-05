@@ -8,8 +8,9 @@
  */
 typedef struct FunctionInfoBase {
   std::string name;
-  std::string return_type;  // func.return_type()
-  std::string signature;  // func.signature() ex: (int, float) <-  int b(int a, float* b = nullptr);  ex: () const <- void c() const;
+  std::string return_type;   // func.return_type()
+  std::string signature;     // func.signature() ex: (int, float) <-  int b(int a, float* b = nullptr);  ex: () const <-
+                             // void c() const;
   bool is_noexcept = false;  // func.noexcept_condition()
   bool is_constexpr = false;  // func.is_constxpr()
   bool is_consteval = false;  // func.is_consteval()
@@ -23,7 +24,7 @@ typedef struct MemberFunctionInfo {
   FunctionInfoBase base;
   std::string class_name;
   bool is_const = false;  // func.cv_qualifier() == cpp_cv_const || func.cv_qualifier() == cpp_cv_const_volatile
-  bool is_overrode = false;
+  bool is_polymorphic = false;
 } MemberFunctionInfo;
 
 /**

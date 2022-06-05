@@ -1,38 +1,33 @@
 #include "FunctionParserCppAst.h"
-#include "FunctionInfo.h"
+
 #include <cppast/cpp_class.hpp>
 #include <cppast/cpp_function.hpp>
 #include <cppast/cpp_member_function.hpp>
-#include <type_safe/optional_ref.hpp>
 #include <iostream>
+#include <type_safe/optional_ref.hpp>
 #include <type_traits>
 
-FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path)
-  : CodeParserCppAst(
-    std::move(file_paths)
-    , cppast::whitelist<
-    cppast::cpp_entity_kind::function_t,
-    cppast::cpp_entity_kind::member_function_t,
-    cppast::cpp_entity_kind::function_template_t,
-    cppast::cpp_entity_kind::function_template_specialization_t
-    >()
-    , std::move(compile_database_path)) {
-}
+#include "FunctionInfo.h"
 
+FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_paths,
+                                           const std::string &compile_database_path)
+    : CodeParserCppAst(
+          std::move(file_paths),
+          cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::member_function_t>(),
+          std::move(compile_database_path)) {}
 
 FunctionParserCppAst::~FunctionParserCppAst() = default;
-
 
 std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
-  for (auto &file: p_parser_->files()) {
-    cppast::visit(file, filter_, [&infos](const cppast::cpp_entity& e, cppast::visitor_info info) {
+  for (auto &file : p_parser_->files()) {
+    cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
       if (e.kind() == cppast::cpp_member_function::kind()) {
-        auto& func = reinterpret_cast<const cppast::cpp_member_function &>(e);
+        auto &func = reinterpret_cast<const cppast::cpp_member_function &>(e);
         MemberFunctionInfo function_info = {};
         // function name
         function_info.base.name = func.name();
@@ -59,13 +54,14 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
         }
         function_info.class_name = std::move(semantic_scope);
         // const
-        function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-        // overrode
-        function_info.is_overrode = func.virtual_info() != type_safe::nullopt;
+        function_info.is_const =
+            (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+        // polymorphic
+        function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
 
         infos.push_back(function_info);
-      // } else if (e.kind() == cppast::cpp_function::kind()) {
-      //   // auto& func = reinterpret_cast<const cppast::cpp_function &>(e);
+        // } else if (e.kind() == cppast::cpp_function::kind()) {
+        //   // auto& func = reinterpret_cast<const cppast::cpp_function &>(e);
       }
       return true;
     });

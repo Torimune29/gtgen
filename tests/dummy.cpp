@@ -24,6 +24,7 @@ TEST(FunctionParserCppAstTest, Ready) {
     kSourceTreePath + "src/AbstractCodeParser.cpp",
     kSourceTreePath + "src/CodeParserCppAst.cpp",
     kSourceTreePath + "src/FunctionParserCppAst.cpp",
+    kSourceTreePath + "tests/testdata/Function.h",
   };
   std::string compile_database = "./";
   FunctionParserCppAst parser(paths, compile_database);
@@ -35,6 +36,6 @@ TEST(FunctionParserCppAstTest, Ready) {
       << ", Signature: " << it.base.signature
       << ", noexcept: " << it.base.is_noexcept
       << ", const: " << it.is_const
-      << ", overrode: " << it.is_overrode << std::endl;
+      << ", polymorphic: " << it.is_polymorphic << std::endl;
   }
 }
