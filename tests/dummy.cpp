@@ -46,8 +46,8 @@ TEST(FunctionParserCppAstTest, Ready) {
       << ", return: " << it.base.return_type
       << ", noexcept: " << it.base.is_noexcept
       << ", namespace: " << it.namespace_name
-      << ", const: " << it.is_extern
-      << ", polymorphic: " << it.is_static << std::endl;
+      << ", extern: " << it.is_extern
+      << ", static: " << it.is_static << std::endl;
   }
 }
 
@@ -60,7 +60,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunctionInfos()) {
-    if (it.base.name == "a") {
+    if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -71,29 +71,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "b") {
-      EXPECT_STREQ(it.base.return_type.c_str(), "int");
-      EXPECT_STREQ(it.base.signature.c_str(), "(int,float*)");
-      EXPECT_FALSE(it.base.is_noexcept);
-      EXPECT_FALSE(it.base.is_constexpr);
-      EXPECT_FALSE(it.base.is_consteval);
-      EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
-      EXPECT_FALSE(it.is_extern);
-      EXPECT_FALSE(it.is_static);
-    }
-    if (it.base.name == "c") {
-      EXPECT_STREQ(it.base.return_type.c_str(), "int(&)[10]");
-      EXPECT_STREQ(it.base.signature.c_str(), "(decltype(42),...)");
-      EXPECT_FALSE(it.base.is_noexcept);
-      EXPECT_FALSE(it.base.is_constexpr);
-      EXPECT_FALSE(it.base.is_consteval);
-      EXPECT_TRUE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
-      EXPECT_FALSE(it.is_extern);
-      EXPECT_FALSE(it.is_static);
-    }
-    if (it.base.name == "d") {
+    if (it.base.name == "noexcept_only") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.is_noexcept);
@@ -104,7 +82,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "e") {
+    if (it.base.name == "noexcept_false") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -115,7 +93,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "f") {
+    if (it.base.name == "noexcept_complex") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);  // except without noexcept or noexcept(true)
@@ -126,7 +104,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "g") {
+    if (it.base.name == "extern_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -137,7 +115,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_TRUE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "h") {
+    if (it.base.name == "static_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -148,7 +126,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
-    if (it.base.name == "i") {
+    if (it.base.name == "constexpr_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -159,7 +137,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "j") {
+    if (it.base.name == "static_constexpr") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -170,7 +148,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
-    if (it.base.name == "k") {  // delete unsupported
+    if (it.base.name == "namespace_deleted") {  // delete unsupported
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -181,7 +159,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "l") {
+    if (it.base.name == "namespace_normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
@@ -193,7 +171,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
-    if (it.base.name == "m") {
+    if (it.base.name == "namespace_type_return") {
       EXPECT_STREQ(it.base.return_type.c_str(), "ns::m");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_FALSE(it.base.is_noexcept);
