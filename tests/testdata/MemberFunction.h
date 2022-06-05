@@ -1,36 +1,29 @@
-// from cppast/test/cpp_member_function.cpp
-
 template <typename T>
-struct foo
-{
-    /// void a(int array[]);
-    void a(int array[]); // throw in an array argument for good measure
-    /// void b()noexcept;
-    void b() noexcept;
-    /// void c()const;
-    void c() const;
-    /// void d()const volatile noexcept;
-    auto d() const volatile noexcept -> void;
-    /// void e()&;
-    void e() &;
-    /// void f()const volatile&&;
-    void f() const volatile &&;
-    /// virtual void g();
-    virtual void g();
-    /// virtual void h()=0;
-    virtual void h() = 0;
-    /// void i();
-    void i() {}
-    /// void j()=delete;
-    void j() = delete;
+class foo {
+ public:
+    /// const
+    void const_function() const;
+    /// const volatile noexcept -> void
+    auto full_suffix() const volatile noexcept -> void;
+    /// noise
+    void noise_suffix() const &;
+    /// virtual
+    virtual void virtual_function();
+    /// pure virtual
+    virtual void pure_virtual() const = 0;
+    /// with definition;
+    void with_definition() {}
+    /// delete (unsupported)
+    void deleted() = delete;
 };
-/// void foo<T>::a(int array[]);
+/// definition
 template <typename T>
-void foo<T>::a(int array[]) {}
-struct bar : foo<int>
-{
+void foo<T>::const_function() const {}
+/// specialization
+class bar : foo<int> {
+ public:
     /// virtual void g() override;
-    void g();
+    void virtual_function() override;
     /// virtual void h() override final;
-    virtual auto h() -> void override final;
+    virtual auto pure_virtual() const -> void override final ;
 };

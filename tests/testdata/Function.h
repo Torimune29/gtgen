@@ -18,11 +18,11 @@ constexpr void constexpr_function();
 static constexpr void static_constexpr();
 // namespace
 namespace ns {
-    void namespace_deleted() = delete;
+    void namespace_deleted() = delete;  // unsupported
     void namespace_normal();
     using m = int;
 }
-/// namespace definition
+/// namespace definition (unsupported)
 void ns::namespace_normal() {
 }
 /// ns::m namespace_type_return();
