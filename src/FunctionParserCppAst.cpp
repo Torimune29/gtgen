@@ -25,11 +25,10 @@ FunctionBase GetFunctionBase(const T &func) {
     base.signature = func.signature().substr(0, it_suffix + 1);
   }
   // noexcept
-  if (func.noexcept_condition() != type_safe::nullopt
-    && func.noexcept_condition().value().kind() == cppast::cpp_expression_kind::literal_t) {
+  if (func.noexcept_condition() != type_safe::nullopt &&
+      func.noexcept_condition().value().kind() == cppast::cpp_expression_kind::literal_t) {
     base.is_noexcept =
-      (reinterpret_cast<const cppast::cpp_literal_expression &>(func.noexcept_condition().value()).value()
-      == "true");
+        (reinterpret_cast<const cppast::cpp_literal_expression &>(func.noexcept_condition().value()).value() == "true");
   }
   // constexpr
   base.is_constexpr = func.is_constexpr();
@@ -44,10 +43,9 @@ FunctionBase GetFunctionBase(const T &func) {
 
 FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_paths,
                                            const std::string &compile_database_path)
-    : CodeParserCppAst(
-          std::move(file_paths),
-          cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>(),
-          std::move(compile_database_path)) {}
+    : CodeParserCppAst(std::move(file_paths),
+                       cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>(),
+                       std::move(compile_database_path)) {}
 
 FunctionParserCppAst::~FunctionParserCppAst() = default;
 
@@ -96,11 +94,12 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
       if (e.kind() == cppast::cpp_class::kind()) {
         auto &class_e = reinterpret_cast<const cppast::cpp_class &>(e);
         const auto class_name = class_e.name();
-        auto access_specifier = (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
+        auto access_specifier =
+            (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
         for (auto &&child : class_e) {
           switch (child.kind()) {
             case cppast::cpp_entity_kind::access_specifier_t: {
-              access_specifier = reinterpret_cast<const cppast::cpp_access_specifier&>(child).access_specifier();
+              access_specifier = reinterpret_cast<const cppast::cpp_access_specifier &>(child).access_specifier();
               break;
             }
             case cppast::cpp_entity_kind::member_function_t: {
@@ -114,7 +113,8 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
                 function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Public;
               else if (access_specifier == cppast::cpp_private)
                 function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Private;
-              else if (access_specifier == cppast::cpp_protected) function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Protected;
+              else if (access_specifier == cppast::cpp_protected)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Protected;
               // class_name
               function_info.class_name = class_name;
               // const
