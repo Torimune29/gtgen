@@ -50,3 +50,170 @@ TEST(FunctionParserCppAstTest, Ready) {
       << ", polymorphic: " << it.is_static << std::endl;
   }
 }
+
+TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
+  std::vector<std::string> paths = {
+    kSourceTreePath + "tests/testdata/Function.h",
+  };
+  std::string compile_database = "./";
+  FunctionParserCppAst parser(paths, compile_database);
+
+  EXPECT_TRUE(parser.Ready());
+  for (const auto &it : parser.GetFunctionInfos()) {
+    if (it.base.name == "a") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "b") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "int");
+      EXPECT_STREQ(it.base.signature.c_str(), "(int,float*)");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "c") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "int(&)[10]");
+      EXPECT_STREQ(it.base.signature.c_str(), "(decltype(42),...)");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_TRUE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "d") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "e") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "f") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);  // except without noexcept or noexcept(true)
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "g") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_TRUE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "h") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_TRUE(it.is_static);
+    }
+    if (it.base.name == "i") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_TRUE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "j") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_TRUE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_TRUE(it.is_static);
+    }
+    if (it.base.name == "k") {  // delete unsupported
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "l") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      // definition contains namespace but declaration does not.
+      // EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "m") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "ns::m");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "n") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "(int)");
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_STREQ(it.namespace_name.c_str(), "");
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+  }
+}

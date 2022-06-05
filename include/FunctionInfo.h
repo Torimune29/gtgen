@@ -13,6 +13,7 @@ typedef struct FunctionInfoBase {
   bool is_noexcept = false;
   bool is_constexpr = false;
   bool is_consteval = false;
+  bool is_variadic = false;
 } FunctionBase;
 
 /**

@@ -24,11 +24,18 @@ FunctionBase GetFunctionBase(const T &func) {
     base.signature = func.signature().substr(0, it_suffix + 1);
   }
   // noexcept
-  base.is_noexcept = func.noexcept_condition() != type_safe::nullopt;
+  if (func.noexcept_condition() != type_safe::nullopt
+    && func.noexcept_condition().value().kind() == cppast::cpp_expression_kind::literal_t) {
+    base.is_noexcept =
+      (reinterpret_cast<const cppast::cpp_literal_expression &>(func.noexcept_condition().value()).value()
+      == "true");
+  }
   // constexpr
   base.is_constexpr = func.is_constexpr();
   // consteval
   base.is_consteval = func.is_consteval();
+  // variadic like args...
+  base.is_variadic = func.is_variadic();
   return base;
 }
 
@@ -101,8 +108,6 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
         function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
 
         infos.push_back(function_info);
-        // } else if (e.kind() == cppast::cpp_function::kind()) {
-        //   // auto& func = reinterpret_cast<const cppast::cpp_function &>(e);
       }
       return true;
     });
