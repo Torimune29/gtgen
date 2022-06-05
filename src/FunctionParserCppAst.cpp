@@ -23,7 +23,7 @@ FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_
 FunctionParserCppAst::~FunctionParserCppAst() = default;
 
 
-std::vector<std::string> FunctionParserCppAst::GetFunctionNames() {
+std::vector<MemberFunctionInfo> FunctionParserCppAst::GetFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
@@ -42,9 +42,5 @@ std::vector<std::string> FunctionParserCppAst::GetFunctionNames() {
       return true;
     });
   }
-  std::vector<std::string> ret;
-  for (const auto &it : infos) {
-    ret.push_back(it.base.name);
-  }
-  return ret;
+  return infos;
 }

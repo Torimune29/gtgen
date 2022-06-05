@@ -26,7 +26,7 @@ TEST(FunctionParserCppAstTest, Ready) {
   FunctionParserCppAst parser(paths, compile_database);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetFunctionNames()) {
-    std::cout << it << std::endl;
+  for (const auto &it : parser.GetFunctionInfos()) {
+    std::cout << it.base.name << std::endl;
   }
 }
