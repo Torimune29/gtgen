@@ -19,8 +19,8 @@ int main(int argc, char *argv[]) {
             << PROJECT_VERSION_PATCH << "." << PROJECT_VERSION_TWEAK << std::endl;
 
   CLI::App app{"gtget"};
-  std::string file = "src/AbstcractFunctionParser.cpp";
-  std::string compile_database = "compile_commands.json";
+  std::string file = "";
+  std::string compile_database = "./";
   app.add_option("-f,--file", file, "Path");
   app.add_option("-p,--compile-database", compile_database, "Compile Database Path(like compile_commands.json)");
   CLI11_PARSE(app, argc, argv)
