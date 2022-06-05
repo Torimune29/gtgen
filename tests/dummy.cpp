@@ -20,13 +20,21 @@ TEST(FunctionParserCppAstTest, GetPaths_Settings_NotReady) {
 }
 
 TEST(FunctionParserCppAstTest, Ready) {
-  std::string path_parser = kSourceTreePath + "src/AbstractCodeParser.cpp";
-  std::vector<std::string> paths= {path_parser};
+  std::vector<std::string> paths = {
+    kSourceTreePath + "src/AbstractCodeParser.cpp",
+    kSourceTreePath + "src/CodeParserCppAst.cpp",
+    kSourceTreePath + "src/FunctionParserCppAst.cpp",
+  };
   std::string compile_database = "./";
   FunctionParserCppAst parser(paths, compile_database);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetFunctionInfos()) {
-    std::cout << it.base.name << std::endl;
+  for (const auto &it : parser.GetMemberFunctionInfos()) {
+    std::cout << "Class: " << it.class_name
+      << ", Function Name: " << it.base.name
+      << ", Signature: " << it.base.signature
+      << ", noexcept: " << it.base.is_noexcept
+      << ", const: " << it.is_const
+      << ", overrode: " << it.is_overrode << std::endl;
   }
 }
