@@ -60,21 +60,23 @@ std::vector<FunctionInfo> FunctionParserCppAst::GetFunctionInfos() {
       // type handling
       if (e.kind() == cppast::cpp_function::kind()) {
         auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
-        FunctionInfo function_info = {};
-        // function base
-        function_info.base = GetFunctionBase(func);
-        // class_name
-        function_info.namespace_name = func.semantic_scope();
-        auto it_delimiter = func.semantic_scope().find("::");
-        if (it_delimiter != std::string::npos) {
-          function_info.namespace_name = func.semantic_scope().substr(0, it_delimiter);
-        }
-        // extern
-        function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
-        // static
-        function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
+        if (func.is_declaration()) {  // use declaration only
+          FunctionInfo function_info = {};
+          // function base
+          function_info.base = GetFunctionBase(func);
+          // class_name
+          function_info.namespace_name = func.semantic_scope();
+          auto it_delimiter = func.semantic_scope().find("::");
+          if (it_delimiter != std::string::npos) {
+            function_info.namespace_name = func.semantic_scope().substr(0, it_delimiter);
+          }
+          // extern
+          function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
+          // static
+          function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
 
-        infos.push_back(function_info);
+          infos.push_back(function_info);
+        }
       }
       return true;
     });
@@ -92,22 +94,24 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
       // type handling
       if (e.kind() == cppast::cpp_member_function::kind()) {
         auto &func = reinterpret_cast<const cppast::cpp_member_function &>(e);
-        MemberFunctionInfo function_info = {};
-        // function base
-        function_info.base = GetFunctionBase(func);
-        // class_name
-        function_info.class_name = func.semantic_scope();
-        auto it_delimiter = func.semantic_scope().find("::");
-        if (it_delimiter != std::string::npos) {
-          function_info.class_name = func.semantic_scope().substr(0, it_delimiter);
-        }
-        // const
-        function_info.is_const =
-            (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-        // polymorphic
-        function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+        if (func.is_declaration()) {  // use declaration only
+          MemberFunctionInfo function_info = {};
+          // function base
+          function_info.base = GetFunctionBase(func);
+          // class_name
+          function_info.class_name = func.semantic_scope();
+          auto it_delimiter = func.semantic_scope().find("::");
+          if (it_delimiter != std::string::npos) {
+            function_info.class_name = func.semantic_scope().substr(0, it_delimiter);
+          }
+          // const
+          function_info.is_const =
+              (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+          // polymorphic
+          function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
 
-        infos.push_back(function_info);
+          infos.push_back(function_info);
+        }
       }
       return true;
     });
