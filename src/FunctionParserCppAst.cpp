@@ -53,12 +53,12 @@ std::vector<FunctionInfo> FunctionParserCppAst::GetFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<FunctionInfo> infos;
-  for (auto &file : p_parser_->files()) {
+  for (const auto &file : p_parser_->files()) {
     cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
       if (e.kind() == cppast::cpp_function::kind()) {
-        auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
+        const auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
         if (func.is_declaration()) {  // use declaration only
           FunctionInfo function_info = {};
           // function base
@@ -87,12 +87,12 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
-  for (auto &file : p_parser_->files()) {
+  for (const auto &file : p_parser_->files()) {
     cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
       if (e.kind() == cppast::cpp_class::kind()) {
-        auto &class_e = reinterpret_cast<const cppast::cpp_class &>(e);
+        const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(e);
         const auto class_name = class_e.name();
         auto access_specifier =
             (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
@@ -104,7 +104,7 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
             }
             case cppast::cpp_entity_kind::member_function_t: {
               // if (!public_method) break;
-              auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
+              const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
               MemberFunctionInfo function_info = {};
               // function base
               function_info.base = GetFunctionBase(func);
