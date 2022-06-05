@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('_abstract_code_parser_8h_source.html',
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths);</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a>();</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Ready();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Ready() = 0;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  std::vector&lt;std::string&gt; GetFilePaths() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  std::unordered_map&lt;std::string, std::string&gt; GetSettings() <span class="keyword">const</span>;</div>
