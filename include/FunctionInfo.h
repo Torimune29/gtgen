@@ -6,7 +6,7 @@
  * @brief Function Base
  *
  */
-typedef struct FunctionBase {
+typedef struct FunctionInfoBase {
   std::string name;
   std::string return_type;  // func.return_type()
   std::string signature;  // func.signature() ex: (int, float) <-  int b(int a, float* b = nullptr);  ex: () const <- void c() const;
@@ -22,7 +22,7 @@ typedef struct FunctionBase {
  *
  */
 typedef struct MemberFunctionInfo {
-  FunctionBase base;
+  FunctionInfoBase base;
   std::string class_name;
   bool is_const = false;  // func.cv_qualifier() == cpp_cv_const || func.cv_qualifier() == cpp_cv_const_volatile
   bool is_override = false;
@@ -35,6 +35,6 @@ typedef struct MemberFunctionInfo {
  *
  */
 typedef struct FunctionInfo {
-  FunctionBase base;
+  FunctionInfoBase base;
   bool is_extern = false;  // func.storage_class() == cpp_storage_class_extern
 } FunctionInfo;

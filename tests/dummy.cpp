@@ -1,27 +1,16 @@
 #include <gtest/gtest.h>
-#include "AbstractCodeParser.h"
-#include "CodeParserCppAst.h"
+#include "FunctionParserCppAst.h"
 
 // Tests that don't naturally fit in the headers/.cpp files directly
 // can be placed in a tests/*.cpp file. Integration tests are a good example.
 
 const std::string kSourceTreePath = SOURCE_DIR;
 
-TEST(AbstractCodeParserTest, NotReady) {
-  std::vector<std::string> paths_expected = {"test", "test1", "test2"};
-  AbstractCodeParser parser(paths_expected);
-  auto paths = parser.GetFilePaths();
-  auto settings = parser.GetSettings();
-  EXPECT_EQ(paths, paths_expected);
-  EXPECT_TRUE(settings.empty());
-  EXPECT_FALSE(parser.Ready());
-}
-
-TEST(CodeParserCppAstTest, GetPaths_Settings_NotReady) {
+TEST(FunctionParserCppAstTest, GetPaths_Settings_NotReady) {
   std::vector<std::string> paths_expected = {"test", "test1", "test2"};
   std::string compile_database_expected = "foo";
   std::unordered_map<std::string, std::string> settings_expected = {{"compile_database_path", compile_database_expected}};
-  CodeParserCppAst parser(paths_expected, compile_database_expected);
+  FunctionParserCppAst parser(paths_expected, compile_database_expected);
 
   auto paths = parser.GetFilePaths();
   auto settings = parser.GetSettings();
@@ -30,11 +19,11 @@ TEST(CodeParserCppAstTest, GetPaths_Settings_NotReady) {
   EXPECT_FALSE(parser.Ready());
 }
 
-TEST(CodeParserCppAstTest, Ready) {
+TEST(FunctionParserCppAstTest, Ready) {
   std::string path_parser = kSourceTreePath + "src/AbstractCodeParser.cpp";
   std::vector<std::string> paths= {path_parser};
   std::string compile_database = "./";
-  CodeParserCppAst parser(paths, compile_database);
+  FunctionParserCppAst parser(paths, compile_database);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunctionNames()) {

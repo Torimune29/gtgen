@@ -18,13 +18,15 @@ class CodeParserCppAst : public AbstractCodeParser {
   using EntityType= cppast::cpp_entity;
 
  public:
-  CodeParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path);
+  CodeParserCppAst(
+    const std::vector<std::string> &file_paths,
+    const FilterType &filter,
+    const std::string &compile_database_path);
   ~CodeParserCppAst() override;
 
   bool Ready() final;
-  std::vector<std::string> GetFunctionNames();
 
- private:
+ protected:
   ResultTypeIndex index_;
   std::unique_ptr<ParserType> p_parser_;
   std::unique_ptr<DatabaseType> p_database_;

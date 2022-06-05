@@ -7,7 +7,7 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "CodeParserCppAst.h"
+#include "FunctionParserCppAst.h"
 #include "exampleConfig.h"
 
 /*
@@ -19,13 +19,13 @@ int main(int argc, char *argv[]) {
             << PROJECT_VERSION_PATCH << "." << PROJECT_VERSION_TWEAK << std::endl;
 
   CLI::App app{"gtget"};
-  std::string file = "src/AbstcractCodeParser.cpp";
+  std::string file = "src/AbstcractFunctionParser.cpp";
   std::string compile_database = "compile_commands.json";
   app.add_option("-f,--file", file, "Path");
   app.add_option("-p,--compile-database", compile_database, "Compile Database Path(like compile_commands.json)");
   CLI11_PARSE(app, argc, argv)
 
-  CodeParserCppAst parser({file}, compile_database);
+  FunctionParserCppAst parser({file}, compile_database);
 
   std::cout << "file: ";
   for (const auto &it : parser.GetFilePaths()) {

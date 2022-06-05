@@ -9,11 +9,6 @@ AbstractCodeParser::AbstractCodeParser(const std::vector<std::string> &file_path
 AbstractCodeParser::~AbstractCodeParser() = default;
 
 
-bool AbstractCodeParser::Ready() {
-  return false;
-}
-
-
 std::vector<std::string> AbstractCodeParser::GetFilePaths() const {
   return file_paths_;
 }

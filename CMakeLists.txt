@@ -33,6 +33,7 @@ find_lto(CXX)
 set(SOURCES          # All .cpp files in src/
     src/AbstractCodeParser.cpp
     src/CodeParserCppAst.cpp
+    src/FunctionParserCppAst.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
