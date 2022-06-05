@@ -32,7 +32,15 @@ jobs:
           options: -v ${{ github.workspace }}:/tmp/project
           shell: bash
           run: |
-            apt-get install -y libclang-dev
+            apt-get -qq install -y build-essential libssl-dev
+            wget https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0.tar.gz
+            tar -zxvf cmake-3.20.0.tar.gz
+            cd cmake-3.20.0
+            ./bootstrap
+            make
+            make install
+            cd ../
+            apt-get -qq install -y libclang-dev
             cmake -DCMAKE_BUILD_TYPE=Coverage -S /tmp/project -B /tmp/build
             make -j4 -C /tmp/build
             make check -C /tmp/build

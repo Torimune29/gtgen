@@ -5,7 +5,7 @@
 #
 # For many purposes, you may not need to change anything about this file.
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.14)
 
 # Set project name, version and languages here. (change as needed)
 # Version numbers are available by including "exampleConfig.h" in

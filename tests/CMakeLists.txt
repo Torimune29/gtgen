@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.14)
 
 option(ENABLE_GOOGLETESTS "Include tests in the library. Setting this to OFF will remove all googletest related code.
                         Tests in tests/*.cpp will still be enabled." ON)
