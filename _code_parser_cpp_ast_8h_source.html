@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dev C++ OSS Template: include/CodeParserCppAst.h Source File</title>
+<title>gtgen: include/CodeParserCppAst.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Dev C++ OSS Template
+   <div id="projectname">gtgen
    </div>
   </td>
  </tr>
@@ -94,19 +94,19 @@ $(document).ready(function(){initNavTree('_code_parser_cpp_ast_8h_source.html','
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cppast/libclang_parser.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cppast/visitor.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_code_parser_cpp_ast.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">using</span> DatabaseType = cppast::libclang_compilation_database;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">using</span> ParserType = cppast::simple_file_parser&lt;cppast::libclang_parser&gt;;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using</span> ResultTypeIndex = cppast::cpp_entity_index;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using</span> FilterType = cppast::detail::visitor_filter_t;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">using</span> EntityType= cppast::cpp_entity;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>(</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> FilterType &amp;filter,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> std::string &amp;compile_database_path);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cppast/diagnostic.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_code_parser_cpp_ast.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">using</span> DatabaseType = cppast::libclang_compilation_database;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using</span> ParserType = cppast::simple_file_parser&lt;cppast::libclang_parser&gt;;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using</span> ResultTypeIndex = cppast::cpp_entity_index;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">using</span> FilterType = cppast::detail::visitor_filter_t;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">using</span> EntityType = cppast::cpp_entity;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">using</span> LoggerType = cppast::stderr_diagnostic_logger;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths, <span class="keyword">const</span> FilterType &amp;filter,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                   <span class="keyword">const</span> std::string &amp;compile_database_path, <span class="keywordtype">bool</span> verbose);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ~<a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">bool</span> Ready() <span class="keyword">final</span>;</div>
@@ -117,10 +117,11 @@ $(document).ready(function(){initNavTree('_code_parser_cpp_ast_8h_source.html','
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  std::unique_ptr&lt;DatabaseType&gt; p_database_;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  FilterType filter_;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  std::vector&lt;EntityType&gt; entities_;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">bool</span> ready_;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  LoggerType logger_;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">bool</span> ready_;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
 <div class="ttc" id="aclass_abstract_code_parser_html"><div class="ttname"><a href="class_abstract_code_parser.html">AbstractCodeParser</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractCodeParser.h:11</div></div>
-<div class="ttc" id="aclass_code_parser_cpp_ast_html"><div class="ttname"><a href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></div><div class="ttdoc">Code ParserCppAst Class.</div><div class="ttdef"><b>Definition:</b> CodeParserCppAst.h:13</div></div>
+<div class="ttc" id="aclass_code_parser_cpp_ast_html"><div class="ttname"><a href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></div><div class="ttdoc">Code ParserCppAst Class.</div><div class="ttdef"><b>Definition:</b> CodeParserCppAst.h:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

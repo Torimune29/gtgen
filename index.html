@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dev C++ OSS Template: gtgen</title>
+<title>gtgen: gtgen</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Dev C++ OSS Template
+   <div id="projectname">gtgen
    </div>
   </td>
  </tr>
@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">gtgen </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://img.shields.io/github/workflow/status/bfkwl2vu4eom/gtgen/CI" alt="GitHub Workflow Status" class="inline"/> <a href="https://codecov.io/gh/bfkwl2vu4eom/gtgen"><img src="https://codecov.io/gh/bfkwl2vu4eom/gtgen/branch/main/graph/badge.svg" alt="codecov" style="pointer-events: none;" class="inline"/></a> <a href="https://www.codacy.com/gh/bfkwl2vu4eom/gtgen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bfkwl2vu4eom/dev-cpp-oss-template&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/4ab150dd86c44db9ba17df846aa309a3" alt="Codacy Badge" class="inline"/></a> <img src="https://github.com/bfkwl2vu4eom/gtgen/workflows/CodeQL/badge.svg" alt="CodeQL" style="pointer-events: none;" class="inline"/></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://img.shields.io/github/workflow/status/Torimune29/gtgen/CI" alt="GitHub Workflow Status" class="inline"/> <a href="https://codecov.io/gh/Torimune29/gtgen"><img src="https://codecov.io/gh/Torimune29/gtgen/branch/main/graph/badge.svg" alt="codecov" style="pointer-events: none;" class="inline"/></a> <a href="https://www.codacy.com/gh/Torimune29/gtgen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Torimune29/dev-cpp-oss-template&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/4ab150dd86c44db9ba17df846aa309a3" alt="Codacy Badge" class="inline"/></a> <img src="https://github.com/Torimune29/gtgen/workflows/CodeQL/badge.svg" alt="CodeQL" style="pointer-events: none;" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 How to Build</h1>
 <ul>
@@ -101,14 +101,126 @@ How to Use</h1>
 <ul>
 <li>Sample Output</li>
 </ul>
-<div class="fragment"><div class="line">~/gtget/build$ ./gtgen -f ../tests/testdata/MemberFunction.h -p .</div>
-<div class="line">gtgen version: 1.2.3.4</div>
-<div class="line">file: ../tests/testdata/MemberFunction.h,</div>
+<div class="fragment"><div class="line">~/gtget/build$ ./gtgen -f ../tests/testdata/Function.h ../tests/testdata/MemberFunction.h -p .</div>
+<div class="line">gtgen version: 0.0.1</div>
+<div class="line">file: ../tests/testdata/Function.h,../tests/testdata/MemberFunction.h,</div>
 <div class="line">settings:</div>
 <div class="line">  compile_database_path: .</div>
+<div class="line">[simple file parser] [info] parsing file &#39;../tests/testdata/Function.h&#39;</div>
 <div class="line">[simple file parser] [info] parsing file &#39;../tests/testdata/MemberFunction.h&#39;</div>
 <div class="line">{</div>
-<div class="line">    &quot;function&quot;: [],</div>
+<div class="line">    &quot;function&quot;: [</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;normal&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;noexcept_only&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: true,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;noexcept_false&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;noexcept_complex&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: true,</div>
+<div class="line">            &quot;functionName&quot;: &quot;extern_function&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;static_function&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: true</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: true,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;constexpr_function&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: true,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;static_constexpr&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: true</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;namespace_normal&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;void&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">            &quot;consteval&quot;: false,</div>
+<div class="line">            &quot;constexpr&quot;: false,</div>
+<div class="line">            &quot;extern&quot;: false,</div>
+<div class="line">            &quot;functionName&quot;: &quot;namespace_type_return&quot;,</div>
+<div class="line">            &quot;namespace&quot;: &quot;&quot;,</div>
+<div class="line">            &quot;noexcept&quot;: false,</div>
+<div class="line">            &quot;returnType&quot;: &quot;ns::m&quot;,</div>
+<div class="line">            &quot;signature&quot;: &quot;()&quot;,</div>
+<div class="line">            &quot;static&quot;: false</div>
+<div class="line">        }</div>
+<div class="line">    ],</div>
 <div class="line">    &quot;memberFunction&quot;: [</div>
 <div class="line">        {</div>
 <div class="line">            &quot;accessSpecifier&quot;: 0,</div>
@@ -282,7 +394,7 @@ How to Use</h1>
 <div class="line">}</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
 How to Develop</h1>
-<p>This uses a OSS Development Template for C++ projects based on <a href="https://github.com/bsamseth/cpp-project">cpp-project</a>, and <a href="https://github.com/bfkwl2vu4eom/dev-cpp-oss-template">dev-cpp-oss-template</a>. </p>
+<p>This uses a OSS Development Template for C++ projects based on <a href="https://github.com/bsamseth/cpp-project">cpp-project</a>, and <a href="https://github.com/Torimune29/dev-cpp-oss-template">dev-cpp-oss-template</a>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
