@@ -46,7 +46,6 @@ TEST(FunctionParserTest, Ready) {
       << ", signature: " << it.base.signature
       << ", return: " << it.base.return_type
       << ", noexcept: " << it.base.is_noexcept
-      << ", namespace: " << it.namespace_name
       << ", extern: " << it.is_extern
       << ", static: " << it.is_static << std::endl;
   }
@@ -68,7 +67,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -79,7 +77,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -90,7 +87,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -101,7 +97,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -112,7 +107,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_TRUE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -123,7 +117,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
@@ -134,7 +127,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -145,7 +137,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
@@ -156,8 +147,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      // definition contains namespace but declaration does not.
-      // EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -168,7 +157,6 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
-      EXPECT_STREQ(it.namespace_name.c_str(), "");
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }

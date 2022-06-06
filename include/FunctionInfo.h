@@ -44,6 +44,7 @@ typedef struct MemberFunctionInfo {
   bool operator== (const MemberFunctionInfo &rhs) {
     return (base == rhs.base
       && class_name == rhs.class_name
+      && access_specifier == rhs.access_specifier
       && is_const == rhs.is_const
       && is_polymorphic == rhs.is_polymorphic
     );
@@ -57,12 +58,10 @@ typedef struct MemberFunctionInfo {
  */
 typedef struct FunctionInfo {
   FunctionInfoBase base;
-  std::string namespace_name;
   bool is_extern = false;
   bool is_static = false;
   bool operator== (const FunctionInfo &rhs) {
     return (base == rhs.base
-      && namespace_name == rhs.namespace_name
       && is_extern == rhs.is_extern
       && is_static == rhs.is_static
     );

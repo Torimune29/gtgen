@@ -71,7 +71,6 @@ int main(int argc, char *argv[]) {
                                                                  {"noexcept", it.base.is_noexcept},
                                                                  {"constexpr", it.base.is_constexpr},
                                                                  {"consteval", it.base.is_consteval},
-                                                                 {"namespace", it.namespace_name},
                                                                  {"extern", it.is_extern},
                                                                  {"static", it.is_static},
                                                              });

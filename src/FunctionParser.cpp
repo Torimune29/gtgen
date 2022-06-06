@@ -49,12 +49,6 @@ FunctionInfo GetFunction(const T &func) {
   function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
   // static
   function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
-   // namespace
-  function_info.namespace_name = func.semantic_scope();
-  auto it_delimiter = func.semantic_scope().find("::");
-  if (it_delimiter != std::string::npos) {
-    function_info.namespace_name = func.semantic_scope().substr(0, it_delimiter);
-  }
   return function_info;
 }
 }  // namespace
@@ -67,6 +61,17 @@ FunctionParser::FunctionParser(const std::vector<std::string> &file_paths,
                         cppast::cpp_entity_kind::class_t,
                         cppast::cpp_entity_kind::namespace_t>(),
                        std::move(compile_database_path), verbose) {}
+
+FunctionParser::FunctionParser(const std::string &class_name, const std::vector<std::string> &file_paths,
+                                           const std::string &compile_database_path, bool verbose)
+    : CodeParserCppAst(std::move(file_paths),
+                       cppast::whitelist<
+                        cppast::cpp_entity_kind::function_t,
+                        cppast::cpp_entity_kind::class_t,
+                        cppast::cpp_entity_kind::namespace_t>(),
+                       std::move(compile_database_path), verbose)
+    , class_name_(class_name) {}
+
 
 FunctionParser::~FunctionParser() = default;
 
@@ -142,5 +147,5 @@ std::vector<MemberFunctionInfo> FunctionParser::GetMemberFunctionInfos() {
       return true;
     });
   }
-  return infos;
+  return std::vector<MemberFunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
 }
