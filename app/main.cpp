@@ -7,7 +7,7 @@
 
 #include "CLI/CLI.hpp"
 #include "FunctionParserCppAst.h"
-#include "exampleConfig.h"
+#include "ProjectVersion.h"
 #include "jsoncons/json.hpp"
 
 /*
@@ -16,16 +16,18 @@
  */
 int main(int argc, char *argv[]) {
   std::cout << "gtgen version: " << PROJECT_VERSION_MAJOR << "." << PROJECT_VERSION_MINOR << "."
-            << PROJECT_VERSION_PATCH << "." << PROJECT_VERSION_TWEAK << std::endl;
+            << PROJECT_VERSION_PATCH << std::endl;
 
   CLI::App app{"gtget"};
-  std::string file = "";
+  std::vector<std::string> files = {""};
   std::string compile_database = "./";
-  app.add_option("-f,--file", file, "Path");
-  app.add_option("-p,--compile-database", compile_database, "Compile Database Path(like compile_commands.json)");
+  bool verbose_parse = false;
+  app.add_option("-f,--files", files, "Analyze file paths.");
+  app.add_option("-p,--compile-database", compile_database, "Compile database directory path");
+  app.add_flag("--verbose-parse", verbose_parse, "Verbose parse result");
   CLI11_PARSE(app, argc, argv)
 
-  FunctionParserCppAst parser({file}, compile_database);
+  FunctionParserCppAst parser(files, compile_database, verbose_parse);
 
   std::cout << "file: ";
   for (const auto &it : parser.GetFilePaths()) {

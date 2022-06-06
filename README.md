@@ -1,10 +1,10 @@
 
 # gtgen
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bfkwl2vu4eom/gtgen/CI)
-[![codecov](https://codecov.io/gh/bfkwl2vu4eom/gtgen/branch/main/graph/badge.svg)](https://codecov.io/gh/bfkwl2vu4eom/gtgen)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ab150dd86c44db9ba17df846aa309a3)](https://www.codacy.com/gh/bfkwl2vu4eom/gtgen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bfkwl2vu4eom/dev-cpp-oss-template&amp;utm_campaign=Badge_Grade)
-![CodeQL](https://github.com/bfkwl2vu4eom/gtgen/workflows/CodeQL/badge.svg)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Torimune29/gtgen/CI)
+[![codecov](https://codecov.io/gh/Torimune29/gtgen/branch/main/graph/badge.svg)](https://codecov.io/gh/Torimune29/gtgen)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ab150dd86c44db9ba17df846aa309a3)](https://www.codacy.com/gh/Torimune29/gtgen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Torimune29/dev-cpp-oss-template&amp;utm_campaign=Badge_Grade)
+![CodeQL](https://github.com/Torimune29/gtgen/workflows/CodeQL/badge.svg)
 
 ## How to Build
 
@@ -16,14 +16,126 @@
 - Sample Output
 
 ```
-~/gtget/build$ ./gtgen -f ../tests/testdata/MemberFunction.h -p .
-gtgen version: 1.2.3.4
-file: ../tests/testdata/MemberFunction.h,
+~/gtget/build$ ./gtgen -f ../tests/testdata/Function.h ../tests/testdata/MemberFunction.h -p .
+gtgen version: 0.0.1
+file: ../tests/testdata/Function.h,../tests/testdata/MemberFunction.h,
 settings:
   compile_database_path: .
+[simple file parser] [info] parsing file '../tests/testdata/Function.h'
 [simple file parser] [info] parsing file '../tests/testdata/MemberFunction.h'
 {
-    "function": [],
+    "function": [
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "normal",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "noexcept_only",
+            "namespace": "",
+            "noexcept": true,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "noexcept_false",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "noexcept_complex",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": true,
+            "functionName": "extern_function",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "static_function",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": true
+        },
+        {
+            "consteval": false,
+            "constexpr": true,
+            "extern": false,
+            "functionName": "constexpr_function",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": true,
+            "extern": false,
+            "functionName": "static_constexpr",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": true
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "namespace_normal",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "void",
+            "signature": "()",
+            "static": false
+        },
+        {
+            "consteval": false,
+            "constexpr": false,
+            "extern": false,
+            "functionName": "namespace_type_return",
+            "namespace": "",
+            "noexcept": false,
+            "returnType": "ns::m",
+            "signature": "()",
+            "static": false
+        }
+    ],
     "memberFunction": [
         {
             "accessSpecifier": 0,
@@ -199,4 +311,4 @@ settings:
 
 ## How to Develop
 
-This uses a OSS Development Template for C++ projects based on [cpp-project](https://github.com/bsamseth/cpp-project), and [dev-cpp-oss-template](https://github.com/bfkwl2vu4eom/dev-cpp-oss-template).
+This uses a OSS Development Template for C++ projects based on [cpp-project](https://github.com/bsamseth/cpp-project), and [dev-cpp-oss-template](https://github.com/Torimune29/dev-cpp-oss-template).

@@ -42,10 +42,10 @@ FunctionBase GetFunctionBase(const T &func) {
 }  // namespace
 
 FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_paths,
-                                           const std::string &compile_database_path)
+                                           const std::string &compile_database_path, bool verbose)
     : CodeParserCppAst(std::move(file_paths),
                        cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>(),
-                       std::move(compile_database_path)) {}
+                       std::move(compile_database_path), verbose) {}
 
 FunctionParserCppAst::~FunctionParserCppAst() = default;
 

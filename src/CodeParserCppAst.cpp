@@ -8,13 +8,17 @@
 
 #include "FunctionInfo.h"
 
+
 const char kSettingsNameCompileDatabase[] = "compile_database_path";
+const char kSettingsVerbose[] = "verbose";
 
 CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
-                                   const std::string &compile_database_path)
+                                   const std::string &compile_database_path, bool verbose)
     : AbstractCodeParser(std::move(file_paths)), filter_(filter), ready_(false) {
   settings_.insert({kSettingsNameCompileDatabase, compile_database_path});
-  p_parser_ = std::unique_ptr<ParserType>(new ParserType(type_safe::ref(index_)));
+  settings_.insert({kSettingsVerbose, (verbose ? "true" : "false")});
+  logger_.set_verbose(verbose);
+  p_parser_ = std::unique_ptr<ParserType>(new ParserType(type_safe::ref(index_), type_safe::ref(logger_)));
 }
 
 CodeParserCppAst::~CodeParserCppAst() = default;

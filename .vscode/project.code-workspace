@@ -35,7 +35,8 @@
 			"tuple": "cpp",
 			"variant": "cpp",
 			"string_view": "cpp",
-			"typeinfo": "cpp"
+			"typeinfo": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }

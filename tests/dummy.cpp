@@ -10,7 +10,7 @@ TEST(FunctionParserCppAstTest, GetPaths_Settings_NotReady) {
   std::vector<std::string> paths_expected = {"test", "test1", "test2"};
   std::string compile_database_expected = "foo";
   std::unordered_map<std::string, std::string> settings_expected = {{"compile_database_path", compile_database_expected}};
-  FunctionParserCppAst parser(paths_expected, compile_database_expected);
+  FunctionParserCppAst parser(paths_expected, compile_database_expected, false);
 
   auto paths = parser.GetFilePaths();
   auto settings = parser.GetSettings();
@@ -28,7 +28,7 @@ TEST(FunctionParserCppAstTest, Ready) {
     kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database);
+  FunctionParserCppAst parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunctionInfos()) {
@@ -57,7 +57,7 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
     kSourceTreePath + "tests/testdata/Function.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database);
+  FunctionParserCppAst parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunctionInfos()) {
@@ -180,7 +180,7 @@ TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
     kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database);
+  FunctionParserCppAst parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunctionInfos()) {

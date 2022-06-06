@@ -12,7 +12,7 @@
  */
 class FunctionParserCppAst : public CodeParserCppAst {
  public:
-  FunctionParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path);
+  FunctionParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path, bool verbose);
   ~FunctionParserCppAst() override;
 
   std::vector<FunctionInfo> GetFunctionInfos();
