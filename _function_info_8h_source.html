@@ -125,28 +125,27 @@ $(document).ready(function(){initNavTree('_function_info_8h_source.html',''); in
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      &amp;&amp; class_name == rhs.class_name</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      &amp;&amp; is_const == rhs.is_const</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      &amp;&amp; is_polymorphic == rhs.is_polymorphic</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    );</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="struct_function_info.html">   58</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  std::string namespace_name;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      &amp;&amp; access_specifier == rhs.access_specifier</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      &amp;&amp; is_const == rhs.is_const</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      &amp;&amp; is_polymorphic == rhs.is_polymorphic</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    );</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="struct_function_info.html">   59</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">bool</span> is_extern = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">bool</span> is_static = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      &amp;&amp; namespace_name == rhs.namespace_name</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      &amp;&amp; is_extern == rhs.is_extern</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      &amp;&amp; is_static == rhs.is_static</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      &amp;&amp; is_extern == rhs.is_extern</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      &amp;&amp; is_static == rhs.is_static</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
 <div class="ttc" id="astruct_function_info_base_html"><div class="ttname"><a href="struct_function_info_base.html">FunctionInfoBase</a></div><div class="ttdoc">Function Base.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:9</div></div>
-<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:58</div></div>
+<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:59</div></div>
 <div class="ttc" id="astruct_member_function_info_html"><div class="ttname"><a href="struct_member_function_info.html">MemberFunctionInfo</a></div><div class="ttdoc">Member Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
