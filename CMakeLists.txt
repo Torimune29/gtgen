@@ -20,9 +20,6 @@ option(ENABLE_LTO "Enable link time optimization" ON)
 
 # Include stuff for global scope. No change needed.
 include(cmake/common/common.cmake)
-# Add external libs. No change needed.
-add_subdirectory(cmake/external)
-
 
 # Check for LTO support.
 find_lto(CXX)
@@ -38,7 +35,8 @@ set(SOURCES          # All .cpp files in src/
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
 )
-set(LIBRARY_NAME project)  # Default name for the library built from src/*.cpp (change if you wish)
+set(LIBRARY_NAME gtgenlib)  # Default name for the library built from src/*.cpp (change if you wish)
+set(APP_NAME gtgen)  # Default name for the Application built from app/*.cpp (change if you wish)
 
 # --------------------------------------------------------------------------------
 #                            Build! (Change as needed)
@@ -46,7 +44,7 @@ set(LIBRARY_NAME project)  # Default name for the library built from src/*.cpp (
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 # Link external libs or includes.
-target_link_libraries(${LIBRARY_NAME} cli11 cppast)
+target_link_libraries(${LIBRARY_NAME} cppast)
 
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
@@ -57,14 +55,17 @@ target_set_warnings(${LIBRARY_NAME} ENABLE ALL AS_ERROR ALL DISABLE Annoying)
 
 # Add an executable for the file app/main.cpp.
 # If you add more executables, copy these lines accordingly.
-add_executable(main app/main.cpp)   # Name of exec. and location of file.
-target_link_libraries(main PRIVATE ${LIBRARY_NAME})  # Link the executable to library (if it uses it).
-target_set_warnings(main ENABLE ALL AS_ERROR ALL DISABLE Annoying) # Set warnings (if needed).
-target_enable_lto(main optimized)  # enable link-time-optimization if available for non-debug configurations
+add_executable(${APP_NAME} app/main.cpp)   # Name of exec. and location of file.
+target_link_libraries(${APP_NAME} PRIVATE ${LIBRARY_NAME})  # Link the executable to library (if it uses it).
+target_set_warnings(${APP_NAME} ENABLE ALL AS_ERROR ALL DISABLE Annoying) # Set warnings (if needed).
+target_enable_lto(${APP_NAME} optimized)  # enable link-time-optimization if available for non-debug configurations
+
+# Add external libs. No change needed.
+add_subdirectory(cmake/external)
 
 # Set the properties you require, e.g. what C++ standard to use. Here applied to library and main (change as needed).
 set_target_properties(
-    ${LIBRARY_NAME} main
+    ${LIBRARY_NAME} ${APP_NAME}
       PROPERTIES
         CXX_STANDARD 11
         CXX_STANDARD_REQUIRED YES
@@ -72,13 +73,13 @@ set_target_properties(
 )
 
 # install targets
-install(TARGETS main
+install(TARGETS ${APP_NAME}
         CONFIGURATIONS Release
         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/release/bin)
-install(TARGETS main
+install(TARGETS ${APP_NAME}
         CONFIGURATIONS Debug
         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/debug/bin)
-install(TARGETS main
+install(TARGETS ${APP_NAME}
         CONFIGURATIONS Coverage
         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/coverage/bin)
 

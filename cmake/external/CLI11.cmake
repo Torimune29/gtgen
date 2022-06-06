@@ -8,5 +8,5 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(cli11)
 
 # for inculde.
-add_library(cli11 INTERFACE)
-target_include_directories(cli11 SYSTEM INTERFACE ${cli11_SOURCE_DIR}/include)
+# target_link_libraries(${APP_NAME} PRIVATE cli11)
+target_include_directories(${APP_NAME} SYSTEM PRIVATE ${cli11_SOURCE_DIR}/include)

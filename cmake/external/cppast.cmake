@@ -11,4 +11,4 @@ set(cppast_BUILD_TESTING OFF)
 
 # for inculde.
 target_set_warnings(cppast DISABLE ALL Annoying) # No warnings.
-target_include_directories(cppast SYSTEM PRIVATE ${cppast_SOURCE_DIR}/cppast/include)
+target_include_directories(${LIBRARY_NAME} SYSTEM PRIVATE ${cppast_SOURCE_DIR}/cppast/include)
