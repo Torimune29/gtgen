@@ -20,13 +20,14 @@ class CodeParserCppAst : public AbstractCodeParser {
   using LoggerType = cppast::stderr_diagnostic_logger;
 
  public:
-  CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
-                   const std::string &compile_database_path, bool verbose);
   ~CodeParserCppAst() override;
 
   bool Ready() final;
 
  protected:
+  CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
+                   const std::string &compile_database_path, bool verbose);
+
   ResultTypeIndex index_;
   std::unique_ptr<ParserType> p_parser_;
   std::unique_ptr<DatabaseType> p_database_;

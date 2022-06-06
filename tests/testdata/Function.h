@@ -20,10 +20,11 @@ static constexpr void static_constexpr();
 namespace ns {
     void namespace_deleted() = delete;  // unsupported
     void namespace_normal();
+    void namespace_normal_2();
     using m = int;
 }
 /// namespace definition (unsupported)
-void ns::namespace_normal() {
-}
+// void ns::namespace_normal() {
+// }
 /// ns::m namespace_type_return();
 ns::m namespace_type_return();

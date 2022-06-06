@@ -10,10 +10,10 @@
  * @brief  Code ParserCppAst Class
  *
  */
-class FunctionParserCppAst : public CodeParserCppAst {
+class FunctionParser : public CodeParserCppAst {
  public:
-  FunctionParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path, bool verbose);
-  ~FunctionParserCppAst() override;
+  FunctionParser(const std::vector<std::string> &file_paths, const std::string &compile_database_path, bool verbose);
+  ~FunctionParser() override;
 
   std::vector<FunctionInfo> GetFunctionInfos();
   std::vector<MemberFunctionInfo> GetMemberFunctionInfos();

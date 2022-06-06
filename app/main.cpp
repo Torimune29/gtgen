@@ -6,7 +6,7 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "FunctionParserCppAst.h"
+#include "FunctionParser.h"
 #include "ProjectVersion.h"
 #include "jsoncons/json.hpp"
 
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   app.add_flag("--verbose-parse", verbose_parse, "Verbose parse result");
   CLI11_PARSE(app, argc, argv)
 
-  FunctionParserCppAst parser(files, compile_database, verbose_parse);
+  FunctionParser parser(files, compile_database, verbose_parse);
 
   std::cout << "file: ";
   for (const auto &it : parser.GetFilePaths()) {

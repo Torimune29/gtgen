@@ -1,11 +1,12 @@
-#include "FunctionParserCppAst.h"
+#include "FunctionParser.h"
 
 #include <cppast/cpp_class.hpp>
 #include <cppast/cpp_function.hpp>
 #include <cppast/cpp_member_function.hpp>
+#include <cppast/cpp_namespace.hpp>
 #include <iostream>
 #include <type_safe/optional_ref.hpp>
-#include <type_traits>
+#include <algorithm>
 
 #include "FunctionInfo.h"
 
@@ -39,17 +40,37 @@ FunctionBase GetFunctionBase(const T &func) {
   return base;
 }
 
+template <typename T>
+FunctionInfo GetFunction(const T &func) {
+  FunctionInfo function_info = {};
+  // function base
+  function_info.base = GetFunctionBase(func);
+  // extern
+  function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
+  // static
+  function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
+   // namespace
+  function_info.namespace_name = func.semantic_scope();
+  auto it_delimiter = func.semantic_scope().find("::");
+  if (it_delimiter != std::string::npos) {
+    function_info.namespace_name = func.semantic_scope().substr(0, it_delimiter);
+  }
+  return function_info;
+}
 }  // namespace
 
-FunctionParserCppAst::FunctionParserCppAst(const std::vector<std::string> &file_paths,
+FunctionParser::FunctionParser(const std::vector<std::string> &file_paths,
                                            const std::string &compile_database_path, bool verbose)
     : CodeParserCppAst(std::move(file_paths),
-                       cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>(),
+                       cppast::whitelist<
+                        cppast::cpp_entity_kind::function_t,
+                        cppast::cpp_entity_kind::class_t,
+                        cppast::cpp_entity_kind::namespace_t>(),
                        std::move(compile_database_path), verbose) {}
 
-FunctionParserCppAst::~FunctionParserCppAst() = default;
+FunctionParser::~FunctionParser() = default;
 
-std::vector<FunctionInfo> FunctionParserCppAst::GetFunctionInfos() {
+std::vector<FunctionInfo> FunctionParser::GetFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<FunctionInfo> infos;
@@ -60,30 +81,16 @@ std::vector<FunctionInfo> FunctionParserCppAst::GetFunctionInfos() {
       if (e.kind() == cppast::cpp_function::kind()) {
         const auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
         if (func.is_declaration()) {  // use declaration only
-          FunctionInfo function_info = {};
-          // function base
-          function_info.base = GetFunctionBase(func);
-          // class_name
-          function_info.namespace_name = func.semantic_scope();
-          auto it_delimiter = func.semantic_scope().find("::");
-          if (it_delimiter != std::string::npos) {
-            function_info.namespace_name = func.semantic_scope().substr(0, it_delimiter);
-          }
-          // extern
-          function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
-          // static
-          function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
-
-          infos.push_back(function_info);
+          infos.push_back(GetFunction(func));
         }
       }
       return true;
     });
   }
-  return infos;
+  return std::vector<FunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
 }
 
-std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
+std::vector<MemberFunctionInfo> FunctionParser::GetMemberFunctionInfos() {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
@@ -103,26 +110,27 @@ std::vector<MemberFunctionInfo> FunctionParserCppAst::GetMemberFunctionInfos() {
               break;
             }
             case cppast::cpp_entity_kind::member_function_t: {
-              // if (!public_method) break;
               const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
-              MemberFunctionInfo function_info = {};
-              // function base
-              function_info.base = GetFunctionBase(func);
-              // access specifier
-              if (access_specifier == cppast::cpp_public)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Public;
-              else if (access_specifier == cppast::cpp_private)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Private;
-              else if (access_specifier == cppast::cpp_protected)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Protected;
-              // class_name
-              function_info.class_name = class_name;
-              // const
-              function_info.is_const =
-                  (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-              // polymorphic
-              function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
-              infos.push_back(function_info);
+              if (func.is_declaration()) {  // use declaration only
+                MemberFunctionInfo function_info = {};
+                // function base
+                function_info.base = GetFunctionBase(func);
+                // access specifier
+                if (access_specifier == cppast::cpp_public)
+                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Public;
+                else if (access_specifier == cppast::cpp_private)
+                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Private;
+                else if (access_specifier == cppast::cpp_protected)
+                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::Protected;
+                // class_name
+                function_info.class_name = class_name;
+                // const
+                function_info.is_const =
+                    (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+                // polymorphic
+                function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+                infos.push_back(function_info);
+              }
               break;
             }
             default: {

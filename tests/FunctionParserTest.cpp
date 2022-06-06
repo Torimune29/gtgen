@@ -1,16 +1,16 @@
 #include <gtest/gtest.h>
-#include "FunctionParserCppAst.h"
+#include "FunctionParser.h"
 
 // Tests that don't naturally fit in the headers/.cpp files directly
 // can be placed in a tests/*.cpp file. Integration tests are a good example.
 
 const std::string kSourceTreePath = SOURCE_DIR;
 
-TEST(FunctionParserCppAstTest, GetPaths_Settings_NotReady) {
+TEST(FunctionParserTest, GetPaths_Settings_NotReady) {
   std::vector<std::string> paths_expected = {"test", "test1", "test2"};
   std::string compile_database_expected = "foo";
-  std::unordered_map<std::string, std::string> settings_expected = {{"compile_database_path", compile_database_expected}};
-  FunctionParserCppAst parser(paths_expected, compile_database_expected, false);
+  std::unordered_map<std::string, std::string> settings_expected = {{"verbose", "false"}, {"compile_database_path", compile_database_expected}};
+  FunctionParser parser(paths_expected, compile_database_expected, false);
 
   auto paths = parser.GetFilePaths();
   auto settings = parser.GetSettings();
@@ -19,16 +19,16 @@ TEST(FunctionParserCppAstTest, GetPaths_Settings_NotReady) {
   EXPECT_FALSE(parser.Ready());
 }
 
-TEST(FunctionParserCppAstTest, Ready) {
+TEST(FunctionParserTest, Ready) {
   std::vector<std::string> paths = {
     kSourceTreePath + "src/AbstractCodeParser.cpp",
     kSourceTreePath + "src/CodeParserCppAst.cpp",
-    kSourceTreePath + "src/FunctionParserCppAst.cpp",
+    kSourceTreePath + "src/FunctionParser.cpp",
     kSourceTreePath + "tests/testdata/Function.h",
     kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database, false);
+  FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunctionInfos()) {
@@ -52,12 +52,12 @@ TEST(FunctionParserCppAstTest, Ready) {
   }
 }
 
-TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
+TEST(FunctionParserTest, ValidateFunctionInfo) {
   std::vector<std::string> paths = {
     kSourceTreePath + "tests/testdata/Function.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database, false);
+  FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunctionInfos()) {
@@ -175,12 +175,12 @@ TEST(FunctionParserCppAstTest, ValidateFunctionInfo) {
   }
 }
 
-TEST(FunctionParserCppAstTest, ValidateMemberFunctionInfo) {
+TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
   std::vector<std::string> paths = {
     kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
-  FunctionParserCppAst parser(paths, compile_database, false);
+  FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunctionInfos()) {

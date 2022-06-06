@@ -14,6 +14,16 @@ typedef struct FunctionInfoBase {
   bool is_constexpr = false;
   bool is_consteval = false;
   bool is_variadic = false;
+  bool operator== (const FunctionInfoBase &rhs) {
+    return (name == rhs.name
+      && return_type == rhs.return_type
+      && signature == rhs.signature
+      && is_noexcept == rhs.is_noexcept
+      && is_constexpr == rhs.is_constexpr
+      && is_consteval == rhs.is_consteval
+      && is_variadic == rhs.is_variadic
+    );
+  }
 } FunctionBase;
 
 /**
@@ -31,6 +41,14 @@ typedef struct MemberFunctionInfo {
   enum AccessSpecifier access_specifier;
   bool is_const = false;
   bool is_polymorphic = false;
+  bool operator== (const MemberFunctionInfo &rhs) {
+    return (base == rhs.base
+      && class_name == rhs.class_name
+      && is_const == rhs.is_const
+      && is_polymorphic == rhs.is_polymorphic
+    );
+  }
+
 } MemberFunctionInfo;
 
 /**
@@ -42,4 +60,11 @@ typedef struct FunctionInfo {
   std::string namespace_name;
   bool is_extern = false;
   bool is_static = false;
+  bool operator== (const FunctionInfo &rhs) {
+    return (base == rhs.base
+      && namespace_name == rhs.namespace_name
+      && is_extern == rhs.is_extern
+      && is_static == rhs.is_static
+    );
+  }
 } FunctionInfo;
