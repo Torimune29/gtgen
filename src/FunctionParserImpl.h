@@ -16,6 +16,6 @@ class FunctionParserImpl : public CodeParserCppAst {
                      bool verbose);
   ~FunctionParserImpl() override;
 
-  std::vector<FunctionInfo> GetFunction();
-  std::vector<MemberFunctionInfo> GetMemberFunction();
+  std::vector<FunctionInfo> GetFunction() noexcept;
+  std::vector<MemberFunctionInfo> GetMemberFunction() noexcept ;
 };

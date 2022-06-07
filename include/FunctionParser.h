@@ -18,10 +18,10 @@ class FunctionParser : public AbstractCodeParser {
   FunctionParser(const std::vector<std::string> &file_paths, const std::string &compile_database_path, bool verbose);
   ~FunctionParser() override;
 
-  bool Ready() final;
+  bool Ready() noexcept final;
 
-  std::vector<FunctionInfo> GetFunction();
-  std::vector<MemberFunctionInfo> GetMemberFunction();
+  std::vector<FunctionInfo> GetFunction() noexcept;
+  std::vector<MemberFunctionInfo> GetMemberFunction() noexcept;
 
  private:
   std::unique_ptr<FunctionParserImpl> p_impl_;

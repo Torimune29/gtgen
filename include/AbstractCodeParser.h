@@ -13,8 +13,8 @@ class AbstractCodeParser {
   virtual ~AbstractCodeParser();
   virtual bool Ready() = 0;
 
-  std::vector<std::string> GetFilePaths() const;
-  std::unordered_map<std::string, std::string> GetSettings() const;
+  std::vector<std::string> GetFilePaths() const noexcept;
+  std::unordered_map<std::string, std::string> GetSettings() const noexcept;
 
  protected:
   AbstractCodeParser() = default;

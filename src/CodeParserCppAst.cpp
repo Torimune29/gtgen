@@ -23,7 +23,7 @@ CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, c
 
 CodeParserCppAst::~CodeParserCppAst() = default;
 
-bool CodeParserCppAst::Ready() {
+bool CodeParserCppAst::Ready() noexcept {
   if (ready_) return ready_;
   try {
     p_database_ = std::unique_ptr<DatabaseType>(new DatabaseType(settings_[kSettingsNameCompileDatabase]));

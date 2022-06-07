@@ -11,8 +11,8 @@ FunctionParser::FunctionParser(const std::vector<std::string> &file_paths, const
 
 FunctionParser::~FunctionParser() = default;
 
-bool FunctionParser::Ready() { return p_impl_->Ready(); }
+bool FunctionParser::Ready() noexcept { return p_impl_->Ready(); }
 
-std::vector<FunctionInfo> FunctionParser::GetFunction() { return p_impl_->GetFunction(); }
+std::vector<FunctionInfo> FunctionParser::GetFunction() noexcept { return p_impl_->GetFunction(); }
 
-std::vector<MemberFunctionInfo> FunctionParser::GetMemberFunction() { return p_impl_->GetMemberFunction(); }
+std::vector<MemberFunctionInfo> FunctionParser::GetMemberFunction() noexcept { return p_impl_->GetMemberFunction(); }

@@ -22,7 +22,7 @@ class CodeParserCppAst : public AbstractCodeParser {
  public:
   ~CodeParserCppAst() override;
 
-  bool Ready() final;
+  bool Ready() noexcept final;
 
  protected:
   CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,

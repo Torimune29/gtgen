@@ -60,7 +60,7 @@ FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_path
 
 FunctionParserImpl::~FunctionParserImpl() = default;
 
-std::vector<FunctionInfo> FunctionParserImpl::GetFunction() {
+std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
   if (!ready_) return {};
 
   std::vector<FunctionInfo> infos;
@@ -80,7 +80,7 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunction() {
   return std::vector<FunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
 }
 
-std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() {
+std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
