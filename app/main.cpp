@@ -9,6 +9,8 @@
 #include "FunctionParser.h"
 #include "ProjectVersion.h"
 #include "jsoncons/json.hpp"
+#include <jsoncons_ext/jsonpath/jsonpath.hpp>
+
 
 /*
  * Simple main program that demontrates how access
@@ -22,9 +24,11 @@ int main(int argc, char *argv[]) {
   std::vector<std::string> files = {""};
   std::string compile_database = "./";
   bool verbose_parse = false;
+  std::vector<std::string> filter = {};
   app.add_option("-f,--files", files, "Analyze file paths.")->required();
   app.add_option("-p,--compile-database", compile_database, "Compile database directory path")->required();
   app.add_flag("--verbose-parse", verbose_parse, "Verbose parse result");
+  app.add_option("--easy-filter", filter, "Parse result filter. e.g. memberFunction returnType \\\"void\\\"")->expected(3);
   CLI11_PARSE(app, argc, argv)
 
   FunctionParser parser(files, compile_database, verbose_parse);
@@ -78,6 +82,12 @@ int main(int argc, char *argv[]) {
   }
   result["function"] = std::move(functions);
   result["memberFunction"] = std::move(member_functions);
-  std::cout << jsoncons::pretty_print(result) << std::endl;
+  if (filter.empty()) {
+    std::cout << jsoncons::pretty_print(result) << std::endl;
+  } else {
+    std::string query = "$." + filter[0] + "[?(@." + filter[1] + " == " + filter[2] + ")]";
+    auto result_filtered = jsoncons::jsonpath::json_query(result, query);
+    std::cout << jsoncons::pretty_print(result_filtered) << std::endl;
+  }
   return return_code;
 }
