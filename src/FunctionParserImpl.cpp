@@ -10,8 +10,7 @@
 
 namespace {
 cppast::detail::visitor_filter_t FunctionWhiteList() {
-  return cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t,
-                           cppast::cpp_entity_kind::namespace_t>();
+  return cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>();
 }
 
 template <typename T>
@@ -57,8 +56,7 @@ FunctionInfo Get(const T &func) {
 
 FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_paths,
                                        const std::string &compile_database_path, bool verbose)
-    : CodeParserCppAst(std::move(file_paths), FunctionWhiteList(),
-                       std::move(compile_database_path), verbose) {}
+    : CodeParserCppAst(std::move(file_paths), FunctionWhiteList(), std::move(compile_database_path), verbose) {}
 
 FunctionParserImpl::~FunctionParserImpl() = default;
 
