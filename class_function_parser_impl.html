@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>gtgen: CodeParserCppAst Class Reference</title>
+<title>gtgen: FunctionParserImpl Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_code_parser_cpp_ast.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('class_function_parser_impl.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -85,43 +85,55 @@ $(document).ready(function(){initNavTree('class_code_parser_cpp_ast.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="class_code_parser_cpp_ast-members.html">List of all members</a>  </div>
+<a href="class_function_parser_impl-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">CodeParserCppAst Class Reference</div>  </div>
+<div class="title">FunctionParserImpl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Code ParserCppAst Class.  
- <a href="class_code_parser_cpp_ast.html#details">More...</a></p>
+ <a href="class_function_parser_impl.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_code_parser_cpp_ast_8h_source.html">CodeParserCppAst.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_function_parser_impl_8h_source.html">FunctionParserImpl.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for CodeParserCppAst:</div>
+Inheritance diagram for FunctionParserImpl:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_code_parser_cpp_ast__inherit__graph.png" border="0" usemap="#a_code_parser_cpp_ast_inherit__map" alt="Inheritance graph"/></div>
-<map name="a_code_parser_cpp_ast_inherit__map" id="a_code_parser_cpp_ast_inherit__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="9,80,151,107"/>
-<area shape="rect" href="class_function_parser_impl.html" title="Code ParserCppAst Class." alt="" coords="7,155,153,181"/>
+<div class="center"><img src="class_function_parser_impl__inherit__graph.png" border="0" usemap="#a_function_parser_impl_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_function_parser_impl_inherit__map" id="a_function_parser_impl_inherit__map">
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="7,155,153,181"/>
+<area shape="rect" href="class_code_parser_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="9,80,151,107"/>
 <area shape="rect" href="class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="5,5,155,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for CodeParserCppAst:</div>
+Collaboration diagram for FunctionParserImpl:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_code_parser_cpp_ast__coll__graph.png" border="0" usemap="#a_code_parser_cpp_ast_coll__map" alt="Collaboration graph"/></div>
-<map name="a_code_parser_cpp_ast_coll__map" id="a_code_parser_cpp_ast_coll__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="9,80,151,107"/>
+<div class="center"><img src="class_function_parser_impl__coll__graph.png" border="0" usemap="#a_function_parser_impl_coll__map" alt="Collaboration graph"/></div>
+<map name="a_function_parser_impl_coll__map" id="a_function_parser_impl_coll__map">
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="7,155,153,181"/>
+<area shape="rect" href="class_code_parser_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="9,80,151,107"/>
 <area shape="rect" href="class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="5,5,155,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9e29a166c4a967f3ae6bfb36437ad193"><td class="memItemLeft" align="right" valign="top"><a id="a9e29a166c4a967f3ae6bfb36437ad193"></a>
+<tr class="memitem:a3d71ebcd696db2f83b29b38bb6603eae"><td class="memItemLeft" align="right" valign="top"><a id="a3d71ebcd696db2f83b29b38bb6603eae"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FunctionParserImpl</b> (const std::vector&lt; std::string &gt; &amp;file_paths, const std::string &amp;compile_database_path, bool verbose)</td></tr>
+<tr class="separator:a3d71ebcd696db2f83b29b38bb6603eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa915fe84270401140faf0b9c999ca2d0"><td class="memItemLeft" align="right" valign="top"><a id="aa915fe84270401140faf0b9c999ca2d0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FunctionParserImpl</b> (const std::string &amp;class_name, const std::vector&lt; std::string &gt; &amp;file_paths, const std::string &amp;compile_database_path, bool verbose)</td></tr>
+<tr class="separator:aa915fe84270401140faf0b9c999ca2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc083e22e1b0c672b1c8c87fad671d05"><td class="memItemLeft" align="right" valign="top"><a id="adc083e22e1b0c672b1c8c87fad671d05"></a>
+std::vector&lt; <a class="el" href="struct_function_info.html">FunctionInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunctionInfos</b> ()</td></tr>
+<tr class="separator:adc083e22e1b0c672b1c8c87fad671d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b029bbedfa3a4e210c3f5e68065cd1"><td class="memItemLeft" align="right" valign="top"><a id="ac7b029bbedfa3a4e210c3f5e68065cd1"></a>
+std::vector&lt; <a class="el" href="struct_member_function_info.html">MemberFunctionInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMemberFunctionInfos</b> ()</td></tr>
+<tr class="separator:ac7b029bbedfa3a4e210c3f5e68065cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_code_parser_cpp_ast"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_code_parser_cpp_ast')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></td></tr>
+<tr class="memitem:a9e29a166c4a967f3ae6bfb36437ad193 inherit pub_methods_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a9e29a166c4a967f3ae6bfb36437ad193"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Ready</b> () final</td></tr>
-<tr class="separator:a9e29a166c4a967f3ae6bfb36437ad193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a9e29a166c4a967f3ae6bfb36437ad193 inherit pub_methods_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
 <tr class="memitem:a52bae5428b0484dfb022a38f8557db12 inherit pub_methods_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="a52bae5428b0484dfb022a38f8557db12"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePaths</b> () const</td></tr>
@@ -130,39 +142,38 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetSettings</b> () const</td></tr>
 <tr class="separator:ae599fb89ab667b5890dbaeaa2fa8391d inherit pub_methods_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a10646d81d742473223e2cd743f2b3803"><td class="memItemLeft" align="right" valign="top"><a id="a10646d81d742473223e2cd743f2b3803"></a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_code_parser_cpp_ast"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_code_parser_cpp_ast')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></td></tr>
+<tr class="memitem:a10646d81d742473223e2cd743f2b3803 inherit pro_methods_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a10646d81d742473223e2cd743f2b3803"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>CodeParserCppAst</b> (const std::vector&lt; std::string &gt; &amp;file_paths, const FilterType &amp;filter, const std::string &amp;compile_database_path, bool verbose)</td></tr>
-<tr class="separator:a10646d81d742473223e2cd743f2b3803"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a10646d81d742473223e2cd743f2b3803 inherit pro_methods_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
 <tr class="memitem:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="ad64516de2319ef2c36560e693b7c27b0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AbstractCodeParser</b> (const std::vector&lt; std::string &gt; &amp;file_paths)</td></tr>
 <tr class="separator:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:aaac58e70bc54ade18e6aa97fb29163b5"><td class="memItemLeft" align="right" valign="top"><a id="aaac58e70bc54ade18e6aa97fb29163b5"></a>
+<tr class="inherit_header pro_attribs_class_code_parser_cpp_ast"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_code_parser_cpp_ast')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></td></tr>
+<tr class="memitem:aaac58e70bc54ade18e6aa97fb29163b5 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="aaac58e70bc54ade18e6aa97fb29163b5"></a>
 ResultTypeIndex&#160;</td><td class="memItemRight" valign="bottom"><b>index_</b></td></tr>
-<tr class="separator:aaac58e70bc54ade18e6aa97fb29163b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2ea7ae565c5895eb93bc1af96794cc9"><td class="memItemLeft" align="right" valign="top"><a id="af2ea7ae565c5895eb93bc1af96794cc9"></a>
+<tr class="separator:aaac58e70bc54ade18e6aa97fb29163b5 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2ea7ae565c5895eb93bc1af96794cc9 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="af2ea7ae565c5895eb93bc1af96794cc9"></a>
 std::unique_ptr&lt; ParserType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p_parser_</b></td></tr>
-<tr class="separator:af2ea7ae565c5895eb93bc1af96794cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b88f2d4afb970e70eabc4706f161071"><td class="memItemLeft" align="right" valign="top"><a id="a5b88f2d4afb970e70eabc4706f161071"></a>
+<tr class="separator:af2ea7ae565c5895eb93bc1af96794cc9 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b88f2d4afb970e70eabc4706f161071 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a5b88f2d4afb970e70eabc4706f161071"></a>
 std::unique_ptr&lt; DatabaseType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p_database_</b></td></tr>
-<tr class="separator:a5b88f2d4afb970e70eabc4706f161071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d04233d07bb03a4f7b81e415230bd2"><td class="memItemLeft" align="right" valign="top"><a id="a80d04233d07bb03a4f7b81e415230bd2"></a>
+<tr class="separator:a5b88f2d4afb970e70eabc4706f161071 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d04233d07bb03a4f7b81e415230bd2 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a80d04233d07bb03a4f7b81e415230bd2"></a>
 FilterType&#160;</td><td class="memItemRight" valign="bottom"><b>filter_</b></td></tr>
-<tr class="separator:a80d04233d07bb03a4f7b81e415230bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c5fae9a4196ba56f55954fdaf237d6b"><td class="memItemLeft" align="right" valign="top"><a id="a6c5fae9a4196ba56f55954fdaf237d6b"></a>
+<tr class="separator:a80d04233d07bb03a4f7b81e415230bd2 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c5fae9a4196ba56f55954fdaf237d6b inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a6c5fae9a4196ba56f55954fdaf237d6b"></a>
 std::vector&lt; EntityType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>entities_</b></td></tr>
-<tr class="separator:a6c5fae9a4196ba56f55954fdaf237d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cfbe191fbadb70438101cec6c35702b"><td class="memItemLeft" align="right" valign="top"><a id="a7cfbe191fbadb70438101cec6c35702b"></a>
+<tr class="separator:a6c5fae9a4196ba56f55954fdaf237d6b inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cfbe191fbadb70438101cec6c35702b inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a7cfbe191fbadb70438101cec6c35702b"></a>
 LoggerType&#160;</td><td class="memItemRight" valign="bottom"><b>logger_</b></td></tr>
-<tr class="separator:a7cfbe191fbadb70438101cec6c35702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f7fb495a85293992cb555c80c7af946"><td class="memItemLeft" align="right" valign="top"><a id="a2f7fb495a85293992cb555c80c7af946"></a>
+<tr class="separator:a7cfbe191fbadb70438101cec6c35702b inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f7fb495a85293992cb555c80c7af946 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memItemLeft" align="right" valign="top"><a id="a2f7fb495a85293992cb555c80c7af946"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>ready_</b></td></tr>
-<tr class="separator:a2f7fb495a85293992cb555c80c7af946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a2f7fb495a85293992cb555c80c7af946 inherit pro_attribs_class_code_parser_cpp_ast"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
 <tr class="memitem:ad36ec20d6177fff1a776ea5671ce776d inherit pro_attribs_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="ad36ec20d6177fff1a776ea5671ce776d"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>file_paths_</b></td></tr>
@@ -174,15 +185,15 @@ std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memIte
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Code ParserCppAst Class. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="_code_parser_cpp_ast_8h_source.html">CodeParserCppAst.h</a></li>
-<li>src/CodeParserCppAst.cpp</li>
+<li>src/<a class="el" href="_function_parser_impl_8h_source.html">FunctionParserImpl.h</a></li>
+<li>src/FunctionParserImpl.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></li>
+    <li class="navelem"><a class="el" href="class_function_parser_impl.html">FunctionParserImpl</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

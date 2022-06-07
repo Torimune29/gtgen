@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node1" href="$class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="5,31,155,57"/>
 <area shape="rect" id="node2" href="$class_code_parser_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="203,5,344,32"/>
-<area shape="rect" id="node3" href="$class_function_parser.html" title="Code ParserCppAst Class." alt="" coords="392,5,509,32"/>
+<area shape="rect" id="node4" href="$class_function_parser.html" title="Code ParserCppAst Class." alt="" coords="215,56,332,83"/>
+<area shape="rect" id="node3" href="$class_function_parser_impl.html" title="Code ParserCppAst Class." alt="" coords="392,5,539,32"/>
 </map>

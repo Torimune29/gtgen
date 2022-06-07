@@ -5,5 +5,6 @@ var annotated_dup =
     [ "FunctionInfo", "struct_function_info.html", "struct_function_info" ],
     [ "FunctionInfoBase", "struct_function_info_base.html", "struct_function_info_base" ],
     [ "FunctionParser", "class_function_parser.html", "class_function_parser" ],
+    [ "FunctionParserImpl", "class_function_parser_impl.html", "class_function_parser_impl" ],
     [ "MemberFunctionInfo", "struct_member_function_info.html", "struct_member_function_info" ]
 ];
