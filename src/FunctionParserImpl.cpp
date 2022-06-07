@@ -15,7 +15,7 @@ cppast::detail::visitor_filter_t FunctionWhiteList() {
 }
 
 template <typename T>
-FunctionBase GetFunctionBase(const T &func) {
+FunctionBase GetBase(const T &func) {
   FunctionBase base = {};
   // function name
   base.name = func.name();
@@ -43,10 +43,10 @@ FunctionBase GetFunctionBase(const T &func) {
 }
 
 template <typename T>
-FunctionInfo GetFunction(const T &func) {
+FunctionInfo Get(const T &func) {
   FunctionInfo function_info = {};
   // function base
-  function_info.base = GetFunctionBase(func);
+  function_info.base = GetBase(func);
   // extern
   function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
   // static
@@ -60,15 +60,9 @@ FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_path
     : CodeParserCppAst(std::move(file_paths), FunctionWhiteList(),
                        std::move(compile_database_path), verbose) {}
 
-FunctionParserImpl::FunctionParserImpl(const std::string &class_name, const std::vector<std::string> &file_paths,
-                                       const std::string &compile_database_path, bool verbose)
-    : CodeParserCppAst(std::move(file_paths), FunctionWhiteList(),
-                       std::move(compile_database_path), verbose),
-      class_name_(class_name) {}
-
 FunctionParserImpl::~FunctionParserImpl() = default;
 
-std::vector<FunctionInfo> FunctionParserImpl::GetFunctionInfos() {
+std::vector<FunctionInfo> FunctionParserImpl::GetFunction() {
   if (!ready_) return {};
 
   std::vector<FunctionInfo> infos;
@@ -79,7 +73,7 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunctionInfos() {
       if (e.kind() == cppast::cpp_function::kind()) {
         const auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
         if (func.is_declaration()) {  // use declaration only
-          infos.push_back(GetFunction(func));
+          infos.push_back(Get(func));
         }
       }
       return true;
@@ -88,7 +82,7 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunctionInfos() {
   return std::vector<FunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
 }
 
-std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunctionInfos() {
+std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() {
   if (!ready_) return {};
 
   std::vector<MemberFunctionInfo> infos;
@@ -112,7 +106,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunctionInfos() {
               if (func.is_declaration()) {  // use declaration only
                 MemberFunctionInfo function_info = {};
                 // function base
-                function_info.base = GetFunctionBase(func);
+                function_info.base = GetBase(func);
                 // access specifier
                 if (access_specifier == cppast::cpp_public)
                   function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;

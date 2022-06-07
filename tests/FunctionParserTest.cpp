@@ -31,7 +31,7 @@ TEST(FunctionParserTest, Ready) {
   FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetMemberFunctionInfos()) {
+  for (const auto &it : parser.GetMemberFunction()) {
     std::cout << "function: " << it.base.name
       << ", signature: " << it.base.signature
       << ", return: " << it.base.return_type
@@ -41,7 +41,7 @@ TEST(FunctionParserTest, Ready) {
       << ", const: " << it.is_const
       << ", polymorphic: " << it.is_polymorphic << std::endl;
   }
-  for (const auto &it : parser.GetFunctionInfos()) {
+  for (const auto &it : parser.GetFunction()) {
     std::cout << "function: " << it.base.name
       << ", signature: " << it.base.signature
       << ", return: " << it.base.return_type
@@ -59,7 +59,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
   FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetFunctionInfos()) {
+  for (const auto &it : parser.GetFunction()) {
     if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
@@ -171,7 +171,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
   FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetMemberFunctionInfos()) {
+  for (const auto &it : parser.GetMemberFunction()) {
     if (it.base.name == "const_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");

@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
   std::vector<std::string> files = {""};
   std::string compile_database = "./";
   bool verbose_parse = false;
-  app.add_option("-f,--files", files, "Analyze file paths.");
-  app.add_option("-p,--compile-database", compile_database, "Compile database directory path");
+  app.add_option("-f,--files", files, "Analyze file paths.")->required();
+  app.add_option("-p,--compile-database", compile_database, "Compile database directory path")->required();
   app.add_flag("--verbose-parse", verbose_parse, "Verbose parse result");
   CLI11_PARSE(app, argc, argv)
 
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
   }
   jsoncons::json result(jsoncons::json_object_arg, {{"function", ""}, {"memberFunction", ""}});
   jsoncons::json functions(jsoncons::json_array_arg), member_functions(jsoncons::json_array_arg);
-  for (const auto &it : parser.GetMemberFunctionInfos()) {
+  for (const auto &it : parser.GetMemberFunction()) {
     jsoncons::json each_functions(jsoncons::json_object_arg,
                                   {
                                       {"functionName", it.base.name},
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
     member_functions.push_back(std::move(each_functions));
   }
   // jsoncons::json each_member_functions(jsoncons::json_array_arg);
-  for (const auto &it : parser.GetFunctionInfos()) {
+  for (const auto &it : parser.GetFunction()) {
     jsoncons::json each_functions(jsoncons::json_object_arg, {
                                                                  {"functionName", it.base.name},
                                                                  {"signature", it.base.signature},

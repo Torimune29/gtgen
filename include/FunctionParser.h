@@ -21,8 +21,8 @@ class FunctionParser : public AbstractCodeParser {
 
   bool Ready() final;
 
-  std::vector<FunctionInfo> GetFunctionInfos();
-  std::vector<MemberFunctionInfo> GetMemberFunctionInfos();
+  std::vector<FunctionInfo> GetFunction();
+  std::vector<MemberFunctionInfo> GetMemberFunction();
  private:
   std::unique_ptr<FunctionParserImpl> p_impl_;
 };
