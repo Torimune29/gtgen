@@ -14,7 +14,8 @@ typedef struct FunctionInfoBase {
   bool is_constexpr = false;
   bool is_consteval = false;
   bool is_variadic = false;
-  bool operator== (const FunctionInfoBase &rhs) {
+
+  bool operator== (const FunctionInfoBase &rhs) const {
     return (name == rhs.name
       && return_type == rhs.return_type
       && signature == rhs.signature
@@ -32,16 +33,17 @@ typedef struct FunctionInfoBase {
  */
 typedef struct MemberFunctionInfo {
   enum class AccessSpecifier : int {
-    Public,
-    Private,
-    Protected
+    kPublic,
+    kPrivate,
+    kProtected
   };
   FunctionInfoBase base;
   std::string class_name;
   enum AccessSpecifier access_specifier;
   bool is_const = false;
   bool is_polymorphic = false;
-  bool operator== (const MemberFunctionInfo &rhs) {
+
+  bool operator== (const MemberFunctionInfo &rhs) const {
     return (base == rhs.base
       && class_name == rhs.class_name
       && access_specifier == rhs.access_specifier
@@ -60,7 +62,8 @@ typedef struct FunctionInfo {
   FunctionInfoBase base;
   bool is_extern = false;
   bool is_static = false;
-  bool operator== (const FunctionInfo &rhs) {
+
+  bool operator== (const FunctionInfo &rhs) const {
     return (base == rhs.base
       && is_extern == rhs.is_extern
       && is_static == rhs.is_static

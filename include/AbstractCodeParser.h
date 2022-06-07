@@ -17,6 +17,7 @@ class AbstractCodeParser {
   std::unordered_map<std::string, std::string> GetSettings() const;
 
  protected:
+  AbstractCodeParser() = default;
   explicit AbstractCodeParser(const std::vector<std::string> &file_paths);
 
   std::vector<std::string> file_paths_;

@@ -180,7 +180,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -192,7 +192,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -204,7 +204,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -220,7 +220,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_TRUE(it.class_name == "foo"
           || it.class_name == "bar");
       }
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
     }
@@ -236,7 +236,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_TRUE(it.class_name == "foo"
           || it.class_name == "bar");
       }
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
     }
@@ -248,7 +248,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "baz");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -260,7 +260,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Private);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPrivate);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -272,7 +272,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Protected);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kProtected);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
@@ -284,7 +284,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
-      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::Public);
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
     }
