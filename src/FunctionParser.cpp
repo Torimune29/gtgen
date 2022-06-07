@@ -4,7 +4,10 @@
 
 FunctionParser::FunctionParser(const std::vector<std::string> &file_paths, const std::string &compile_database_path,
                                bool verbose)
-    : p_impl_(new FunctionParserImpl(file_paths, compile_database_path, verbose)) {}
+    : p_impl_(new FunctionParserImpl(file_paths, compile_database_path, verbose)) {
+  file_paths_ = p_impl_->GetFilePaths();
+  settings_ = p_impl_->GetSettings();
+}
 
 FunctionParser::FunctionParser(const std::string &class_name, const std::vector<std::string> &file_paths,
                                const std::string &compile_database_path, bool verbose)
