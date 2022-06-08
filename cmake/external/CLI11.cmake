@@ -1,12 +1,13 @@
 include(FetchContent)
-FetchContent_Declare(
+FetchContent_Populate(
   cli11
   GIT_REPOSITORY https://github.com/CLIUtils/CLI11
   GIT_TAG        v2.2.0
+  QUIET
+  SUBBUILD_DIR ${FETCHCONTENT_BASE_DIR}/CLI11-subbuild
+  SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/CLI11-src
+  BINARY_DIR ${FETCHCONTENT_BASE_DIR}/CLI11-build
 )
 
-FetchContent_MakeAvailable(cli11)
-
 # for inculde.
-# target_link_libraries(${APP_NAME} PRIVATE cli11)
 target_include_directories(${APP_NAME} SYSTEM PRIVATE ${cli11_SOURCE_DIR}/include)

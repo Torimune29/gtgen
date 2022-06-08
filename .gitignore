@@ -40,8 +40,9 @@ release/
 debug/
 coverage/
 
-# Doxygen output directory
+# Doxygen output directory and stylesheet
 docs/
+doxygen*.css
 
 # Coverage
 coverage_out.info
