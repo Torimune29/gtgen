@@ -7,10 +7,15 @@
 
 cmake_minimum_required(VERSION 3.14)  # for fetchcontent
 
+# --------------------------------------------------------------------------------
+#                         Project Environment (change as needed).
+# --------------------------------------------------------------------------------
 # Set project name, version and languages here. (change as needed)
 set(PROJECT_NAME gtgen)  # Default name for the library built from src/*.cpp (change if you wish)
 project(${PROJECT_NAME} VERSION 0.0.1 LANGUAGES CXX)
 
+set(LIBRARY_NAME gtgenlib)  # Default name for the library built from src/*.cpp (change if you wish)
+set(APP_NAME gtgen)  # Default name for the Application built from app/*.cpp (change if you wish)
 
 # Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
 option(ENABLE_WARNINGS_SETTINGS "Allow target_set_warnings to add flags and defines.
@@ -35,16 +40,12 @@ set(SOURCES          # All .cpp files in src/
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
 )
-set(LIBRARY_NAME gtgenlib)  # Default name for the library built from src/*.cpp (change if you wish)
-set(APP_NAME gtgen)  # Default name for the Application built from app/*.cpp (change if you wish)
 
 # --------------------------------------------------------------------------------
 #                            Build! (Change as needed)
 # --------------------------------------------------------------------------------
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
-# Link external libs or includes.
-target_link_libraries(${LIBRARY_NAME} cppast)
 
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
