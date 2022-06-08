@@ -8,6 +8,5 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(jsoncons)
 
 # for inculde.
-target_set_warnings(${jsoncons_jsoncons} DISABLE ALL Annoying) # No warnings.
-# target_link_libraries(${APP_NAME} PRIVATE jsoncons)
+target_set_warnings(${jsoncons_jsoncons} DISABLE ALL DISABLE Annoying) # No warnings.
 target_include_directories(${APP_NAME} SYSTEM PRIVATE ${jsoncons_SOURCE_DIR}/include)
