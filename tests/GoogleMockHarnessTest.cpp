@@ -6,8 +6,9 @@ const std::string kSourceTreePath = SOURCE_DIR;
 
 TEST(GoogleMockHarness, Create) {
   std::vector<std::string> paths = {
-    kSourceTreePath + "build/_deps/CLI11-src/include/CLI/App.hpp",
-    kSourceTreePath + "build/_deps/cppast-src/include/cppast/cpp_entity.hpp",
+    kSourceTreePath + "include/AbstractCodeParser.h",
+    kSourceTreePath + "include/AbstractTestHarness.h",
+    kSourceTreePath + "include/GoogleMockHarness.h",
     kSourceTreePath + "include/FunctionParser.h",
     kSourceTreePath + "tests/testdata/Function.h",
     kSourceTreePath + "tests/testdata/MemberFunction.h",
