@@ -42,6 +42,8 @@ FunctionBase GetBase(const T &func) {
   base.is_consteval = func.is_consteval();
   // variadic like args...
   base.is_variadic = func.is_variadic();
+  // deleted
+  base.is_deleted = (func.body_kind() == cppast::cpp_function_deleted);
   return base;
 }
 
@@ -121,6 +123,9 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
                 // const
                 function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
                                           func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+                // const
+                function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
+                                             func.cv_qualifier() == cppast::cpp_cv_const_volatile);
                 // polymorphic
                 function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
                 infos.push_back(function_info);

@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
   std::string compile_database = "./";
   bool verbose = false;
   bool view_only = false;
-  app.add_option("-f,--files", files, "Analyze file paths.")->required();
+  app.add_option("-f,--files", files, "Analyze file paths. If empty, parse all files using compile database.");
   app.add_option("-p,--compile-database", compile_database, "Compile database directory path")->required();
   app.add_flag("--verbose", verbose, "Verbose parse result");
   app.add_flag("--view-only", view_only, "View only");

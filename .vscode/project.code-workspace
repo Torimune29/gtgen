@@ -38,7 +38,9 @@
 			"typeinfo": "cpp",
 			"cmath": "cpp",
 			"random": "cpp",
-			"functional": "cpp"
+			"functional": "cpp",
+			"chrono": "cpp",
+			"algorithm": "cpp"
 		}
 	}
 }

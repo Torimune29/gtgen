@@ -15,16 +15,20 @@ typedef struct FunctionInfoBase {
   bool is_constexpr = false;
   bool is_consteval = false;
   bool is_variadic = false;
+  bool is_deleted = false;
 
+  /**
+   * @brief operator== for overload check
+   *
+   * @param rhs rgiht hand side
+   * @return true
+   * @return false
+   *
+   * @details see https://stackoverflow.com/questions/9568852/overloading-by-return-type
+   */
   bool operator== (const FunctionInfoBase &rhs) const noexcept {
     return (name == rhs.name
-      && return_type == rhs.return_type
-      && signature == rhs.signature
       && parameters == rhs.parameters
-      && is_noexcept == rhs.is_noexcept
-      && is_constexpr == rhs.is_constexpr
-      && is_consteval == rhs.is_consteval
-      && is_variadic == rhs.is_variadic
     );
   }
 } FunctionBase;
@@ -43,14 +47,14 @@ typedef struct MemberFunctionInfo {
   std::string class_name;
   enum AccessSpecifier access_specifier;
   bool is_const = false;
+  bool is_volatile = false;
   bool is_polymorphic = false;
 
   bool operator== (const MemberFunctionInfo &rhs) const noexcept {
     return (base == rhs.base
       && class_name == rhs.class_name
-      && access_specifier == rhs.access_specifier
       && is_const == rhs.is_const
-      && is_polymorphic == rhs.is_polymorphic
+      && is_volatile == rhs.is_volatile
     );
   }
 
