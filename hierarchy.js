@@ -6,6 +6,10 @@ var hierarchy =
       ] ],
       [ "FunctionParser", "class_function_parser.html", null ]
     ] ],
+    [ "AbstractTestHarness< T >", "class_abstract_test_harness.html", null ],
+    [ "AbstractTestHarness< FunctionParser >", "class_abstract_test_harness.html", [
+      [ "GoogleMockHarness", "class_google_mock_harness.html", null ]
+    ] ],
     [ "FunctionInfo", "struct_function_info.html", null ],
     [ "FunctionInfoBase", "struct_function_info_base.html", null ],
     [ "MemberFunctionInfo", "struct_member_function_info.html", null ]
