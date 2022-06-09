@@ -26,6 +26,10 @@ FunctionBase GetBase(const T &func) {
   if (it_suffix != std::string::npos) {
     base.signature = func.signature().substr(0, it_suffix + 1);
   }
+  // parameters
+  for (auto &it : func.parameters()) {
+    base.parameters.push_back(cppast::to_string(it.type()));
+  }
   // noexcept
   if (func.noexcept_condition() != type_safe::nullopt &&
       func.noexcept_condition().value().kind() == cppast::cpp_expression_kind::literal_t) {

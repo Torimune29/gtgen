@@ -10,6 +10,7 @@ typedef struct FunctionInfoBase {
   std::string name;
   std::string return_type;
   std::string signature;
+  std::vector<std::string> parameters;
   bool is_noexcept = false;
   bool is_constexpr = false;
   bool is_consteval = false;
@@ -19,6 +20,7 @@ typedef struct FunctionInfoBase {
     return (name == rhs.name
       && return_type == rhs.return_type
       && signature == rhs.signature
+      && parameters == rhs.parameters
       && is_noexcept == rhs.is_noexcept
       && is_constexpr == rhs.is_constexpr
       && is_consteval == rhs.is_consteval

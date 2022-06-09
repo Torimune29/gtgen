@@ -36,7 +36,9 @@
 			"variant": "cpp",
 			"string_view": "cpp",
 			"typeinfo": "cpp",
-			"cmath": "cpp"
+			"cmath": "cpp",
+			"random": "cpp",
+			"functional": "cpp"
 		}
 	}
 }
