@@ -3,6 +3,7 @@ var struct_function_info_base =
     [ "operator==", "struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c", null ],
     [ "is_consteval", "struct_function_info_base.html#a8f6178ad4111d7b74a694a20cdc9468c", null ],
     [ "is_constexpr", "struct_function_info_base.html#ae6290dd1a6a8fced103569a68ec55305", null ],
+    [ "is_deleted", "struct_function_info_base.html#a13d15b1b9093853e6567a458125aed7d", null ],
     [ "is_noexcept", "struct_function_info_base.html#ae43bc616e5b3e9352f62d4c68608495e", null ],
     [ "is_variadic", "struct_function_info_base.html#adbff0c51a1e7e77e5621437be349efd5", null ],
     [ "name", "struct_function_info_base.html#a4f97312e655f23d09322c238feeed8dd", null ],
