@@ -8,7 +8,8 @@ var hierarchy =
     ] ],
     [ "AbstractTestHarness< T >", "class_abstract_test_harness.html", null ],
     [ "AbstractTestHarness< FunctionParser >", "class_abstract_test_harness.html", [
-      [ "GoogleMockHarness", "class_google_mock_harness.html", null ]
+      [ "GoogleMockHarness", "class_google_mock_harness.html", null ],
+      [ "TestTargetViewerHarness", "class_test_target_viewer_harness.html", null ]
     ] ],
     [ "FunctionInfo", "struct_function_info.html", null ],
     [ "FunctionInfoBase", "struct_function_info_base.html", null ],

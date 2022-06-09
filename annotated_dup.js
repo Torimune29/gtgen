@@ -8,5 +8,6 @@ var annotated_dup =
     [ "FunctionParser", "class_function_parser.html", "class_function_parser" ],
     [ "FunctionParserImpl", "class_function_parser_impl.html", "class_function_parser_impl" ],
     [ "GoogleMockHarness", "class_google_mock_harness.html", "class_google_mock_harness" ],
-    [ "MemberFunctionInfo", "struct_member_function_info.html", "struct_member_function_info" ]
+    [ "MemberFunctionInfo", "struct_member_function_info.html", "struct_member_function_info" ],
+    [ "TestTargetViewerHarness", "class_test_target_viewer_harness.html", "class_test_target_viewer_harness" ]
 ];
