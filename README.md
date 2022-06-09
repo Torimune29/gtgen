@@ -16,297 +16,66 @@
 - Sample Output
 
 ```
-~/gtget/build$ ./gtgen -f ../tests/testdata/Function.h ../tests/testdata/MemberFunction.h -p .
+~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p .
 gtgen version: 0.0.1
-file: ../tests/testdata/Function.h,../tests/testdata/MemberFunction.h,
-settings:
-  compile_database_path: .
-[simple file parser] [info] parsing file '../tests/testdata/Function.h'
-[simple file parser] [info] parsing file '../tests/testdata/MemberFunction.h'
+[simple file parser] [info] parsing file '../include/FunctionParser.h'
+MOCK_METHOD0(Ready, bool());
+MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
+MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+
+~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . 2>/dev/null
+MOCK_METHOD0(Ready, bool());
+MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
+MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+
+~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . --view-only
+gtgen version: 0.0.1
+[simple file parser] [info] parsing file '../include/FunctionParser.h'
 {
-    "function": [
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "normal",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "noexcept_only",
-            "namespace": "",
-            "noexcept": true,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "noexcept_false",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "noexcept_complex",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": true,
-            "functionName": "extern_function",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "static_function",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": true
-        },
-        {
-            "consteval": false,
-            "constexpr": true,
-            "extern": false,
-            "functionName": "constexpr_function",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": true,
-            "extern": false,
-            "functionName": "static_constexpr",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": true
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "namespace_normal",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "void",
-            "signature": "()",
-            "static": false
-        },
-        {
-            "consteval": false,
-            "constexpr": false,
-            "extern": false,
-            "functionName": "namespace_type_return",
-            "namespace": "",
-            "noexcept": false,
-            "returnType": "ns::m",
-            "signature": "()",
-            "static": false
-        }
-    ],
+    "function": [],
     "memberFunction": [
         {
             "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": true,
+            "className": "FunctionParser",
+            "constMemberFunction": false,
             "consteval": false,
             "constexpr": false,
-            "functionName": "const_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": true,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "full_suffix",
+            "functionName": "Ready",
             "noexcept": true,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": true,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "noise_suffix",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "virtual_function",
-            "noexcept": false,
+            "parameterNum": 0,
             "polymorphicMemberFunction": true,
-            "returnType": "void",
+            "returnType": "bool",
             "signature": "()"
         },
         {
             "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": true,
+            "className": "FunctionParser",
+            "constMemberFunction": false,
             "consteval": false,
             "constexpr": false,
-            "functionName": "pure_virtual",
-            "noexcept": false,
-            "polymorphicMemberFunction": true,
-            "returnType": "void",
+            "functionName": "GetFunction",
+            "noexcept": true,
+            "parameterNum": 0,
+            "polymorphicMemberFunction": false,
+            "returnType": "std::vector<FunctionInfo>",
             "signature": "()"
         },
         {
             "accessSpecifier": 0,
-            "className": "foo",
+            "className": "FunctionParser",
             "constMemberFunction": false,
             "consteval": false,
             "constexpr": false,
-            "functionName": "with_definition",
-            "noexcept": false,
+            "functionName": "GetMemberFunction",
+            "noexcept": true,
+            "parameterNum": 0,
             "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "deleted",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 1,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "private_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 1,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "private_function_2",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 2,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "protected_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "foo",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "public_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "bar",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "virtual_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": true,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "bar",
-            "constMemberFunction": true,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "pure_virtual",
-            "noexcept": false,
-            "polymorphicMemberFunction": true,
-            "returnType": "void",
-            "signature": "()"
-        },
-        {
-            "accessSpecifier": 0,
-            "className": "baz",
-            "constMemberFunction": false,
-            "consteval": false,
-            "constexpr": false,
-            "functionName": "struct_function",
-            "noexcept": false,
-            "polymorphicMemberFunction": false,
-            "returnType": "void",
+            "returnType": "std::vector<MemberFunctionInfo>",
             "signature": "()"
         }
     ]
 }
+
 ```
 
 ## How to Develop
