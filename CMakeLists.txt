@@ -37,6 +37,7 @@ set(SOURCES          # All .cpp files in src/
     src/CodeParserCppAst.cpp
     src/FunctionParserImpl.cpp
     src/FunctionParser.cpp
+    src/GoogleMockHarness.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp

@@ -7,6 +7,7 @@ option(ENABLE_GOOGLETESTS "Include tests in the library. Setting this to OFF wil
 set(TESTFILES        # All .cpp files in tests/
     main.cpp
     FunctionParserTest.cpp
+    GoogleMockHarnessTest.cpp
 )
 
 set(TEST_MAIN unit_tests_${LIBRARY_NAME})   # Default name for test executable (change if you wish).
