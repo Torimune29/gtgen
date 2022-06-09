@@ -76,9 +76,7 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
       // type handling
       if (e.kind() == cppast::cpp_function::kind()) {
         const auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
-        if (func.is_declaration()) {  // use declaration only
-          infos.push_back(Get(func));
-        }
+        infos.push_back(Get(func));
       }
       return true;
     });
@@ -107,29 +105,28 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
             }
             case cppast::cpp_entity_kind::member_function_t: {
               const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
-              if (func.is_declaration()) {  // use declaration only
-                MemberFunctionInfo function_info = {};
-                // function base
-                function_info.base = GetBase(func);
-                // access specifier
-                if (access_specifier == cppast::cpp_public)
-                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
-                else if (access_specifier == cppast::cpp_private)
-                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPrivate;
-                else if (access_specifier == cppast::cpp_protected)
-                  function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kProtected;
-                // class_name
-                function_info.class_name = class_name;
-                // const
-                function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
-                                          func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-                // const
-                function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
-                                             func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-                // polymorphic
-                function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
-                infos.push_back(function_info);
-              }
+              MemberFunctionInfo function_info = {};
+              // function base
+              function_info.base = GetBase(func);
+              // access specifier
+              if (access_specifier == cppast::cpp_public)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
+              else if (access_specifier == cppast::cpp_private)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPrivate;
+              else if (access_specifier == cppast::cpp_protected)
+                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kProtected;
+              // class_name
+              function_info.class_name = class_name;
+              // const
+              function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
+                                        func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+              // const
+              function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
+                                           func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+              // polymorphic
+              function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+              infos.push_back(function_info);
+
               break;
             }
             default: {

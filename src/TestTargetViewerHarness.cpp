@@ -20,6 +20,7 @@ bool TestTargetViewerHarness::Ready() noexcept {
                                                                    {"noexcept", it.base.is_noexcept},
                                                                    {"constexpr", it.base.is_constexpr},
                                                                    {"consteval", it.base.is_consteval},
+                                                                   {"deleted", it.base.is_deleted},
                                                                    {"extern", it.is_extern},
                                                                    {"static", it.is_static},
                                                                });
@@ -36,9 +37,11 @@ bool TestTargetViewerHarness::Ready() noexcept {
                                         {"noexcept", it.base.is_noexcept},
                                         {"constexpr", it.base.is_constexpr},
                                         {"consteval", it.base.is_consteval},
+                                        {"deleted", it.base.is_deleted},
                                         {"className", it.class_name},
                                         {"accessSpecifier", static_cast<int>(it.access_specifier)},
                                         {"constMemberFunction", it.is_const},
+                                        {"volatile", it.is_volatile},
                                         {"polymorphicMemberFunction", it.is_polymorphic},
                                     });
       member_functions.push_back(std::move(each_functions));
