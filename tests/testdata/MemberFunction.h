@@ -30,6 +30,8 @@ class foo {
     int overload(int);
     int overload(double);
     int overload(int) const;
+    int overload(int) volatile;
+    int overload(int) const volatile;
 };
 /// definition
 template <typename T>

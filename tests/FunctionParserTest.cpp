@@ -390,12 +390,20 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_FALSE(it.base.is_deleted);
         EXPECT_STREQ(it.class_name.c_str(), "foo");
         EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
-        if (count == 0)
+        if (count == 0) {
           EXPECT_FALSE(it.is_const);
-        else
+          EXPECT_FALSE(it.is_volatile);
+        } else if (count == 1) {
           EXPECT_TRUE(it.is_const);
+          EXPECT_FALSE(it.is_volatile);
+        } else if (count == 2) {
+          EXPECT_FALSE(it.is_const);
+          EXPECT_TRUE(it.is_volatile);
+        } else {
+          EXPECT_TRUE(it.is_const);
+          EXPECT_TRUE(it.is_volatile);
+        }
         EXPECT_FALSE(it.is_polymorphic);
-        EXPECT_FALSE(it.is_volatile);
         count++;
       } else {
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
