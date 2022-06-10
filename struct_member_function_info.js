@@ -8,6 +8,7 @@ var struct_member_function_info =
     [ "operator==", "struct_member_function_info.html#af4486e4066ab4496961a2c0274f5141f", null ],
     [ "access_specifier", "struct_member_function_info.html#a5cdab038d2a53050c1fca11b5584c7f8", null ],
     [ "base", "struct_member_function_info.html#a5810c931eaa6aee214292f570720cf78", null ],
+    [ "base_classes", "struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677", null ],
     [ "class_name", "struct_member_function_info.html#a44a151cb8e3db28bd044f28d728283a7", null ],
     [ "is_const", "struct_member_function_info.html#aced0283eb918bbf5106c72d3ad49aa8c", null ],
     [ "is_polymorphic", "struct_member_function_info.html#a0810f63ec37e54c2ae62b83585b0d92b", null ],

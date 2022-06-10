@@ -121,32 +121,33 @@ $(document).ready(function(){initNavTree('_function_info_8h_source.html',''); in
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">bool</span> is_const = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">bool</span> is_volatile = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">bool</span> is_polymorphic = <span class="keyword">false</span>;  </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="struct_member_function_info.html#af4486e4066ab4496961a2c0274f5141f">   49</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="struct_member_function_info.html#af4486e4066ab4496961a2c0274f5141f">operator== </a>(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      &amp;&amp; class_name == rhs.class_name</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      &amp;&amp; is_const == rhs.is_const</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      &amp;&amp; is_volatile == rhs.is_volatile</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    );</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="struct_function_info.html">   63</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">bool</span> is_extern = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">bool</span> is_static = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">   48</a></span>&#160;  std::vector&lt;std::string&gt; <a class="code" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">base_classes</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      &amp;&amp; class_name == rhs.class_name</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      &amp;&amp; is_const == rhs.is_const</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      &amp;&amp; is_volatile == rhs.is_volatile</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    );</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="struct_function_info.html">   64</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">bool</span> is_extern = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">bool</span> is_static = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
 <div class="ttc" id="astruct_function_info_base_html"><div class="ttname"><a href="struct_function_info_base.html">FunctionInfoBase</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:5</div></div>
 <div class="ttc" id="astruct_function_info_base_html_a1328156eaf47d5de0c595598dc772e3c"><div class="ttname"><a href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">FunctionInfoBase::operator==</a></div><div class="ttdeci">bool operator==(const FunctionInfoBase &amp;rhs) const noexcept</div><div class="ttdoc">operator== for overload check</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:25</div></div>
-<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:63</div></div>
+<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:64</div></div>
 <div class="ttc" id="astruct_member_function_info_html"><div class="ttname"><a href="struct_member_function_info.html">MemberFunctionInfo</a></div><div class="ttdoc">Member Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:36</div></div>
-<div class="ttc" id="astruct_member_function_info_html_af4486e4066ab4496961a2c0274f5141f"><div class="ttname"><a href="struct_member_function_info.html#af4486e4066ab4496961a2c0274f5141f">MemberFunctionInfo::operator==</a></div><div class="ttdeci">bool operator==(const MemberFunctionInfo &amp;rhs) const noexcept</div><div class="ttdoc">virtual, override or final</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:49</div></div>
+<div class="ttc" id="astruct_member_function_info_html_a7a6d151d49ed90f919416332c3b09677"><div class="ttname"><a href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">MemberFunctionInfo::base_classes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; base_classes</div><div class="ttdoc">virtual, override or final</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:48</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
