@@ -45,6 +45,7 @@ typedef struct MemberFunctionInfo {
   bool is_const = false;
   bool is_volatile = false;
   bool is_polymorphic = false;  /// virtual, override or final
+  std::vector<std::string> base_classes;
 
   bool operator== (const MemberFunctionInfo &rhs) const noexcept {
     return (base == rhs.base

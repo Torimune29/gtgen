@@ -106,6 +106,11 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
         const auto class_name = class_e.name();
         auto access_specifier =
             (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
+        const auto base_classes_raw = class_e.bases();
+        std::vector<std::string> base_classes;
+        for (auto &it : base_classes_raw) {
+            base_classes.push_back(it.name());
+        }
         for (auto &&child : class_e) {
           switch (child.kind()) {
             case cppast::cpp_entity_kind::access_specifier_t: {
@@ -134,6 +139,8 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
                                            func.cv_qualifier() == cppast::cpp_cv_const_volatile);
               // polymorphic
               function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+              // base classes
+              function_info.base_classes = base_classes;
               infos.push_back(function_info);
 
               break;

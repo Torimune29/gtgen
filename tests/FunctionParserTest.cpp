@@ -264,6 +264,13 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_FALSE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
       EXPECT_FALSE(it.is_volatile);
+      if (it.class_name == "foo") {
+        EXPECT_EQ(it.base_classes, std::vector<std::string>());
+      } else if (it.class_name == "bar") {
+        EXPECT_EQ(it.base_classes, std::vector<std::string>({"foo<int>"}));
+      } else {
+        EXPECT_TRUE(false);
+      }
     }
     if (it.base.name == "pure_virtual") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
@@ -283,6 +290,13 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_TRUE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
       EXPECT_FALSE(it.is_volatile);
+      if (it.class_name == "foo") {
+        EXPECT_EQ(it.base_classes, std::vector<std::string>());
+      } else if (it.class_name == "bar") {
+        EXPECT_EQ(it.base_classes, std::vector<std::string>({"foo<int>"}));
+      } else {
+        EXPECT_TRUE(false);
+      }
     }
     if (it.base.name == "with_definition") {
       static bool duplicated = false;

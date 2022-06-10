@@ -1,4 +1,5 @@
 #include "GoogleMockHarness.h"
+#include <algorithm>
 
 namespace {
 const char kMockFileHeader[] = "#pragma once";
@@ -24,6 +25,7 @@ bool GoogleMockHarness::Ready() noexcept {
   body_ += "// " + notice_message_ + '\n';
 
   std::unordered_map<std::string, std::vector<std::string>> class_function_map;
+  std::unordered_map<std::string, std::vector<std::string>> class_bases_map;
 
   // function
   auto v_func = p_parser_->GetFunction();
@@ -52,6 +54,20 @@ bool GoogleMockHarness::Ready() noexcept {
         class_function_map[it.class_name]
           .push_back(GenerateMockMethod(kMockMethodName, it.base));
       }
+      if (class_bases_map[it.class_name].empty())
+        class_bases_map[it.class_name] = it.base_classes;
+    }
+  }
+  // derrived check
+  for(const auto &it : class_function_map) {
+    auto class_name = it.first;
+    bool mock_is_able_to_derrived = true;
+    std::for_each(v_member_func.begin(), v_member_func.end(), [class_name, &mock_is_able_to_derrived] (const MemberFunctionInfo &info) {
+      if (info.class_name == class_name && !info.is_polymorphic)
+        mock_is_able_to_derrived = false;
+    });
+    if (!mock_is_able_to_derrived) {
+      class_bases_map[class_name].clear();
     }
   }
 
@@ -59,7 +75,16 @@ bool GoogleMockHarness::Ready() noexcept {
   body_ += std::string(kMockFileHeader) + "\n\n"
         + std::string(kMockIncludeHeader) + "\n\n";
   for (const auto &it : class_function_map) {
-    body_ += "class " + std::string(kMockClassNamePrefix) + it.first + " {\n";
+    body_ += "class " + std::string(kMockClassNamePrefix) + it.first;
+    if (class_bases_map.count(it.first) != 0
+      && !class_bases_map[it.first].empty()) {
+      body_ += " : public ";
+      for (const auto &it_class : class_bases_map[it.first]) {
+        body_ += it_class + ", ";
+      }
+      body_ = body_.substr(0, body_.size() - 2);
+    }
+    body_ += " {\n";
     for (const auto &it_method : it.second) {
       body_ += "  " + it_method;
     }

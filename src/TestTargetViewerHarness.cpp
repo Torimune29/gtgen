@@ -43,6 +43,7 @@ bool TestTargetViewerHarness::Ready() noexcept {
                                         {"constMemberFunction", it.is_const},
                                         {"volatile", it.is_volatile},
                                         {"polymorphicMemberFunction", it.is_polymorphic},
+                                        {"baseClasses", it.base_classes},
                                     });
       member_functions.push_back(std::move(each_functions));
     }
