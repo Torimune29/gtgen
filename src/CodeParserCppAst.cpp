@@ -11,6 +11,9 @@
 namespace cppast {
 /**
  * @brief cppast logger for log suppression
+ * @details
+ * clang warns -Wweak-vtables because cppast defines virtual method on header files.
+ * So set -Wno~ in cmake/external/cppast.cmake .
  *
  */
 struct NoneLogger : diagnostic_logger {

@@ -13,3 +13,4 @@ set(cppast_BUILD_TESTING OFF)
 target_set_warnings(cppast DISABLE ALL DISABLE Annoying) # No warnings.
 target_include_directories(${LIBRARY_NAME} SYSTEM PRIVATE ${cppast_SOURCE_DIR}/cppast/include)
 target_link_libraries(${LIBRARY_NAME} PRIVATE cppast)
+target_compile_options(${LIBRARY_NAME} PRIVATE "-Wno-weak-vtables")  # for cppast virtual on headerfile inline.
