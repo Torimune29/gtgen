@@ -13,7 +13,7 @@
 
 
 int main(int argc, char *argv[]) {
-  CLI::App app{PROJECT_NAME};
+  CLI::App app{PROJECT_NAME_VERSION};
   std::vector<std::string> files = {""};
   std::string compile_database = "./";
   bool verbose = false;
