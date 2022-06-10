@@ -16,19 +16,31 @@
 - Sample Output
 
 ```
-~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p .
+~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p .
 gtgen version: 0.0.1
 [simple file parser] [info] parsing file '../include/FunctionParser.h'
-MOCK_METHOD0(Ready, bool());
-MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
-MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+#pragma once
 
-~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . 2>/dev/null
-MOCK_METHOD0(Ready, bool());
-MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
-MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+#include <gmock/gmock.h>
 
-~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . --view-only
+class MockFunctionParser {
+  MOCK_METHOD0(Ready, bool());
+  MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
+  MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+};
+
+~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . 2>/dev/null
+#pragma once
+
+#include <gmock/gmock.h>
+
+class MockFunctionParser {
+  MOCK_METHOD0(Ready, bool());
+  MOCK_METHOD0(GetFunction, std::vector<FunctionInfo>());
+  MOCK_METHOD0(GetMemberFunction, std::vector<MemberFunctionInfo>());
+};
+
+~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . --view-only
 gtgen version: 0.0.1
 [simple file parser] [info] parsing file '../include/FunctionParser.h'
 {
