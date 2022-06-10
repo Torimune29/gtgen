@@ -3,6 +3,8 @@ class foo {
  public:
     /// const
     void const_function() const;
+    /// volatile
+    void volatile_function() volatile;
     /// const volatile noexcept -> void
     auto full_suffix() const volatile noexcept -> void;
     /// noise
@@ -13,9 +15,9 @@ class foo {
     virtual void pure_virtual() const = 0;
     /// with definition;
     void with_definition() {}
-    /// delete (unsupported)
+    /// delete
     void deleted() = delete;
-  /// scope test
+  /// access specifier test
   private:
     void private_function();
     void private_function_2();
@@ -24,6 +26,9 @@ class foo {
   private:
   public:
     void public_function();
+    /// overload check
+    int overload_int(int);
+    int overload_double(double);
 };
 /// definition
 template <typename T>
@@ -32,7 +37,7 @@ void foo<T>::const_function() const {}
 class bar : foo<int> {
  public:
     /// virtual void g() override;
-    void virtual_function() override;
+    virtual void virtual_function() override;
     /// virtual void h() override final;
     virtual auto pure_virtual() const -> void override final ;
 };

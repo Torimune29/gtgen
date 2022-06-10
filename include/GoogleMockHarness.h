@@ -26,9 +26,12 @@
  */
 class GoogleMockHarness : public AbstractTestHarness<FunctionParser> {
  public:
-  GoogleMockHarness(const std::string &name, std::shared_ptr<FunctionParser> p_parser)
-    : AbstractTestHarness(name, p_parser) {}
+  GoogleMockHarness(const std::string &name, std::shared_ptr<FunctionParser> p_parser, bool public_only = true)
+    : AbstractTestHarness(name, p_parser)
+    , public_only_(public_only) {}
   ~GoogleMockHarness() override = default;
   bool Ready() noexcept final;
+ private:
+  bool public_only_;
 
 };

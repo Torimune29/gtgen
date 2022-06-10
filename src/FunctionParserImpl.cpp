@@ -13,6 +13,15 @@ cppast::detail::visitor_filter_t FunctionWhiteList() {
   return cppast::whitelist<cppast::cpp_entity_kind::function_t, cppast::cpp_entity_kind::class_t>();
 }
 
+template <typename T, typename U>
+bool BodyEqual(const T &func, U kind) {
+  return (
+    func.body_kind() == kind
+    && func.is_declaration() == cppast::is_declaration(kind)
+    && func.is_definition() == cppast::is_definition(kind)
+  );
+}
+
 template <typename T>
 FunctionBase GetBase(const T &func) {
   FunctionBase base = {};
@@ -43,7 +52,7 @@ FunctionBase GetBase(const T &func) {
   // variadic like args...
   base.is_variadic = func.is_variadic();
   // deleted
-  base.is_deleted = (func.body_kind() == cppast::cpp_function_deleted);
+  base.is_deleted = BodyEqual(func, cppast::cpp_function_deleted);
   return base;
 }
 

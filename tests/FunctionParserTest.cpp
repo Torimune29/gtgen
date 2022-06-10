@@ -31,24 +31,6 @@ TEST(FunctionParserTest, Ready) {
   FunctionParser parser(paths, compile_database, false);
 
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetMemberFunction()) {
-    std::cout << "function: " << it.base.name
-      << ", signature: " << it.base.signature
-      << ", return: " << it.base.return_type
-      << ", noexcept: " << it.base.is_noexcept
-      << ", class: " << it.class_name
-      << ", access_specifier: " << static_cast<int>(it.access_specifier)
-      << ", const: " << it.is_const
-      << ", polymorphic: " << it.is_polymorphic << std::endl;
-  }
-  for (const auto &it : parser.GetFunction()) {
-    std::cout << "function: " << it.base.name
-      << ", signature: " << it.base.signature
-      << ", return: " << it.base.return_type
-      << ", noexcept: " << it.base.is_noexcept
-      << ", extern: " << it.is_extern
-      << ", static: " << it.is_static << std::endl;
-  }
 }
 
 TEST(FunctionParserTest, ValidateFunctionInfo) {
@@ -63,100 +45,132 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
     if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "noexcept_only") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "noexcept_false") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "noexcept_complex") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);  // except without noexcept or noexcept(true)
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "extern_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_TRUE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "static_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
     if (it.base.name == "constexpr_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "static_constexpr") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_TRUE(it.is_static);
     }
-    if (it.base.name == "namespace_normal") {
+    if (it.base.name == "namespace_deleted") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_TRUE(it.base.is_deleted);
+      EXPECT_FALSE(it.is_extern);
+      EXPECT_FALSE(it.is_static);
+    }
+    if (it.base.name == "namespace_normal") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
     if (it.base.name == "namespace_type_return") {
       EXPECT_STREQ(it.base.return_type.c_str(), "ns::m");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_FALSE(it.is_extern);
       EXPECT_FALSE(it.is_static);
     }
@@ -175,46 +189,72 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
     if (it.base.name == "const_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
+    }
+    if (it.base.name == "volatile_function") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
+      EXPECT_STREQ(it.class_name.c_str(), "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_TRUE(it.is_volatile);
     }
     if (it.base.name == "full_suffix") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_TRUE(it.is_volatile);
     }
     if (it.base.name == "noise_suffix") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "virtual_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       {
         SCOPED_TRACE( ::testing::Message() << it.class_name );
         EXPECT_TRUE(it.class_name == "foo"
@@ -223,14 +263,17 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "pure_virtual") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       {
         SCOPED_TRACE( ::testing::Message() << it.class_name );
         EXPECT_TRUE(it.class_name == "foo"
@@ -239,54 +282,131 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_TRUE(it.is_const);
       EXPECT_TRUE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
+    }
+    if (it.base.name == "with_definition") {
+      static bool duplicated = false;
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
+      EXPECT_TRUE(it.class_name == "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
+      EXPECT_FALSE(duplicated);  // check unique (declaration or definition)
+      duplicated = true;
+    }
+    if (it.base.name == "deleted") {
+      EXPECT_STREQ(it.base.return_type.c_str(), "void");
+      EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_FALSE(it.base.is_noexcept);
+      EXPECT_FALSE(it.base.is_constexpr);
+      EXPECT_FALSE(it.base.is_consteval);
+      EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_TRUE(it.base.is_deleted);
+      EXPECT_TRUE(it.class_name == "foo");
+      EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
+      EXPECT_FALSE(it.is_const);
+      EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "struct_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "baz");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "private_function" || it.base.name == "private_function_2") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPrivate);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "protected_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kProtected);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "public_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
+      EXPECT_TRUE(it.base.parameters.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
       EXPECT_FALSE(it.base.is_variadic);
+      EXPECT_FALSE(it.base.is_deleted);
       EXPECT_STREQ(it.class_name.c_str(), "foo");
       EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
       EXPECT_FALSE(it.is_const);
       EXPECT_FALSE(it.is_polymorphic);
+      EXPECT_FALSE(it.is_volatile);
+    }
+    if (it.base.name == "overload") {
+      if (it.base.parameters.at(0) == "int") {
+        EXPECT_STREQ(it.base.return_type.c_str(), "int");
+        EXPECT_STREQ(it.base.signature.c_str(), "(int)");
+        EXPECT_EQ(it.base.parameters.size(), 1);
+        EXPECT_FALSE(it.base.is_noexcept);
+        EXPECT_FALSE(it.base.is_constexpr);
+        EXPECT_FALSE(it.base.is_consteval);
+        EXPECT_FALSE(it.base.is_variadic);
+        EXPECT_FALSE(it.base.is_deleted);
+        EXPECT_STREQ(it.class_name.c_str(), "foo");
+        EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
+        EXPECT_FALSE(it.is_const);
+        EXPECT_FALSE(it.is_polymorphic);
+        EXPECT_FALSE(it.is_volatile);
+      } else {
+        EXPECT_STREQ(it.base.return_type.c_str(), "int");
+        EXPECT_STREQ(it.base.signature.c_str(), "(double)");
+        EXPECT_EQ(it.base.parameters.size(), 1);
+        EXPECT_FALSE(it.base.is_noexcept);
+        EXPECT_FALSE(it.base.is_constexpr);
+        EXPECT_FALSE(it.base.is_consteval);
+        EXPECT_FALSE(it.base.is_variadic);
+        EXPECT_FALSE(it.base.is_deleted);
+        EXPECT_STREQ(it.class_name.c_str(), "foo");
+        EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
+        EXPECT_FALSE(it.is_const);
+        EXPECT_FALSE(it.is_polymorphic);
+        EXPECT_FALSE(it.is_volatile);
+      }
     }
   }
 }
