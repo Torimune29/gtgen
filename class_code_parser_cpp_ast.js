@@ -6,8 +6,8 @@ var class_code_parser_cpp_ast =
     [ "entities_", "class_code_parser_cpp_ast.html#a6c5fae9a4196ba56f55954fdaf237d6b", null ],
     [ "filter_", "class_code_parser_cpp_ast.html#a80d04233d07bb03a4f7b81e415230bd2", null ],
     [ "index_", "class_code_parser_cpp_ast.html#aaac58e70bc54ade18e6aa97fb29163b5", null ],
-    [ "logger_", "class_code_parser_cpp_ast.html#a7cfbe191fbadb70438101cec6c35702b", null ],
     [ "p_database_", "class_code_parser_cpp_ast.html#a5b88f2d4afb970e70eabc4706f161071", null ],
+    [ "p_logger_", "class_code_parser_cpp_ast.html#af46c299a043bbe41afb420aaea52752f", null ],
     [ "p_parser_", "class_code_parser_cpp_ast.html#af2ea7ae565c5895eb93bc1af96794cc9", null ],
     [ "ready_", "class_code_parser_cpp_ast.html#a2f7fb495a85293992cb555c80c7af946", null ]
 ];

@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "cppast", null, [
+      [ "NoneLogger", "structcppast_1_1_none_logger.html", "structcppast_1_1_none_logger" ]
+    ] ],
     [ "AbstractCodeParser", "class_abstract_code_parser.html", "class_abstract_code_parser" ],
     [ "AbstractTestHarness", "class_abstract_test_harness.html", "class_abstract_test_harness" ],
     [ "CodeParserCppAst", "class_code_parser_cpp_ast.html", "class_code_parser_cpp_ast" ],
