@@ -9,11 +9,11 @@
 #include "FunctionParser.h"
 #include "GoogleMockHarness.h"
 #include "TestTargetViewerHarness.h"
-#include "ProjectVersion.h"
+#include "ProjectInformation.h"
 
 
 int main(int argc, char *argv[]) {
-  CLI::App app{"gtget"};
+  CLI::App app{PROJECT_NAME};
   std::vector<std::string> files = {""};
   std::string compile_database = "./";
   bool verbose = false;
