@@ -18,4 +18,9 @@ class FunctionParserImpl : public CodeParserCppAst {
 
   std::vector<FunctionInfo> GetFunction() noexcept;
   std::vector<MemberFunctionInfo> GetMemberFunction() noexcept ;
+ private:
+  template<typename T>
+  std::vector<FunctionInfo> ParseFunction(const T &entity) const noexcept;
+  template<typename T>
+  std::vector<MemberFunctionInfo> ParseMemberFunction(const T &entity) const noexcept;
 };

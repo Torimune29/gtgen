@@ -66,7 +66,11 @@ bool GoogleMockHarness::Ready() noexcept {
       if (info.class_name == class_name && !info.is_polymorphic)
         mock_is_able_to_derrived = false;
     });
-    if (!mock_is_able_to_derrived) {
+    if (mock_is_able_to_derrived) {
+      if (class_bases_map[class_name].empty()) {  // Target class is a base class
+        class_bases_map[class_name].push_back(class_name);
+      }
+    } else {
       class_bases_map[class_name].clear();
     }
   }

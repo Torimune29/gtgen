@@ -27,6 +27,7 @@ class CodeParserCppAst : public AbstractCodeParser {
  protected:
   CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
                    const std::string &compile_database_path, bool verbose);
+  std::string GetFullName(const cppast::cpp_entity &e) const noexcept;
 
   ResultTypeIndex index_;
   std::unique_ptr<ParserType> p_parser_;

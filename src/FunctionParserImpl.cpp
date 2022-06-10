@@ -56,17 +56,7 @@ FunctionBase GetBase(const T &func) {
   return base;
 }
 
-template <typename T>
-FunctionInfo Get(const T &func) {
-  FunctionInfo function_info = {};
-  // function base
-  function_info.base = GetBase(func);
-  // extern
-  function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
-  // static
-  function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
-  return function_info;
-}
+
 }  // namespace
 
 FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_paths,
@@ -80,17 +70,15 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
 
   std::vector<FunctionInfo> infos;
   for (const auto &file : p_parser_->files()) {
-    cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
+    cppast::visit(file, filter_, [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
-      if (e.kind() == cppast::cpp_function::kind()) {
-        const auto &func = reinterpret_cast<const cppast::cpp_function &>(e);
-        infos.push_back(Get(func));
-      }
+      auto infos_parsed = ParseFunction(e);
+      infos.insert(infos.end(), infos_parsed.begin(), infos_parsed.end());
       return true;
     });
   }
-  return std::vector<FunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
+  return infos;
 }
 
 std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept {
@@ -98,61 +86,103 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
 
   std::vector<MemberFunctionInfo> infos;
   for (const auto &file : p_parser_->files()) {
-    cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
+    // cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
+    cppast::visit(file, filter_, [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
-      // type handling
-      if (e.kind() == cppast::cpp_class::kind()) {
-        const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(e);
-        const auto class_name = class_e.name();
-        auto access_specifier =
-            (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
-        const auto base_classes_raw = class_e.bases();
-        std::vector<std::string> base_classes;
-        for (auto &it : base_classes_raw) {
-            base_classes.push_back(it.name());
-        }
-        for (auto &&child : class_e) {
-          switch (child.kind()) {
-            case cppast::cpp_entity_kind::access_specifier_t: {
-              access_specifier = reinterpret_cast<const cppast::cpp_access_specifier &>(child).access_specifier();
-              break;
-            }
-            case cppast::cpp_entity_kind::member_function_t: {
-              const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
-              MemberFunctionInfo function_info = {};
-              // function base
-              function_info.base = GetBase(func);
-              // access specifier
-              if (access_specifier == cppast::cpp_public)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
-              else if (access_specifier == cppast::cpp_private)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPrivate;
-              else if (access_specifier == cppast::cpp_protected)
-                function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kProtected;
-              // class_name
-              function_info.class_name = class_name;
-              // const
-              function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
-                                        func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-              // const
-              function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
-                                           func.cv_qualifier() == cppast::cpp_cv_const_volatile);
-              // polymorphic
-              function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
-              // base classes
-              function_info.base_classes = base_classes;
-              infos.push_back(function_info);
-
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-        }
-      }
+      auto infos_parsed = ParseMemberFunction(e);
+      infos.insert(infos.end(), infos_parsed.begin(), infos_parsed.end());
       return true;
     });
   }
-  return std::vector<MemberFunctionInfo>(infos.begin(), std::unique(infos.begin(), infos.end()));
+  return infos;
 }
+
+template <typename T>
+std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) const noexcept {
+  std::vector<FunctionInfo> infos;
+  if (entity.kind() == cppast::cpp_function::kind()) {
+    const auto &func = reinterpret_cast<const cppast::cpp_function &>(entity);
+    FunctionInfo function_info = {};
+    // function base
+    function_info.base = GetBase(func);
+    // extern
+    function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
+    // static
+    function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
+    // namespace (cut classname and :: for class full name). like foo::foo or ns::foo
+    auto full_name = GetFullName(func.parent().value());
+    size_t c = 0;
+    if ((c = full_name.find_last_of("::")) == (full_name.size() - 2)) full_name.erase(c, full_name.size());
+    function_info.base.namespace_name = full_name;
+
+    infos.push_back(function_info);
+  }
+  return infos;
+}
+
+template <typename T>
+std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T &entity) const noexcept {
+  std::vector<MemberFunctionInfo> infos;
+  if (entity.kind() == cppast::cpp_class::kind()) {
+    const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
+    const auto class_name = class_e.name();
+    auto access_specifier =
+        (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
+    const auto base_classes_raw = class_e.bases();
+    std::vector<std::string> base_classes;
+    for (auto &it : base_classes_raw) {
+        base_classes.push_back(it.name());
+    }
+    for (auto &&child : class_e) {
+      switch (child.kind()) {
+        case cppast::cpp_entity_kind::access_specifier_t: {
+          access_specifier = reinterpret_cast<const cppast::cpp_access_specifier &>(child).access_specifier();
+          break;
+        }
+        case cppast::cpp_entity_kind::member_function_t: {
+          const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
+          MemberFunctionInfo function_info = {};
+          // function base
+          function_info.base = GetBase(func);
+          // access specifier
+          if (access_specifier == cppast::cpp_public)
+            function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
+          else if (access_specifier == cppast::cpp_private)
+            function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kPrivate;
+          else if (access_specifier == cppast::cpp_protected)
+            function_info.access_specifier = MemberFunctionInfo::AccessSpecifier::kProtected;
+          // class_name
+          function_info.class_name = class_name;
+          // const
+          function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
+                                    func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+          // const
+          function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
+                                       func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+          // polymorphic
+          function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
+          // base classes
+          function_info.base_classes = base_classes;
+          // namespace (cut classname and :: for class full name). like foo::foo or ns::foo
+          auto full_name = GetFullName(func.parent().value());
+          size_t c = 0;
+          while((c = full_name.find_first_of(class_name)) != std::string::npos) full_name.erase(c, class_name.size());
+          for (const auto &it : base_classes)
+            while((c = full_name.find_first_of(it)) != std::string::npos) full_name.erase(c, it.size());
+          // if ((c = full_name.find_last_of("::")) == (full_name.size() - 2)) full_name.erase(c, full_name.size());
+          if (full_name.size() >= 2 && full_name.substr(full_name.size() - 2, full_name.size()) == "::")
+            full_name = full_name.substr(0, full_name.size() - 2);
+          function_info.base.namespace_name = full_name;
+
+          infos.push_back(function_info);
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    }
+  }
+  return infos;
+}
+

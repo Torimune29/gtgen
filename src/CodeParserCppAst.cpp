@@ -55,3 +55,30 @@ bool CodeParserCppAst::Ready() noexcept {
 
   return ready_;
 }
+
+std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) const noexcept {
+  if (e.name().empty()) {
+    return "";
+  } else if (cppast::is_parameter(e.kind())) {
+    // parameters don't have a full name
+    return e.name();
+  }
+
+  std::string scopes;
+
+  for (auto cur = e.parent(); cur; cur = cur.value().parent()) {
+    // prepend each scope, if there is any
+    type_safe::with(cur.value().scope_name(), [&](const cppast::cpp_scope_name& cur_scope) {
+        scopes = cur_scope.name() + "::" + scopes;
+    });
+  }
+
+  if (e.kind() == cppast::cpp_entity_kind::class_t) {
+    const auto& c = static_cast<const cppast::cpp_class&>(e);
+    return scopes + c.semantic_scope() + c.name();
+  } else if (e.kind() == cppast::cpp_entity_kind::function_t) {
+    return scopes;
+  } else {
+    return scopes + e.name();
+  }
+}

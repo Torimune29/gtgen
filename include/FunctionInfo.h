@@ -7,6 +7,7 @@ typedef struct FunctionInfoBase {
   std::string return_type;
   std::string signature;
   std::vector<std::string> parameters;
+  std::string namespace_name;
   bool is_noexcept = false;
   bool is_constexpr = false;
   bool is_consteval = false;
@@ -25,6 +26,7 @@ typedef struct FunctionInfoBase {
   bool operator== (const FunctionInfoBase &rhs) const noexcept {
     return (name == rhs.name
       && parameters == rhs.parameters
+      && namespace_name == rhs.namespace_name
     );
   }
 } FunctionBase;
