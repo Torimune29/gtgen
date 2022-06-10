@@ -17,7 +17,7 @@ class CodeParserCppAst : public AbstractCodeParser {
   using ResultTypeIndex = cppast::cpp_entity_index;
   using FilterType = cppast::detail::visitor_filter_t;
   using EntityType = cppast::cpp_entity;
-  using LoggerType = cppast::stderr_diagnostic_logger;
+  using LoggerType = cppast::diagnostic_logger;
 
  public:
   ~CodeParserCppAst() override;
@@ -33,6 +33,6 @@ class CodeParserCppAst : public AbstractCodeParser {
   std::unique_ptr<DatabaseType> p_database_;
   FilterType filter_;
   std::vector<EntityType> entities_;
-  LoggerType logger_;
+  std::unique_ptr<LoggerType> p_logger_;
   bool ready_;
 };

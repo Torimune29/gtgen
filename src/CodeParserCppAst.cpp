@@ -8,6 +8,19 @@
 
 #include "FunctionInfo.h"
 
+namespace cppast {
+/**
+ * @brief cppast logger for log suppression
+ *
+ */
+struct NoneLogger : diagnostic_logger {
+  bool do_log(const char* /* source */, const diagnostic& /* d */) const override {
+    return true;
+  }
+};
+
+}  // namespace cppast
+
 
 const char kSettingsNameCompileDatabase[] = "compile_database_path";
 const char kSettingsVerbose[] = "verbose";
@@ -17,8 +30,12 @@ CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, c
     : AbstractCodeParser(std::move(file_paths)), filter_(filter), ready_(false) {
   settings_.insert({kSettingsNameCompileDatabase, compile_database_path});
   settings_.insert({kSettingsVerbose, (verbose ? "true" : "false")});
-  logger_.set_verbose(verbose);
-  p_parser_ = std::unique_ptr<ParserType>(new ParserType(type_safe::ref(index_), type_safe::ref(logger_)));
+  if (verbose) {
+    p_logger_ = std::unique_ptr<LoggerType>(new cppast::stderr_diagnostic_logger(verbose));
+  } else {
+    p_logger_ = std::unique_ptr<LoggerType>(new cppast::NoneLogger());
+  }
+  p_parser_ = std::unique_ptr<ParserType>(new ParserType(type_safe::ref(index_), type_safe::ref(*p_logger_)));
 }
 
 CodeParserCppAst::~CodeParserCppAst() = default;
