@@ -2,10 +2,6 @@
 
 #include <string>
 
-/**
- * @brief Function Base
- *
- */
 typedef struct FunctionInfoBase {
   std::string name;
   std::string return_type;
@@ -48,7 +44,7 @@ typedef struct MemberFunctionInfo {
   enum AccessSpecifier access_specifier;
   bool is_const = false;
   bool is_volatile = false;
-  bool is_polymorphic = false;
+  bool is_polymorphic = false;  /// virtual, override or final
 
   bool operator== (const MemberFunctionInfo &rhs) const noexcept {
     return (base == rhs.base
@@ -71,8 +67,6 @@ typedef struct FunctionInfo {
 
   bool operator== (const FunctionInfo &rhs) const noexcept {
     return (base == rhs.base
-      && is_extern == rhs.is_extern
-      && is_static == rhs.is_static
     );
   }
 } FunctionInfo;
