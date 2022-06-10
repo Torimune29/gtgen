@@ -7,7 +7,7 @@
 bool TestTargetViewerHarness::Ready() noexcept {
   bool okay = p_parser_->Ready();
   if (okay) {
-    jsoncons::json result(jsoncons::json_object_arg, {{"function", ""}, {"memberFunction", ""}});
+    jsoncons::json result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}, {"memberFunction", ""}});
     jsoncons::json functions(jsoncons::json_array_arg), member_functions(jsoncons::json_array_arg);
 
     auto v_func = p_parser_->GetFunction();

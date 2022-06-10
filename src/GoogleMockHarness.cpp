@@ -21,6 +21,8 @@ bool GoogleMockHarness::Ready() noexcept {
   bool okay = p_parser_->Ready();
   if (!okay) return okay;
 
+  body_ += "// " + notice_message_ + '\n';
+
   std::unordered_map<std::string, std::vector<std::string>> class_function_map;
 
   // function

@@ -12,14 +12,7 @@
 #include "ProjectVersion.h"
 
 
-/*
- * Simple main program that demontrates how access
- * CMake definitions (here the version number) from source code.
- */
 int main(int argc, char *argv[]) {
-  std::cerr << "gtgen version: " << PROJECT_VERSION_MAJOR << "." << PROJECT_VERSION_MINOR << "."
-            << PROJECT_VERSION_PATCH << std::endl;
-
   CLI::App app{"gtget"};
   std::vector<std::string> files = {""};
   std::string compile_database = "./";
@@ -41,7 +34,7 @@ int main(int argc, char *argv[]) {
 
   int return_code = 1;
   if (p_harness->Ready()) {
-    std::cout << p_harness->Create() << std::endl;
+    std::cout << p_harness->Generate() << std::endl;
     return_code = 0;
   }
   return return_code;

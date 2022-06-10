@@ -17,5 +17,5 @@ TEST(GoogleMockHarness, Create) {
   std::string compile_database = "./";
   GoogleMockHarness harness("Test", std::shared_ptr<FunctionParser>(new FunctionParser(paths, compile_database, false)));
   EXPECT_TRUE(harness.Ready());
-  std::cout << harness.Create() << std::endl;
+  std::cout << harness.Generate() << std::endl;
 }
