@@ -101,19 +101,31 @@ How to Use</h1>
 <ul>
 <li>Sample Output</li>
 </ul>
-<div class="fragment"><div class="line">~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p .</div>
+<div class="fragment"><div class="line">~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p .</div>
 <div class="line">gtgen version: 0.0.1</div>
 <div class="line">[simple file parser] [info] parsing file &#39;../include/FunctionParser.h&#39;</div>
-<div class="line">MOCK_METHOD0(Ready, bool());</div>
-<div class="line">MOCK_METHOD0(GetFunction, std::vector&lt;FunctionInfo&gt;());</div>
-<div class="line">MOCK_METHOD0(GetMemberFunction, std::vector&lt;MemberFunctionInfo&gt;());</div>
+<div class="line">#pragma once</div>
 <div class="line"> </div>
-<div class="line">~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . 2&gt;/dev/null</div>
-<div class="line">MOCK_METHOD0(Ready, bool());</div>
-<div class="line">MOCK_METHOD0(GetFunction, std::vector&lt;FunctionInfo&gt;());</div>
-<div class="line">MOCK_METHOD0(GetMemberFunction, std::vector&lt;MemberFunctionInfo&gt;());</div>
+<div class="line">#include &lt;gmock/gmock.h&gt;</div>
 <div class="line"> </div>
-<div class="line">~gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . --view-only</div>
+<div class="line">class MockFunctionParser {</div>
+<div class="line">  MOCK_METHOD0(Ready, bool());</div>
+<div class="line">  MOCK_METHOD0(GetFunction, std::vector&lt;FunctionInfo&gt;());</div>
+<div class="line">  MOCK_METHOD0(GetMemberFunction, std::vector&lt;MemberFunctionInfo&gt;());</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . 2&gt;/dev/null</div>
+<div class="line">#pragma once</div>
+<div class="line"> </div>
+<div class="line">#include &lt;gmock/gmock.h&gt;</div>
+<div class="line"> </div>
+<div class="line">class MockFunctionParser {</div>
+<div class="line">  MOCK_METHOD0(Ready, bool());</div>
+<div class="line">  MOCK_METHOD0(GetFunction, std::vector&lt;FunctionInfo&gt;());</div>
+<div class="line">  MOCK_METHOD0(GetMemberFunction, std::vector&lt;MemberFunctionInfo&gt;());</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">~/gtgen/build$ ./gtgen -f ../include/FunctionParser.h -p . --view-only</div>
 <div class="line">gtgen version: 0.0.1</div>
 <div class="line">[simple file parser] [info] parsing file &#39;../include/FunctionParser.h&#39;</div>
 <div class="line">{</div>
