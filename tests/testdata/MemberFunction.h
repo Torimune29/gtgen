@@ -27,8 +27,9 @@ class foo {
   public:
     void public_function();
     /// overload check
-    int overload_int(int);
-    int overload_double(double);
+    int overload(int);
+    int overload(double);
+    int overload(int) const;
 };
 /// definition
 template <typename T>

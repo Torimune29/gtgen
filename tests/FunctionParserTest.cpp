@@ -379,6 +379,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
     }
     if (it.base.name == "overload") {
       if (it.base.parameters.at(0) == "int") {
+        static size_t count = 0;
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(int)");
         EXPECT_EQ(it.base.parameters.size(), 1);
@@ -389,9 +390,13 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_FALSE(it.base.is_deleted);
         EXPECT_STREQ(it.class_name.c_str(), "foo");
         EXPECT_EQ(it.access_specifier, MemberFunctionInfo::AccessSpecifier::kPublic);
-        EXPECT_FALSE(it.is_const);
+        if (count == 0)
+          EXPECT_FALSE(it.is_const);
+        else
+          EXPECT_TRUE(it.is_const);
         EXPECT_FALSE(it.is_polymorphic);
         EXPECT_FALSE(it.is_volatile);
+        count++;
       } else {
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(double)");
