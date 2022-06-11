@@ -1,5 +1,4 @@
-#ifndef I3I4_HPP
-#define I3I4_HPP
+#pragma once
 
 namespace n1 {
 
@@ -37,5 +36,10 @@ public:
 
 } // namespace n1
 
-#endif
 
+/// global scoke
+class foo {
+  class bar {
+    void test();
+  };
+};

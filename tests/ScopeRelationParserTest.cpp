@@ -17,7 +17,7 @@ TEST(ScopeRelationParserTest, ValidateScopeInfo) {
 
   EXPECT_TRUE(parser.Ready());
   auto result = parser.Get();
-  EXPECT_EQ(result.size(), 1);
+  EXPECT_EQ(result.size(), 2);
   for (const auto &it : result) {
     SCOPED_TRACE(::testing::Message() << it.name);
     SCOPED_TRACE(::testing::Message() << static_cast<int>(it.kind));
@@ -32,6 +32,18 @@ TEST(ScopeRelationParserTest, ValidateScopeInfo) {
           || it_child.name == "I4") {
           EXPECT_EQ(it_child.kind, ScopeInfo::Kind::kClass);
           EXPECT_EQ(it.full_name, "n1");
+          EXPECT_EQ(it_child.children.size(), 0);
+        }
+      }
+    }
+    if (it.name == "foo") {
+      EXPECT_EQ(it.kind, ScopeInfo::Kind::kClass);
+      EXPECT_EQ(it.full_name, "foo");
+      EXPECT_EQ(it.children.size(), 1);
+      for (const auto &it_child : it.children) {
+        if (it_child.name == "bar") {
+          EXPECT_EQ(it_child.kind, ScopeInfo::Kind::kClass);
+          EXPECT_EQ(it_child.full_name, "foo::bar");
           EXPECT_EQ(it_child.children.size(), 0);
         }
       }

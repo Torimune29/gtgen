@@ -89,7 +89,7 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T 
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     // scoped or global class check
-    if (expect_global && !GetFullName(class_e.parent().value()).empty())
+    if (expect_global && !GetFullName(class_e).empty())
       return {};
     ScopeInfo info;
     // name
