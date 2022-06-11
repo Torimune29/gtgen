@@ -18,7 +18,7 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
   scope_relations["children"] = children;
   return scope_relations;
 }
-};  // namespace
+}  // namespace
 
 
 bool TestTargetFunctionViewerHarness::Ready() noexcept {
