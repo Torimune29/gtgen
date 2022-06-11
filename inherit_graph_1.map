@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_abstract_test_harness.html" title=" " alt="" coords="5,23,160,65"/>
-<area shape="rect" id="node2" href="$class_google_mock_harness.html" title="Code Parser Class." alt="" coords="223,5,379,32"/>
-<area shape="rect" id="node3" href="$class_test_target_viewer_harness.html" title="Code Parser Class." alt="" coords="208,56,395,83"/>
+<area shape="rect" id="node1" href="$class_abstract_test_harness.html" title="Abstract Code Parser Class." alt="" coords="5,64,160,91"/>
+<area shape="rect" id="node2" href="$class_google_mock_harness.html" title="Code Parser Class." alt="" coords="243,5,399,32"/>
+<area shape="rect" id="node3" href="$class_test_target_function_viewer_harness.html" title="Code Parser Class." alt="" coords="227,57,415,98"/>
+<area shape="rect" id="node4" href="$class_test_target_scope_relation_viewer_harness.html" title="Code Parser Class." alt="" coords="208,122,435,163"/>
 </map>

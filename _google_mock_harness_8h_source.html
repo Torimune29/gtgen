@@ -105,18 +105,20 @@ $(document).ready(function(){initNavTree('_google_mock_harness_8h_source.html','
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// };</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_google_mock_harness.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_google_mock_harness.html">GoogleMockHarness</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a>&lt;FunctionParser&gt; {</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_google_mock_harness.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_google_mock_harness.html">GoogleMockHarness</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a> {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="class_google_mock_harness.html">GoogleMockHarness</a>(<span class="keyword">const</span> std::string &amp;name, std::shared_ptr&lt;FunctionParser&gt; p_parser, <span class="keywordtype">bool</span> public_only = <span class="keyword">true</span>)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a>(name, p_parser)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , public_only_(public_only) {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  ~<a class="code" href="class_google_mock_harness.html">GoogleMockHarness</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">bool</span> Ready() noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">bool</span> public_only_;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="ttc" id="aclass_abstract_test_harness_html"><div class="ttname"><a href="class_abstract_test_harness.html">AbstractTestHarness</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractTestHarness.h:13</div></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a>(name)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , public_only_(public_only)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    , p_parser_(p_parser) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  ~<a class="code" href="class_google_mock_harness.html">GoogleMockHarness</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">bool</span> Ready() noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">bool</span> public_only_;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  std::shared_ptr&lt;FunctionParser&gt; p_parser_;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="ttc" id="aclass_abstract_test_harness_html"><div class="ttname"><a href="class_abstract_test_harness.html">AbstractTestHarness</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractTestHarness.h:12</div></div>
 <div class="ttc" id="aclass_google_mock_harness_html"><div class="ttname"><a href="class_google_mock_harness.html">GoogleMockHarness</a></div><div class="ttdoc">Code Parser Class.</div><div class="ttdef"><b>Definition:</b> GoogleMockHarness.h:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

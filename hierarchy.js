@@ -8,10 +8,10 @@ var hierarchy =
       [ "FunctionParser", "class_function_parser.html", null ],
       [ "ScopeRelationParser", "class_scope_relation_parser.html", null ]
     ] ],
-    [ "AbstractTestHarness< T >", "class_abstract_test_harness.html", null ],
-    [ "AbstractTestHarness< FunctionParser >", "class_abstract_test_harness.html", [
+    [ "AbstractTestHarness", "class_abstract_test_harness.html", [
       [ "GoogleMockHarness", "class_google_mock_harness.html", null ],
-      [ "TestTargetViewerHarness", "class_test_target_viewer_harness.html", null ]
+      [ "TestTargetFunctionViewerHarness", "class_test_target_function_viewer_harness.html", null ],
+      [ "TestTargetScopeRelationViewerHarness", "class_test_target_scope_relation_viewer_harness.html", null ]
     ] ],
     [ "diagnostic_logger", null, [
       [ "cppast::NoneLogger", "structcppast_1_1_none_logger.html", null ]
