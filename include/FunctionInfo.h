@@ -30,6 +30,10 @@ typedef struct FunctionInfoBase {
     );
   }
 
+  bool operator!= (const FunctionInfoBase &rhs) const noexcept {
+    return !(this->operator==(rhs));
+  }
+
   bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
     return scope.size() >= rhs_scope.size()
       && std::equal(rhs_scope.begin(), rhs_scope.end(), scope.begin());
@@ -56,10 +60,13 @@ typedef struct MemberFunctionInfo {
 
   bool operator== (const MemberFunctionInfo &rhs) const noexcept {
     return (base == rhs.base
-      && class_name == rhs.class_name
       && is_const == rhs.is_const
       && is_volatile == rhs.is_volatile
     );
+  }
+
+  bool operator!= (const MemberFunctionInfo &rhs) const noexcept {
+    return !(this->operator==(rhs));
   }
 
   bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
@@ -79,6 +86,10 @@ typedef struct FunctionInfo {
   bool operator== (const FunctionInfo &rhs) const noexcept {
     return (base == rhs.base
     );
+  }
+
+  bool operator!= (const FunctionInfo &rhs) const noexcept {
+    return !(this->operator==(rhs));
   }
 
   bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
