@@ -38,7 +38,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       kSourceTreePath + "tests/testdata/Function.h",
   };
   std::string compile_database = "./";
-  FunctionParser parser(paths, compile_database, false);
+  FunctionParser parser(paths, compile_database, true);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunction()) {
@@ -195,7 +195,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       kSourceTreePath + "tests/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
-  FunctionParser parser(paths, compile_database, false);
+  FunctionParser parser(paths, compile_database, true);
 
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunction()) {

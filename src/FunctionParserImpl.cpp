@@ -123,6 +123,9 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     const auto class_name = class_e.name();
+
+    Log("MemberFunction Class in:", class_name, cppast::severity::debug);
+
     auto access_specifier =
         (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
     const auto base_classes_raw = class_e.bases();
@@ -138,6 +141,9 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
         }
         case cppast::cpp_entity_kind::member_function_t: {
           const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
+
+          Log("MemberFunction Function in:", func.name(), cppast::severity::debug);
+
           MemberFunctionInfo function_info = {};
           // function base
           function_info.base = GetBase(func);
@@ -164,6 +170,9 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           function_info.base.scopes = GetFullName(func.parent().value());
 
           infos.push_back(function_info);
+
+          Log("MemberFunction Function out:", func.name(), cppast::severity::debug);
+
           break;
         }
         default: {
@@ -171,6 +180,9 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
         }
       }
     }
+
+    Log("MemberFunction Class out:", class_name, cppast::severity::debug);
+
   }
   return infos;
 }
