@@ -43,12 +43,12 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetFunction()) {
     SCOPED_TRACE(::testing::Message() << it.base.name);
-    SCOPED_TRACE(::testing::Message() << it.base.namespace_name);
+    SCOPED_TRACE(::testing::Message() << it.base.scopes);
     if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -61,7 +61,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -74,7 +74,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -87,7 +87,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);  // except without noexcept or noexcept(true)
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -100,7 +100,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -113,7 +113,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -126,7 +126,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -139,7 +139,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -152,7 +152,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_EQ(it.base.namespace_name, "ns");
+      EXPECT_EQ(it.base.scopes, "ns");
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -165,7 +165,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_EQ(it.base.namespace_name, "ns");
+      EXPECT_EQ(it.base.scopes, "ns");
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -178,7 +178,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "ns::m");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -200,13 +200,13 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
   EXPECT_TRUE(parser.Ready());
   for (const auto &it : parser.GetMemberFunction()) {
     SCOPED_TRACE(::testing::Message() << it.base.name);
-    SCOPED_TRACE(::testing::Message() << it.base.namespace_name);
+    SCOPED_TRACE(::testing::Message() << it.base.scopes);
     SCOPED_TRACE(::testing::Message() << it.class_name);
     if (it.base.name == "const_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -222,7 +222,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -238,7 +238,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -254,7 +254,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -270,7 +270,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -296,7 +296,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -323,7 +323,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -341,7 +341,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -357,7 +357,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -373,7 +373,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -389,7 +389,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -405,7 +405,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
       EXPECT_TRUE(it.base.parameters.empty());
-      EXPECT_TRUE(it.base.namespace_name.empty());
+      EXPECT_TRUE(it.base.scopes.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -423,7 +423,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(int)");
         EXPECT_EQ(it.base.parameters.size(), 1);
-        EXPECT_TRUE(it.base.namespace_name.empty());
+        EXPECT_TRUE(it.base.scopes.empty());
         EXPECT_FALSE(it.base.is_noexcept);
         EXPECT_FALSE(it.base.is_constexpr);
         EXPECT_FALSE(it.base.is_consteval);
@@ -450,7 +450,7 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(double)");
         EXPECT_EQ(it.base.parameters.size(), 1);
-        EXPECT_TRUE(it.base.namespace_name.empty());
+        EXPECT_TRUE(it.base.scopes.empty());
         EXPECT_FALSE(it.base.is_noexcept);
         EXPECT_FALSE(it.base.is_constexpr);
         EXPECT_FALSE(it.base.is_consteval);

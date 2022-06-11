@@ -4,6 +4,8 @@
 #include <cppast/cpp_function.hpp>
 #include <cppast/cpp_member_function.hpp>
 #include <iostream>
+#include <deque>
+#include <vector>
 #include <type_traits>
 
 #include "FunctionInfo.h"
@@ -21,6 +23,8 @@ struct NoneLogger : diagnostic_logger {
     return true;
   }
 };
+
+
 
 }  // namespace cppast
 
@@ -57,14 +61,24 @@ bool CodeParserCppAst::Ready() noexcept {
 }
 
 std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) const noexcept {
+  std::string full_name;
+  auto scopes = GetScopes(e);
+  if (scopes.empty()) return "";
+  for (const auto &it : scopes) {
+    full_name += it + "::";
+  }
+  return full_name.substr(0, full_name.size() - 2);
+}
+
+std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e) const noexcept {
   if (e.name().empty()) {
-    return "";
+    return {};
   }
   if (cppast::is_parameter(e.kind())) {  // parameters don't have a full name
-    return e.name();
+    return {e.name()};
   }
 
-  std::string scopes;
+  std::deque<std::string> scopes;
 
   for (auto cur = e.parent(); cur; cur = cur.value().parent()) {
     // prepend each scope, if there is any
@@ -75,20 +89,30 @@ std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) const noe
         if (cur_scope.name() == c.name())
           return;
       }
-      if (scopes.empty())
-        scopes = cur_scope.name() + scopes;
-      else
-        scopes = cur_scope.name() + "::" + scopes;
+      if (!cur_scope.name().empty()) {
+        Log("GetScopes Add:", cur_scope.name(), cppast::severity::debug);
+        scopes.push_front(cur_scope.name());
+      }
     });
   }
 
   if (e.kind() == cppast::cpp_entity_kind::class_t) {
     const auto& c = static_cast<const cppast::cpp_class&>(e);
-    return scopes + c.semantic_scope();
-  } else if (e.kind() == cppast::cpp_entity_kind::file_t) {
-    // for free function
-    return scopes;
-  } else {
-    return scopes + e.name();
+    if (!c.semantic_scope().empty())
+      scopes.push_back(c.semantic_scope());
+  } else if (e.kind() != cppast::cpp_entity_kind::file_t) {
+    // free function has file parent entity, so exclude
+    scopes.push_back(e.name());
   }
+  return std::vector<std::string>(scopes.begin(), scopes.end());
+}
+
+void CodeParserCppAst::Log(const std::string &label, const std::string &message, cppast::severity severity) const noexcept{
+  std::string full_message;
+  full_message += label + " " + message;
+  p_logger_->log("CodeParserCppAst",
+              cppast::diagnostic{full_message,
+                         cppast::source_location::make_unknown(),
+                         severity});
+
 }

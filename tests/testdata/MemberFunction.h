@@ -50,3 +50,30 @@ class bar : foo<int> {
 struct baz {
     void struct_function();
 };
+
+
+/// inner class
+class fizz {
+ public:
+  class buzz {
+    void inner_class_func();
+  };
+};
+
+/// namespace namespace class
+namespace n3 {
+  namespace n3_1 {
+    class fizz {
+     public:
+      class buzz {
+        void inner_class_func();
+      };
+    };
+  }
+  class fizz {
+   public:
+    class buzz {
+      void inner_class_func();
+    };
+  };
+}

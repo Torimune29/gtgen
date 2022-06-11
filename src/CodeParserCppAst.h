@@ -28,6 +28,8 @@ class CodeParserCppAst : public AbstractCodeParser {
   CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
                    const std::string &compile_database_path, bool verbose);
   std::string GetFullName(const cppast::cpp_entity &e) const noexcept;
+  std::vector<std::string> GetScopes(const cppast::cpp_entity &e) const noexcept;
+  void Log(const std::string &label, const std::string &message, cppast::severity severity) const noexcept;
 
   ResultTypeIndex index_;
   std::unique_ptr<ParserType> p_parser_;
