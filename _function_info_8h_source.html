@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('_function_info_8h_source.html',''); in
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  std::string return_type;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  std::string signature;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  std::vector&lt;std::string&gt; parameters;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  std::string namespace_name;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  std::string scopes;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keywordtype">bool</span> is_noexcept = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordtype">bool</span> is_constexpr = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordtype">bool</span> is_consteval = <span class="keyword">false</span>;</div>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('_function_info_8h_source.html',''); in
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">   26</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">operator== </a>(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> (name == rhs.name</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      &amp;&amp; parameters == rhs.parameters</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      &amp;&amp; namespace_name == rhs.namespace_name</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      &amp;&amp; scopes == rhs.scopes</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    );</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  }</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <a class="code" href="struct_function_info_base.html">FunctionBase</a>;</div>
