@@ -7,7 +7,6 @@ const char kMockFileHeader[] = "#pragma once";
 const char kMockIncludeHeader[] = "#include <gmock/gmock.h>";
 const char kMockMethodName[] = "MOCK_METHOD";
 const char kMockConstMethodName[] = "MOCK_CONST_METHOD";
-const char kMockClassNamePrefix[] = "Mock";
 const char kMockFreeFunctionClassName[] = "FreeFunction";
 const char kMockFreeFunctionScopeName[] = "@FreeFunction@";
 
@@ -64,34 +63,17 @@ bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<s
   return false;
 }
 
-// void Print(const std::vector<ScopedMockFunction> &map) {
-//   for (const auto &it : map) {
-//     if (it.full_scope.empty()) {
-//       std::cout << std::string(kMockFreeFunctionScopeName) + "::";
-//     } else {
-//       for (const auto &it_scope : it.full_scope) {
-//         std::cout << it_scope + "::";
-//       }
-//     }
-//     std::cout << std::endl;
-//     for (const auto &it_function : it.mock_function_declaration) {
-//       std::cout << "  " << it_function;
-//     }
-//     std::cout << std::endl;
-//     Print(it.children);
-//   }
-// }
-
 
 std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
-  const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map) {
+  const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map,
+  const std::string &mock_class_name) {
   std::string body_all;
   for (const auto &it : map) {
     std::string body;
     // generate scope
     switch (it.kind) {
       case ScopeInfo::Kind::kGlobal: {
-        body += "class " + std::string(kMockFreeFunctionClassName) + " {\n";
+        body += "class " + mock_class_name + std::string(kMockFreeFunctionClassName) + " {\n";
         break;
       }
       case ScopeInfo::Kind::kNamespace: {
@@ -99,7 +81,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
         break;
       }
       case ScopeInfo::Kind::kClass: {
-        body += "class " + std::string(kMockClassNamePrefix) +  it.name;
+        body += "class " + mock_class_name + it.name;
         if (class_bases_map.count(it.name) != 0 && !class_bases_map.at(it.name).empty()) {
           body += " : public ";
           std::string base_class_list;
@@ -120,7 +102,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
       body += "  " + it_function;
     }
     // generate child scope
-    auto body_child = GenerateMockBody(it.children, class_bases_map);
+    auto body_child = GenerateMockBody(it.children, class_bases_map, mock_class_name);
     if (body_child.empty() && it.mock_function_declaration.empty()) {  // no children and descendant
       body.clear();
     } else {
@@ -160,28 +142,22 @@ bool GoogleMockHarness::Ready() noexcept {
   auto v_member_func = p_function_parser_->GetMemberFunction();
   for (const auto &it : v_member_func) {
     if (it.base.is_deleted
-      || (public_only_ && it.access_specifier != MemberFunctionInfo::AccessSpecifier::kPublic)) {
+      || (public_only_ && it.access_specifier != MemberFunctionInfo::AccessSpecifier::kPublic)
+      || it.is_volatile) {  // not support volatile method mocking
       continue;
     }
     if (it.class_name.empty()) {
-      class_function_map[kMockFreeFunctionClassName]
-        .push_back(GenerateMockMethod(kMockMethodName, it.base));
       AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockMethodName, it.base));
     } else {
       if (it.is_const) {
-        class_function_map[it.class_name]
-          .push_back(GenerateMockMethod(kMockConstMethodName, it.base));
         AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockConstMethodName, it.base));
       } else {
-        class_function_map[it.class_name]
-          .push_back(GenerateMockMethod(kMockMethodName, it.base));
         AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockMethodName, it.base));
       }
       if (class_bases_map[it.class_name].empty())
         class_bases_map[it.class_name] = it.base_classes;
     }
   }
-  // Print(map);
 
 
   // derrived check
@@ -204,7 +180,7 @@ bool GoogleMockHarness::Ready() noexcept {
   // generate mock
   body_ += std::string(kMockFileHeader) + "\n\n"
         + std::string(kMockIncludeHeader) + "\n\n";
-  body_ += GenerateMockBody(map, class_bases_map);
+  body_ += GenerateMockBody(map, class_bases_map, name_);
 
   // for (const auto &it : class_function_map) {
   //   body_ += "class " + std::string(kMockClassNamePrefix) + it.first;

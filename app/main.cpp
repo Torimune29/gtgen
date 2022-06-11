@@ -18,10 +18,12 @@ int main(int argc, char *argv[]) {
   std::string compile_database = "./";
   bool verbose = false;
   int mode = 0;
+  std::string mock_label = "mock_";
   app.add_option("-f,--files", files, "Analyze file paths. If empty, parse all files using compile database.");
   app.add_option("-p,--compile-database", compile_database, "Compile database directory path")->required();
   app.add_flag("--verbose", verbose, "Verbose parse result");
   app.add_flag("--mock{0}, --view-functions{10}, --view-scopes{11}", mode, "Mode");
+  app.add_option("--mock-label", mock_label, "Mock Label for class. (--mock only)");
   CLI11_PARSE(app, argc, argv)
 
   std::shared_ptr<FunctionParser> p_function_parser(new FunctionParser(files, compile_database, verbose));
@@ -29,7 +31,7 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<AbstractTestHarness> p_harness;
   switch (mode) {
     case 0:
-      p_harness = decltype(p_harness)(new GoogleMockHarness("Mock", p_function_parser, p_scope_relation_parser));
+      p_harness = decltype(p_harness)(new GoogleMockHarness(mock_label, p_function_parser, p_scope_relation_parser));
       break;
     case 10:
       p_harness = decltype(p_harness)(new TestTargetFunctionViewerHarness(p_function_parser));
