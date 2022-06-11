@@ -15,11 +15,8 @@ cppast::detail::visitor_filter_t FunctionWhiteList() {
 
 template <typename T, typename U>
 bool BodyEqual(const T &func, U kind) {
-  return (
-    func.body_kind() == kind
-    && func.is_declaration() == cppast::is_declaration(kind)
-    && func.is_definition() == cppast::is_definition(kind)
-  );
+  return (func.body_kind() == kind && func.is_declaration() == cppast::is_declaration(kind) &&
+          func.is_definition() == cppast::is_definition(kind));
 }
 
 template <typename T>
@@ -56,7 +53,6 @@ FunctionBase GetBase(const T &func) {
   return base;
 }
 
-
 }  // namespace
 
 FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_paths,
@@ -86,7 +82,6 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
 
   std::vector<MemberFunctionInfo> infos;
   for (const auto &file : p_parser_->files()) {
-    // cppast::visit(file, filter_, [&infos](const cppast::cpp_entity &e, cppast::visitor_info info) {
     cppast::visit(file, filter_, [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       auto infos_parsed = ParseMemberFunction(e);
@@ -131,7 +126,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
     const auto base_classes_raw = class_e.bases();
     std::vector<std::string> base_classes;
     for (auto &it : base_classes_raw) {
-        base_classes.push_back(it.name());
+      base_classes.push_back(it.name());
     }
     for (auto &&child : class_e) {
       switch (child.kind()) {
@@ -157,11 +152,11 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           // class_name
           function_info.class_name = class_name;
           // const
-          function_info.is_const = (func.cv_qualifier() == cppast::cpp_cv_const ||
-                                    func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+          function_info.is_const =
+              (func.cv_qualifier() == cppast::cpp_cv_const || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
           // const
-          function_info.is_volatile = (func.cv_qualifier() == cppast::cpp_cv_volatile ||
-                                       func.cv_qualifier() == cppast::cpp_cv_const_volatile);
+          function_info.is_volatile =
+              (func.cv_qualifier() == cppast::cpp_cv_volatile || func.cv_qualifier() == cppast::cpp_cv_const_volatile);
           // polymorphic
           function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
           // base classes
@@ -186,8 +181,6 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
     }
 
     Log("MemberFunction Class out:", class_name, cppast::severity::debug);
-
   }
   return infos;
 }
-
