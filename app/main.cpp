@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
   std::shared_ptr<AbstractTestHarness> p_harness;
   switch (mode) {
     case 0:
-      p_harness = decltype(p_harness)(new GoogleMockHarness("Mock", p_function_parser));
+      p_harness = decltype(p_harness)(new GoogleMockHarness("Mock", p_function_parser, p_scope_relation_parser));
       break;
     case 10:
       p_harness = decltype(p_harness)(new TestTargetFunctionViewerHarness(p_function_parser));

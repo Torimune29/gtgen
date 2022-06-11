@@ -13,9 +13,12 @@ TEST(GoogleMockHarness, Create) {
     kSourceTreePath + "include/FunctionParser.h",
     kSourceTreePath + "tests/testdata/Function.h",
     kSourceTreePath + "tests/testdata/MemberFunction.h",
+    kSourceTreePath + "tests/testdata/MockGenerate.h",
   };
   std::string compile_database = "./";
-  GoogleMockHarness harness("Test", std::shared_ptr<FunctionParser>(new FunctionParser(paths, compile_database, false)));
+  GoogleMockHarness harness("Test",
+    std::shared_ptr<FunctionParser>(new FunctionParser(paths, compile_database, true))
+    , std::shared_ptr<ScopeRelationParser>(new ScopeRelationParser(paths, compile_database, true)));
   EXPECT_TRUE(harness.Ready());
   std::cout << harness.Generate() << std::endl;
 }
