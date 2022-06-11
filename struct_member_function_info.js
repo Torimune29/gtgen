@@ -6,6 +6,7 @@ var struct_member_function_info =
       [ "kProtected", "struct_member_function_info.html#aad36e8db1fb2ccaa9483d9965e20bd27a29b22e010bf2edfbf57a7a03522a64c9", null ]
     ] ],
     [ "InScopeOf", "struct_member_function_info.html#adda7314112dec2720e5ee0cc96a73616", null ],
+    [ "operator!=", "struct_member_function_info.html#a1419f1e929406669d4ff9ecc70997339", null ],
     [ "operator==", "struct_member_function_info.html#af4486e4066ab4496961a2c0274f5141f", null ],
     [ "access_specifier", "struct_member_function_info.html#a5cdab038d2a53050c1fca11b5584c7f8", null ],
     [ "base", "struct_member_function_info.html#a5810c931eaa6aee214292f570720cf78", null ],
