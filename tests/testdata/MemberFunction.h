@@ -56,6 +56,7 @@ struct baz {
 class fizz {
  public:
   class buzz {
+   protected:
     void inner_class_func();
   };
 };
@@ -73,6 +74,7 @@ namespace n3 {
   class fizz {
    public:
     class buzz {
+     public:
       void inner_class_func();
     };
   };

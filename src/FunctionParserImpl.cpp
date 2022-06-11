@@ -168,6 +168,10 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           function_info.base_classes = base_classes;
           // scopes
           function_info.base.scopes = GetFullName(func.parent().value());
+          if (function_info.base.scopes.empty())
+            function_info.base.scopes = class_name;
+          else
+            function_info.base.scopes += "::" + class_name;
 
           infos.push_back(function_info);
 
