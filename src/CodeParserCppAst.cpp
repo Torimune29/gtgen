@@ -110,7 +110,7 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
 void CodeParserCppAst::Log(const std::string &label, const std::string &message, cppast::severity severity) const noexcept{
   std::string full_message;
   full_message += label + " " + message;
-  p_logger_->log("CodeParserCppAst",
+  p_logger_->log("gtgen_CodeParser",
               cppast::diagnostic{full_message,
                          cppast::source_location::make_unknown(),
                          severity});

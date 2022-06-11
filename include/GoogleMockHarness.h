@@ -24,14 +24,16 @@
  * @brief  Code Parser Class
  *
  */
-class GoogleMockHarness : public AbstractTestHarness<FunctionParser> {
+class GoogleMockHarness : public AbstractTestHarness {
  public:
   GoogleMockHarness(const std::string &name, std::shared_ptr<FunctionParser> p_parser, bool public_only = true)
-    : AbstractTestHarness(name, p_parser)
-    , public_only_(public_only) {}
+    : AbstractTestHarness(name)
+    , public_only_(public_only)
+    , p_parser_(p_parser) {}
   ~GoogleMockHarness() override = default;
   bool Ready() noexcept final;
  private:
   bool public_only_;
+  std::shared_ptr<FunctionParser> p_parser_;
 
 };

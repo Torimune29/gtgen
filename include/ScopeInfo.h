@@ -12,6 +12,7 @@ typedef struct ScopeInfo {
   };
   std::string name;
   Kind kind;
+  std::string full_name;
   std::vector<ScopeInfo> children;
 
   bool operator== (const ScopeInfo &rhs) const noexcept {

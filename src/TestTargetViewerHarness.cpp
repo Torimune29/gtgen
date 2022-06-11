@@ -4,7 +4,24 @@
 #include <jsoncons_ext/jsonpath/jsonpath.hpp>
 
 
-bool TestTargetViewerHarness::Ready() noexcept {
+namespace {
+jsoncons::json SetScopesRecursively(const ScopeInfo &info) {
+  jsoncons::json scope_relations(jsoncons::json_object_arg, {
+                                                               {"name", info.name},
+                                                               {"kind", static_cast<int>(info.kind)},
+                                                               {"fullName", info.full_name},
+                                                           });
+  jsoncons::json children(jsoncons::json_array_arg);
+  for (const auto &it : info.children) {
+    children.push_back(SetScopesRecursively(it));
+  }
+  scope_relations["children"] = children;
+  return scope_relations;
+}
+};  // namespace
+
+
+bool TestTargetFunctionViewerHarness::Ready() noexcept {
   bool okay = p_parser_->Ready();
   if (okay) {
     jsoncons::json result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}, {"memberFunction", ""}});
@@ -55,3 +72,21 @@ bool TestTargetViewerHarness::Ready() noexcept {
   }
   return okay;
 }
+
+bool TestTargetScopeRelationViewerHarness::Ready() noexcept {
+  bool okay = p_parser_->Ready();
+  if (okay) {
+    jsoncons::json result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"scopeRelations", ""}});
+    jsoncons::json scopes(jsoncons::json_array_arg);
+
+    auto v_scopes = p_parser_->Get();
+    for (const auto &it : v_scopes) {
+      scopes.push_back(SetScopesRecursively(it));
+    }
+    result["scopeRelations"] = std::move(scopes);
+    std::cout << jsoncons::pretty_print(result) << std::endl;
+  }
+  return okay;
+}
+
+

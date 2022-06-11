@@ -71,6 +71,8 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseNamespaceScopeRelation(cons
     info.name = namespace_e.name();
     // kind
     info.kind = namespace_e.is_anonymous() ? ScopeInfo::Kind::kAnonymousNamespace : ScopeInfo::Kind::kNamespace;
+    // full name
+    info.full_name = GetFullName(namespace_e);
     // children
     for (auto &child : namespace_e) {
       auto info_parsed = ParseScopeRelation(child);
@@ -94,6 +96,12 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T 
     info.name = class_e.name();
     // kind
     info.kind = ScopeInfo::Kind::kClass;
+    // full name
+    if (expect_global) {
+      info.full_name = class_e.name();
+    } else {
+      info.full_name = GetFullName(class_e) + "::" + class_e.name();
+    }
     // children. According to C++ standard, namespace as class children is not be able to exist.
     for (auto &child : class_e) {
       auto info_parsed = ParseClassScopeRelation(child, false);
