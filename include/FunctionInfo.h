@@ -7,7 +7,7 @@ typedef struct FunctionInfoBase {
   std::string return_type;
   std::string signature;
   std::vector<std::string> parameters;
-  std::string scopes;
+  std::vector<std::string> scope;
   bool is_noexcept = false;
   bool is_constexpr = false;
   bool is_consteval = false;
@@ -26,8 +26,13 @@ typedef struct FunctionInfoBase {
   bool operator== (const FunctionInfoBase &rhs) const noexcept {
     return (name == rhs.name
       && parameters == rhs.parameters
-      && scopes == rhs.scopes
+      && scope == rhs.scope
     );
+  }
+
+  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
+    return scope.size() >= rhs_scope.size()
+      && std::equal(rhs_scope.begin(), rhs_scope.end(), scope.begin());
   }
 } FunctionBase;
 
@@ -57,6 +62,9 @@ typedef struct MemberFunctionInfo {
     );
   }
 
+  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
+    return base.InScopeOf(rhs_scope);
+  }
 } MemberFunctionInfo;
 
 /**
@@ -71,5 +79,9 @@ typedef struct FunctionInfo {
   bool operator== (const FunctionInfo &rhs) const noexcept {
     return (base == rhs.base
     );
+  }
+
+  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
+    return base.InScopeOf(rhs_scope);
   }
 } FunctionInfo;

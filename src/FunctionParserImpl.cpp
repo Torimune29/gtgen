@@ -104,8 +104,8 @@ std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) con
     function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
     // static
     function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
-    // scopes
-    function_info.base.scopes = GetFullName(func.parent().value());
+    // scope
+    function_info.base.scope = GetScopes(func.parent().value());
 
     infos.push_back(function_info);
   }
@@ -161,12 +161,12 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
           // base classes
           function_info.base_classes = base_classes;
-          // scopes
-          function_info.base.scopes = GetFullName(func.parent().value());
-          if (function_info.base.scopes.empty())
-            function_info.base.scopes = class_name;
+          // scope
+          function_info.base.scope = GetScopes(func.parent().value());
+          if (function_info.base.scope.empty())
+            function_info.base.scope = std::vector<std::string>({class_name});
           else
-            function_info.base.scopes += "::" + class_name;
+            function_info.base.scope.push_back(class_name);
 
           infos.push_back(function_info);
 

@@ -25,7 +25,7 @@ jsoncons::ojson SetFunctionBase(const FunctionBase &base) {
     {"functionName", base.name},
     {"signature", base.signature},
     {"parameters", base.parameters},
-    {"scopes", base.scopes},
+    {"scope", base.scope},
     {"returnType", base.return_type},
     {"noexcept", base.is_noexcept},
     {"constexpr", base.is_constexpr},
