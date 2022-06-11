@@ -91,6 +91,8 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
           body += base_class_list.substr(0, base_class_list.size() - 2);
         }
         body += " {\n";
+        if (!it.mock_function_declaration.empty())
+          body += " public:\n";
         break;
       }
       default: {

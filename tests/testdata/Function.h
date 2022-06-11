@@ -28,3 +28,8 @@ namespace ns {
 // }
 /// ns::m namespace_type_return();
 ns::m namespace_type_return();
+
+
+/// function template
+template<typename T, typename U, int I>
+void t1(T val1, U *val2, int i = I) {}
