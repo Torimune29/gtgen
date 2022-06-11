@@ -8,7 +8,7 @@ var struct_scope_info =
     ] ],
     [ "operator==", "struct_scope_info.html#a286b0a8f605eaefaa12d8cd53fd67f6e", null ],
     [ "children", "struct_scope_info.html#a3704af78e6b8cab0d20950a5ea4e5a98", null ],
-    [ "full_name", "struct_scope_info.html#a14c2e603332691d7cebbb880712ff0cb", null ],
+    [ "full_scope", "struct_scope_info.html#a4dd8b0cb2918bc5b3be0dd95574ebd14", null ],
     [ "kind", "struct_scope_info.html#a618b916a73ef3d9284edd3adbea4c3a4", null ],
     [ "name", "struct_scope_info.html#a93f3c9351f9fc0ef7a598b5fd7008a2e", null ]
 ];
