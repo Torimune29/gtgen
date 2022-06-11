@@ -109,11 +109,8 @@ std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) con
     function_info.is_extern = (func.storage_class() == cppast::cpp_storage_class_extern);
     // static
     function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
-    // namespace (cut classname and :: for class full name). like foo::foo or ns::foo
-    auto full_name = GetFullName(func.parent().value());
-    size_t c = 0;
-    if ((c = full_name.find_last_of("::")) == (full_name.size() - 2)) full_name.erase(c, full_name.size());
-    function_info.base.namespace_name = full_name;
+    // namespace
+    function_info.base.namespace_name = GetFullName(func.parent().value());
 
     infos.push_back(function_info);
   }
@@ -163,16 +160,8 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           function_info.is_polymorphic = func.virtual_info() != type_safe::nullopt;
           // base classes
           function_info.base_classes = base_classes;
-          // namespace (cut classname and :: for class full name). like foo::foo or ns::foo
-          auto full_name = GetFullName(func.parent().value());
-          size_t c = 0;
-          while((c = full_name.find_first_of(class_name)) != std::string::npos) full_name.erase(c, class_name.size());
-          for (const auto &it : base_classes)
-            while((c = full_name.find_first_of(it)) != std::string::npos) full_name.erase(c, it.size());
-          // if ((c = full_name.find_last_of("::")) == (full_name.size() - 2)) full_name.erase(c, full_name.size());
-          if (full_name.size() >= 2 && full_name.substr(full_name.size() - 2, full_name.size()) == "::")
-            full_name = full_name.substr(0, full_name.size() - 2);
-          function_info.base.namespace_name = full_name;
+          // namespace
+          function_info.base.namespace_name = GetFullName(func.parent().value());
 
           infos.push_back(function_info);
           break;
