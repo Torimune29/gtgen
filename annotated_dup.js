@@ -12,5 +12,8 @@ var annotated_dup =
     [ "FunctionParserImpl", "class_function_parser_impl.html", "class_function_parser_impl" ],
     [ "GoogleMockHarness", "class_google_mock_harness.html", "class_google_mock_harness" ],
     [ "MemberFunctionInfo", "struct_member_function_info.html", "struct_member_function_info" ],
+    [ "ScopeInfo", "struct_scope_info.html", "struct_scope_info" ],
+    [ "ScopeRelationParser", "class_scope_relation_parser.html", "class_scope_relation_parser" ],
+    [ "ScopeRelationParserImpl", "class_scope_relation_parser_impl.html", "class_scope_relation_parser_impl" ],
     [ "TestTargetViewerHarness", "class_test_target_viewer_harness.html", "class_test_target_viewer_harness" ]
 ];

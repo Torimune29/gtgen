@@ -2,9 +2,11 @@ var hierarchy =
 [
     [ "AbstractCodeParser", "class_abstract_code_parser.html", [
       [ "CodeParserCppAst", "class_code_parser_cpp_ast.html", [
-        [ "FunctionParserImpl", "class_function_parser_impl.html", null ]
+        [ "FunctionParserImpl", "class_function_parser_impl.html", null ],
+        [ "ScopeRelationParserImpl", "class_scope_relation_parser_impl.html", null ]
       ] ],
-      [ "FunctionParser", "class_function_parser.html", null ]
+      [ "FunctionParser", "class_function_parser.html", null ],
+      [ "ScopeRelationParser", "class_scope_relation_parser.html", null ]
     ] ],
     [ "AbstractTestHarness< T >", "class_abstract_test_harness.html", null ],
     [ "AbstractTestHarness< FunctionParser >", "class_abstract_test_harness.html", [
@@ -16,5 +18,6 @@ var hierarchy =
     ] ],
     [ "FunctionInfo", "struct_function_info.html", null ],
     [ "FunctionInfoBase", "struct_function_info_base.html", null ],
-    [ "MemberFunctionInfo", "struct_member_function_info.html", null ]
+    [ "MemberFunctionInfo", "struct_member_function_info.html", null ],
+    [ "ScopeInfo", "struct_scope_info.html", null ]
 ];
