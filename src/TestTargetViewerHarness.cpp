@@ -18,6 +18,28 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
   scope_relations["children"] = children;
   return scope_relations;
 }
+
+
+jsoncons::ojson SetFunctionBase(const FunctionBase &base) {
+  return jsoncons::ojson(jsoncons::json_object_arg, {
+    {"functionName", base.name},
+    {"signature", base.signature},
+    {"parameters", base.parameters},
+    {"scopes", base.scopes},
+    {"returnType", base.return_type},
+    {"noexcept", base.is_noexcept},
+    {"constexpr", base.is_constexpr},
+    {"consteval", base.is_consteval},
+    {"deleted", base.is_deleted},
+  });
+}
+
+void PrettyPrint(const jsoncons::ojson &json) {
+  jsoncons::json_options options;
+  options.escape_all_non_ascii(true);
+  json.dump_pretty(std::cout, options);
+}
+
 }  // namespace
 
 
@@ -30,15 +52,7 @@ bool TestTargetFunctionViewerHarness::Ready() noexcept {
     auto v_func = p_parser_->GetFunction();
     for (const auto &it : v_func) {
       jsoncons::ojson each_functions(jsoncons::json_object_arg, {
-                                                                   {"functionName", it.base.name},
-                                                                   {"signature", it.base.signature},
-                                                                   {"parameterNum", it.base.parameters.size()},
-                                                                   {"scopes", it.base.scopes},
-                                                                   {"returnType", it.base.return_type},
-                                                                   {"noexcept", it.base.is_noexcept},
-                                                                   {"constexpr", it.base.is_constexpr},
-                                                                   {"consteval", it.base.is_consteval},
-                                                                   {"deleted", it.base.is_deleted},
+                                                                   {"base", SetFunctionBase(it.base)},
                                                                    {"extern", it.is_extern},
                                                                    {"static", it.is_static},
                                                                });
@@ -48,15 +62,7 @@ bool TestTargetFunctionViewerHarness::Ready() noexcept {
     for (const auto &it : v_member_func) {
       jsoncons::ojson each_functions(jsoncons::json_object_arg,
                                     {
-                                        {"functionName", it.base.name},
-                                        {"signature", it.base.signature},
-                                        {"parameterNum", it.base.parameters.size()},
-                                        {"scopes", it.base.scopes},
-                                        {"returnType", it.base.return_type},
-                                        {"noexcept", it.base.is_noexcept},
-                                        {"constexpr", it.base.is_constexpr},
-                                        {"consteval", it.base.is_consteval},
-                                        {"deleted", it.base.is_deleted},
+                                        {"base", SetFunctionBase(it.base)},
                                         {"className", it.class_name},
                                         {"accessSpecifier", static_cast<int>(it.access_specifier)},
                                         {"constMemberFunction", it.is_const},
@@ -68,7 +74,7 @@ bool TestTargetFunctionViewerHarness::Ready() noexcept {
     }
     result["function"] = std::move(functions);
     result["memberFunction"] = std::move(member_functions);
-    std::cout << jsoncons::pretty_print(result) << std::endl;
+    PrettyPrint(result);
   }
   return okay;
 }
@@ -84,7 +90,7 @@ bool TestTargetScopeRelationViewerHarness::Ready() noexcept {
       scopes.push_back(SetScopesRecursively(it));
     }
     result["scopeRelations"] = std::move(scopes);
-    std::cout << jsoncons::pretty_print(result) << std::endl;
+    PrettyPrint(result);
   }
   return okay;
 }
