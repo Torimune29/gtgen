@@ -9,7 +9,7 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
   jsoncons::ojson scope_relations(jsoncons::json_object_arg, {
                                                                {"name", info.name},
                                                                {"kind", static_cast<int>(info.kind)},
-                                                               {"fullName", info.full_scope},
+                                                               {"fullScope", info.full_scope},
                                                            });
   jsoncons::ojson children(jsoncons::json_array_arg);
   for (const auto &it : info.children) {

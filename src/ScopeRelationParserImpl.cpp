@@ -72,7 +72,9 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseNamespaceScopeRelation(cons
     // kind
     info.kind = namespace_e.is_anonymous() ? ScopeInfo::Kind::kAnonymousNamespace : ScopeInfo::Kind::kNamespace;
     // full name
-    info.full_name = GetFullName(namespace_e);
+    auto full_scope = GetScopes(namespace_e);
+    if (!full_scope.empty())
+      info.full_scope = full_scope;
     // children
     for (auto &child : namespace_e) {
       auto info_parsed = ParseScopeRelation(child);
@@ -89,8 +91,10 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T 
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     // scoped or global class check
-    if (expect_global && !GetFullName(class_e).empty())
+    if (expect_global && !GetFullName(class_e).empty()) {
+      Log("Scope Global Class skip:", class_e.name(), cppast::severity::debug);
       return {};
+    }
     ScopeInfo info;
     // name
     info.name = class_e.name();
@@ -98,9 +102,13 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T 
     info.kind = ScopeInfo::Kind::kClass;
     // full name
     if (expect_global) {
-      info.full_name = class_e.name();
+      info.full_scope = std::vector<std::string>({class_e.name()});
     } else {
-      info.full_name = GetFullName(class_e) + "::" + class_e.name();
+      auto full_scope = GetScopes(class_e);
+      if (!full_scope.empty())
+        info.full_scope = full_scope;
+      if (!class_e.name().empty()) info.full_scope.push_back(class_e.name());
+      Log("Scope Class name:", class_e.name(), cppast::severity::debug);
     }
     // children. According to C++ standard, namespace as class children is not be able to exist.
     for (auto &child : class_e) {
