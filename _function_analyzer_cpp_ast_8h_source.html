@@ -103,21 +103,19 @@ $(document).ready(function(){initNavTree('_function_analyzer_cpp_ast_8h_source.h
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_function_analyzer_cpp_ast.html">FunctionAnalyzerCppAst</a>(std::shared_ptr&lt;CodeParserCppAst&gt; p_parser);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  ~<a class="code" href="class_function_analyzer_cpp_ast.html">FunctionAnalyzerCppAst</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  std::vector&lt;std::shared_ptr&lt;FunctionAttributeInterface&gt;&gt; GetFunctions() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::vector&lt;ScopeInfo&gt; GetScopes() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  std::shared_ptr&lt;CodeParserCppAst&gt; p_parser_;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::vector&lt;std::shared_ptr&lt;FunctionAttributeInterface&gt;&gt; Get() noexcept;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  std::vector&lt;FunctionInfo&gt; GetFunction() noexcept;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  std::vector&lt;MemberFunctionInfo&gt; GetMemberFunction() noexcept;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  std::vector&lt;std::shared_ptr&lt;FunctionAttributeInterface&gt;&gt; GetFunctions() noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  std::shared_ptr&lt;CodeParserCppAst&gt; p_parser_;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  std::vector&lt;FunctionInfo&gt; GetFunction() noexcept;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::vector&lt;MemberFunctionInfo&gt; GetMemberFunction() noexcept;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  std::vector&lt;FunctionInfo&gt; ParseFunction(<span class="keyword">const</span> T &amp;entity) <span class="keyword">const</span> noexcept;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  std::vector&lt;FunctionInfo&gt; ParseFunction(<span class="keyword">const</span> T &amp;entity) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  std::vector&lt;MemberFunctionInfo&gt; ParseMemberFunction(<span class="keyword">const</span> T &amp;entity) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  std::vector&lt;MemberFunctionInfo&gt; ParseMemberFunction(<span class="keyword">const</span> T &amp;entity) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="ttc" id="aclass_code_analyzer_interface_html"><div class="ttname"><a href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> CodeAnalyzerInterface.h:13</div></div>
 <div class="ttc" id="aclass_function_analyzer_cpp_ast_html"><div class="ttname"><a href="class_function_analyzer_cpp_ast.html">FunctionAnalyzerCppAst</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> FunctionAnalyzerCppAst.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -100,7 +100,7 @@ Inheritance diagram for ScopeRelationAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scope_relation_analyzer_cpp_ast__inherit__graph.png" border="0" usemap="#a_scope_relation_analyzer_cpp_ast_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_scope_relation_analyzer_cpp_ast_inherit__map" id="a_scope_relation_analyzer_cpp_ast_inherit__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,175,351,325"/>
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,175,351,311"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,127"/>
 <area shape="rect" title=" " alt="" coords="237,20,506,112"/>
 </map>
@@ -110,7 +110,7 @@ Collaboration diagram for ScopeRelationAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scope_relation_analyzer_cpp_ast__coll__graph.png" border="0" usemap="#a_scope_relation_analyzer_cpp_ast_coll__map" alt="Collaboration graph"/></div>
 <map name="a_scope_relation_analyzer_cpp_ast_coll__map" id="a_scope_relation_analyzer_cpp_ast_coll__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,175,351,325"/>
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,175,351,311"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,127"/>
 <area shape="rect" title=" " alt="" coords="237,20,506,112"/>
 </map>
@@ -121,12 +121,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16a4b8eaf762774f4fab982e1ae275e0"><td class="memItemLeft" align="right" valign="top"><a id="a16a4b8eaf762774f4fab982e1ae275e0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ScopeRelationAnalyzerCppAst</b> (std::shared_ptr&lt; <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> &gt; p_parser)</td></tr>
 <tr class="separator:a16a4b8eaf762774f4fab982e1ae275e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb179870e758b433d235b127e1a8680f"><td class="memItemLeft" align="right" valign="top"><a id="abb179870e758b433d235b127e1a8680f"></a>
-std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunctions</b> () override</td></tr>
-<tr class="separator:abb179870e758b433d235b127e1a8680f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1de5c65890a7c8f7393667745f797817"><td class="memItemLeft" align="right" valign="top"><a id="a1de5c65890a7c8f7393667745f797817"></a>
-std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> () override</td></tr>
-<tr class="separator:a1de5c65890a7c8f7393667745f797817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce00f4194efad90dd3d8ae8a9a34c2b"><td class="memItemLeft" align="right" valign="top"><a id="abce00f4194efad90dd3d8ae8a9a34c2b"></a>
+std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> () noexcept override</td></tr>
+<tr class="separator:abce00f4194efad90dd3d8ae8a9a34c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_code_analyzer_interface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_code_analyzer_interface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a></td></tr>
+<tr class="memitem:ac9e4fdf6749c106c2f03dc3c0d1b90c7 inherit pub_methods_class_code_analyzer_interface"><td class="memItemLeft" align="right" valign="top"><a id="ac9e4fdf6749c106c2f03dc3c0d1b90c7"></a>
+virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunctions</b> () noexcept</td></tr>
+<tr class="separator:ac9e4fdf6749c106c2f03dc3c0d1b90c7 inherit pub_methods_class_code_analyzer_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Code ParserCppAst Class. </p>

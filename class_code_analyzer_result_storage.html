@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('class_code_analyzer_result_storage.htm
 <p>Abstract Code Parser Class.  
  <a href="class_code_analyzer_result_storage.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_code_analyzer_interface_8h_source.html">CodeAnalyzerInterface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_code_analyzer_result_storage_8h_source.html">CodeAnalyzerResultStorage.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CodeAnalyzerResultStorage:</div>
 <div class="dyncontent">
@@ -116,12 +116,12 @@ Collaboration diagram for CodeAnalyzerResultStorage:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a62c0137ec29a80591d2ca7c428c5317a"><td class="memItemLeft" align="right" valign="top"><a id="a62c0137ec29a80591d2ca7c428c5317a"></a>
-std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunctions</b> () override</td></tr>
-<tr class="separator:a62c0137ec29a80591d2ca7c428c5317a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bea3128ac46426e332181bda62e9ec8"><td class="memItemLeft" align="right" valign="top"><a id="a2bea3128ac46426e332181bda62e9ec8"></a>
-std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> () override</td></tr>
-<tr class="separator:a2bea3128ac46426e332181bda62e9ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3ebaae1f357b1f73a02ee08611f3a50"><td class="memItemLeft" align="right" valign="top"><a id="af3ebaae1f357b1f73a02ee08611f3a50"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunctions</b> () noexcept override</td></tr>
+<tr class="separator:af3ebaae1f357b1f73a02ee08611f3a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d5c411fd9b7b21d4f3c09688aac07d"><td class="memItemLeft" align="right" valign="top"><a id="af9d5c411fd9b7b21d4f3c09688aac07d"></a>
+std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> () noexcept override</td></tr>
+<tr class="separator:af9d5c411fd9b7b21d4f3c09688aac07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a540d650b8aaa2be07b2be734b24de534"><td class="memItemLeft" align="right" valign="top"><a id="a540d650b8aaa2be07b2be734b24de534"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddAnalyzer</b> (std::shared_ptr&lt; <a class="el" href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a> &gt; p_if)</td></tr>
 <tr class="separator:a540d650b8aaa2be07b2be734b24de534"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,7 +129,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>AddAnalyzer</b> (std:
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Code Parser Class. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="_code_analyzer_interface_8h_source.html">CodeAnalyzerInterface.h</a></li>
+<li>src/<a class="el" href="_code_analyzer_result_storage_8h_source.html">CodeAnalyzerResultStorage.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
