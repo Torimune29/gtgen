@@ -44,7 +44,7 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
   auto v = parser .Get();
   std::vector<FunctionInfo> v_function;
   for (const auto &it : v) {
-    if (it->IsClassMember())
+    if (!it->IsClassMember())
       v_function.push_back(static_cast<NamespaceFunctionAttribute *>(it.get())->GetAttribute());
   }
 
