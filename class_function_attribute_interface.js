@@ -4,6 +4,7 @@ var class_function_attribute_interface =
     [ "~FunctionAttributeInterface", "class_function_attribute_interface.html#aeae1967d7da542d86ff519cca1580a1f", null ],
     [ "AccessSpecifier", "class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4", null ],
     [ "BaseClasses", "class_function_attribute_interface.html#a05895275ee325f3bb3963a2e78a88d53", null ],
+    [ "ConstantExpression", "class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5", null ],
     [ "CvQualifier", "class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193", null ],
     [ "DefinitionSuffix", "class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe", null ],
     [ "ExceptionSuffix", "class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df", null ],

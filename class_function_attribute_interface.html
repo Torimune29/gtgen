@@ -96,9 +96,9 @@ Inheritance diagram for FunctionAttributeInterface:</div>
 <div class="center"><img src="class_function_attribute_interface__inherit__graph.png" border="0" usemap="#a_function_attribute_interface_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_function_attribute_interface_inherit__map" id="a_function_attribute_interface_inherit__map">
 <area shape="rect" title=" " alt="" coords="133,5,361,229"/>
-<area shape="rect" href="class_function_attribute_base.html" title=" " alt="" coords="145,277,348,516"/>
-<area shape="rect" href="class_member_function_attribute.html" title=" " alt="" coords="5,564,229,759"/>
-<area shape="rect" href="class_namespace_function_attribute.html" title=" " alt="" coords="253,564,499,759"/>
+<area shape="rect" href="class_function_attribute_base.html" title=" " alt="" coords="145,277,348,531"/>
+<area shape="rect" href="class_member_function_attribute.html" title=" " alt="" coords="5,579,229,773"/>
+<area shape="rect" href="class_namespace_function_attribute.html" title=" " alt="" coords="253,579,499,773"/>
 </map>
 </div>
 <div class="dynheader">
@@ -121,6 +121,9 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b
 <tr class="memitem:acbce2dd221f95f6d5547d81930a0a708"><td class="memItemLeft" align="right" valign="top"><a id="acbce2dd221f95f6d5547d81930a0a708"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>InScopeOf</b> (const <a class="el" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) const noexcept=0</td></tr>
 <tr class="separator:acbce2dd221f95f6d5547d81930a0a708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dddd0de5da72498fa20405562d45fa5"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">ConstantExpression</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a8dddd0de5da72498fa20405562d45fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant expression.  <a href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">More...</a><br /></td></tr>
+<tr class="separator:a8dddd0de5da72498fa20405562d45fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd25a185211ec024dde1bd2e7c77fbe"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">DefinitionSuffix</a> () const noexcept=0</td></tr>
 <tr class="memdesc:a2cd25a185211ec024dde1bd2e7c77fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition suffix.  <a href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">More...</a><br /></td></tr>
 <tr class="separator:a2cd25a185211ec024dde1bd2e7c77fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,6 +192,36 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Storag
 <dl class="section return"><dt>Returns</dt><dd>std::string "public" "private" "protected" or "" </dd></dl>
 
 <p>Implemented in <a class="el" href="class_namespace_function_attribute.html#aec88ddf84ec32760fabcaec638560814">NamespaceFunctionAttribute</a>, and <a class="el" href="class_member_function_attribute.html#ab8a10e3ed674c8e172023a1b0f39e3fe">MemberFunctionAttribute</a>.</p>
+
+</div>
+</div>
+<a id="a8dddd0de5da72498fa20405562d45fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dddd0de5da72498fa20405562d45fa5">&#9670;&nbsp;</a></span>ConstantExpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string FunctionAttributeInterface::ConstantExpression </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constant expression. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::string "constexpr" "consteval" or "" </dd></dl>
+
+<p>Implemented in <a class="el" href="class_function_attribute_base.html#a6c492e98c8e0c8dfd563f2e08206c716">FunctionAttributeBase</a>.</p>
 
 </div>
 </div>

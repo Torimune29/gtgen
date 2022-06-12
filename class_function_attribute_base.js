@@ -2,6 +2,7 @@ var class_function_attribute_base =
 [
     [ "~FunctionAttributeBase", "class_function_attribute_base.html#add58b3f8793ec9eb44463fb4d7ad9115", null ],
     [ "FunctionAttributeBase", "class_function_attribute_base.html#a8cdb9b7ebb4a4e52f7b93c79e99106de", null ],
+    [ "ConstantExpression", "class_function_attribute_base.html#a6c492e98c8e0c8dfd563f2e08206c716", null ],
     [ "DefinitionSuffix", "class_function_attribute_base.html#a2c32b65bf30cf24a90d8d0a43a6dee3d", null ],
     [ "ExceptionSuffix", "class_function_attribute_base.html#aa43477934bd6d1b9f8077bb5d9c36183", null ],
     [ "InScopeOf", "class_function_attribute_base.html#a67bace6dc7008def13195f5599bf56fe", null ],
