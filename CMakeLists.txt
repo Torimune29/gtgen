@@ -43,6 +43,8 @@ set(SOURCES          # All .cpp files in src/
     src/GoogleMockHarness.cpp
     src/TestTargetViewerHarness.cpp
     src/FunctionInfo.cpp
+    src/FunctionAnalyzerCppAst.cpp
+    src/gtgen.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp

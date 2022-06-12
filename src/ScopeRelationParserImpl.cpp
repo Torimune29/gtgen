@@ -15,7 +15,7 @@ cppast::detail::visitor_filter_t ScopeRelationWhiteList() {
 
 ScopeRelationParserImpl::ScopeRelationParserImpl(const std::vector<std::string> &file_paths,
                                        const std::string &compile_database_path, bool verbose)
-    : CodeParserCppAst(std::move(file_paths), ScopeRelationWhiteList(), std::move(compile_database_path), verbose) {}
+    : CodeParserCppAst(std::move(file_paths), std::move(compile_database_path), verbose) {}
 
 ScopeRelationParserImpl::~ScopeRelationParserImpl() = default;
 
@@ -24,7 +24,7 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::Get() noexcept {
 
   std::vector<ScopeInfo> infos;
   for (const auto &file : p_parser_->files()) {
-    cppast::visit(file, filter_, [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
+    cppast::visit(file, ScopeRelationWhiteList(), [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
       std::vector<ScopeInfo> infos_parsed;

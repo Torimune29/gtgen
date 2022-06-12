@@ -32,9 +32,9 @@ struct NoneLogger : diagnostic_logger {
 const char kSettingsNameCompileDatabase[] = "compile_database_path";
 const char kSettingsVerbose[] = "verbose";
 
-CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, const FilterType &filter,
+CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths,
                                    const std::string &compile_database_path, bool verbose)
-    : AbstractCodeParser(std::move(file_paths)), filter_(filter), ready_(false) {
+    : AbstractCodeParser(std::move(file_paths)), ready_(false) {
   settings_.insert({kSettingsNameCompileDatabase, compile_database_path});
   settings_.insert({kSettingsVerbose, (verbose ? "true" : "false")});
   if (verbose) {
@@ -60,7 +60,13 @@ bool CodeParserCppAst::Ready() noexcept {
   return ready_;
 }
 
-std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) const noexcept {
+
+const cppast::simple_file_parser<cppast::libclang_parser> & CodeParserCppAst::GetParserRef() noexcept {
+  return (*p_parser_);
+}
+
+
+std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) noexcept {
   std::string full_name;
   auto scopes = GetScopes(e);
   if (scopes.empty()) return "";
@@ -70,7 +76,7 @@ std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) const noe
   return full_name.substr(0, full_name.size() - 2);
 }
 
-std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e) const noexcept {
+std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e) noexcept {
   if (e.name().empty()) {
     return {};
   }
@@ -90,7 +96,6 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
           return;
       }
       if (!cur_scope.name().empty()) {
-        Log("GetScopes Add:", cur_scope.name(), cppast::severity::debug);
         scopes.push_front(cur_scope.name());
       }
     });

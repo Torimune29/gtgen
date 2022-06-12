@@ -1,4 +1,5 @@
 #include "GoogleMockHarness.h"
+#include "CodeAnalyzerInterface.h"
 #include <algorithm>
 #include <iostream>
 

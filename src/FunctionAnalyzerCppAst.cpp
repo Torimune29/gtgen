@@ -1,4 +1,4 @@
-#include "FunctionParserImpl.h"
+#include "FunctionAnalyzerCppAst.h"
 
 #include <algorithm>
 #include <cppast/cpp_class.hpp>
@@ -55,14 +55,25 @@ FunctionBase GetBase(const T &func) {
 
 }  // namespace
 
-FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_paths,
-                                       const std::string &compile_database_path, bool verbose)
-    : CodeParserCppAst(std::move(file_paths), std::move(compile_database_path), verbose) {}
+FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
+    : p_parser_(p_parser) {
+}
 
-FunctionParserImpl::~FunctionParserImpl() = default;
+FunctionAnalyzerCppAst::~FunctionAnalyzerCppAst() = default;
 
 
-std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionParserImpl::Get() noexcept {
+std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::GetFunctions() {
+  auto &ref = p_parser_->GetParserRef();
+  ref.index();
+  return {};
+}
+
+std::vector<ScopeInfo> FunctionAnalyzerCppAst::GetScopes() {
+  return {};
+}
+
+
+std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::Get() noexcept {
   auto functions = GetFunction();
   auto member_functions = GetMemberFunction();
   std::vector<std::shared_ptr<FunctionAttributeInterface>> v;
@@ -75,11 +86,9 @@ std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionParserImpl::Get
   return v;
 }
 
-std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
-  if (!ready_) return {};
-
+std::vector<FunctionInfo> FunctionAnalyzerCppAst::GetFunction() noexcept {
   std::vector<FunctionInfo> infos;
-  for (const auto &file : p_parser_->files()) {
+  for (const auto &file : p_parser_->GetParserRef().files()) {
     cppast::visit(file, FunctionWhiteList(), [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
@@ -91,11 +100,9 @@ std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
   return infos;
 }
 
-std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept {
-  if (!ready_) return {};
-
+std::vector<MemberFunctionInfo> FunctionAnalyzerCppAst::GetMemberFunction() noexcept {
   std::vector<MemberFunctionInfo> infos;
-  for (const auto &file : p_parser_->files()) {
+  for (const auto &file : p_parser_->GetParserRef().files()) {
     cppast::visit(file, FunctionWhiteList(), [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       auto infos_parsed = ParseMemberFunction(e);
@@ -107,7 +114,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::GetMemberFunction() noexcept
 }
 
 template <typename T>
-std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) const noexcept {
+std::vector<FunctionInfo> FunctionAnalyzerCppAst::ParseFunction(const T &entity) const noexcept {
   std::vector<FunctionInfo> infos;
   if (entity.kind() == cppast::cpp_function::kind()) {
     const auto &func = reinterpret_cast<const cppast::cpp_function &>(entity);
@@ -119,7 +126,7 @@ std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) con
     // static
     function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
     // scope
-    function_info.base.scope = GetScopes(func.parent().value());
+    function_info.base.scope = p_parser_->GetScopes(func.parent().value());
     NamespaceFunctionAttribute fu(function_info);
     infos.push_back(function_info);
   }
@@ -127,13 +134,13 @@ std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) con
 }
 
 template <typename T>
-std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T &entity) const noexcept {
+std::vector<MemberFunctionInfo> FunctionAnalyzerCppAst::ParseMemberFunction(const T &entity) const noexcept {
   std::vector<MemberFunctionInfo> infos;
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     const auto class_name = class_e.name();
 
-    Log("MemberFunction Class in:", class_name, cppast::severity::debug);
+    p_parser_->Log("MemberFunction Class in:", class_name, cppast::severity::debug);
 
     auto access_specifier =
         (class_e.class_kind() == cppast::cpp_class_kind::class_t ? cppast::cpp_private : cppast::cpp_public);
@@ -151,7 +158,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
         case cppast::cpp_entity_kind::member_function_t: {
           const auto &func = reinterpret_cast<const cppast::cpp_member_function &>(child);
 
-          Log("MemberFunction Function in:", func.name(), cppast::severity::debug);
+          p_parser_->Log("MemberFunction Function in:", func.name(), cppast::severity::debug);
 
           MemberFunctionInfo function_info = {};
           // function base
@@ -176,7 +183,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
           // base classes
           function_info.base_classes = base_classes;
           // scope
-          function_info.base.scope = GetScopes(func.parent().value());
+          function_info.base.scope = p_parser_->GetScopes(func.parent().value());
           if (function_info.base.scope.empty())
             function_info.base.scope = std::vector<std::string>({class_name});
           else
@@ -184,7 +191,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
 
           infos.push_back(function_info);
 
-          Log("MemberFunction Function out:", func.name(), cppast::severity::debug);
+          p_parser_->Log("MemberFunction Function out:", func.name(), cppast::severity::debug);
 
           break;
         }
@@ -194,7 +201,7 @@ std::vector<MemberFunctionInfo> FunctionParserImpl::ParseMemberFunction(const T 
       }
     }
 
-    Log("MemberFunction Class out:", class_name, cppast::severity::debug);
+    p_parser_->Log("MemberFunction Class out:", class_name, cppast::severity::debug);
   }
   return infos;
 }
