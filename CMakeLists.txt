@@ -35,15 +35,12 @@ find_lto(CXX)
 set(SOURCES          # All .cpp files in src/
     src/AbstractCodeParser.cpp
     src/CodeParserCppAst.cpp
-    src/FunctionParserImpl.cpp
-    src/FunctionParser.cpp
-    src/ScopeRelationParser.cpp
-    src/ScopeRelationParserImpl.cpp
     src/AbstractTestHarness.cpp
     src/GoogleMockHarness.cpp
     src/TestTargetViewerHarness.cpp
     src/FunctionInfo.cpp
     src/FunctionAnalyzerCppAst.cpp
+    src/ScopeRelationAnalyzerCppAst.cpp
     src/gtgen.cpp
 )
 set(TESTFILES        # All .cpp files in tests/

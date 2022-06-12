@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "ScopeRelationParser.h"
+#include "ScopeInfo.h"
+#include "gtgen.h"
 
 // Tests that don't naturally fit in the headers/.cpp files directly
 // can be placed in a tests/*.cpp file. Integration tests are a good example.
@@ -13,10 +14,9 @@ TEST(ScopeRelationParserTest, ValidateScopeInfo) {
       kSourceTreePath + "tests/testdata/Scope.h",
   };
   std::string compile_database = "./";
-  ScopeRelationParser parser(paths, compile_database, true);
+  auto parser = gtgen::CreateAnalyzer(paths, compile_database, true);
 
-  EXPECT_TRUE(parser.Ready());
-  auto result = parser.Get();
+  auto result = parser->GetScopes();
   EXPECT_EQ(result.size(), 2);
   for (const auto &it : result) {
     SCOPED_TRACE(::testing::Message() << it.name);

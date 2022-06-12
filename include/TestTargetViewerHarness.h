@@ -5,8 +5,7 @@
 #include <unordered_map>
 #include <memory>
 #include "AbstractTestHarness.h"
-#include "FunctionParser.h"
-#include "ScopeRelationParser.h"
+#include "CodeAnalyzerInterface.h"
 
 /**
  * @brief  Code Parser Class
@@ -14,13 +13,13 @@
  */
 class TestTargetFunctionViewerHarness : public AbstractTestHarness {
  public:
-  TestTargetFunctionViewerHarness(std::shared_ptr<FunctionParser> p_parser)
+  TestTargetFunctionViewerHarness(std::shared_ptr<CodeAnalyzerInterface> p_analyzer)
     : AbstractTestHarness("")
-    , p_parser_(p_parser) {}
+    , p_analyzer_(p_analyzer) {}
   ~TestTargetFunctionViewerHarness() override = default;
   bool Ready() noexcept final;
  private:
-  std::shared_ptr<FunctionParser> p_parser_;
+  std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
 
 };
 
@@ -30,12 +29,12 @@ class TestTargetFunctionViewerHarness : public AbstractTestHarness {
  */
 class TestTargetScopeRelationViewerHarness : public AbstractTestHarness {
  public:
-  TestTargetScopeRelationViewerHarness(std::shared_ptr<ScopeRelationParser> p_parser)
+  TestTargetScopeRelationViewerHarness(std::shared_ptr<CodeAnalyzerInterface> p_analyzer)
     : AbstractTestHarness("")
-    , p_parser_(p_parser) {}
+    , p_analyzer_(p_analyzer) {}
   ~TestTargetScopeRelationViewerHarness() override = default;
   bool Ready() noexcept final;
  private:
-  std::shared_ptr<ScopeRelationParser> p_parser_;
+  std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
 
 };

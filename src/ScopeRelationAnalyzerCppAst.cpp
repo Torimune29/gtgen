@@ -1,4 +1,4 @@
-#include "ScopeRelationParserImpl.h"
+#include "ScopeRelationAnalyzerCppAst.h"
 
 #include <algorithm>
 #include <cppast/cpp_class.hpp>
@@ -13,29 +13,38 @@ cppast::detail::visitor_filter_t ScopeRelationWhiteList() {
 
 }  // namespace
 
-ScopeRelationParserImpl::ScopeRelationParserImpl(const std::vector<std::string> &file_paths,
-                                       const std::string &compile_database_path, bool verbose)
-    : CodeParserCppAst(std::move(file_paths), std::move(compile_database_path), verbose) {}
+ScopeRelationAnalyzerCppAst::ScopeRelationAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
+    : p_parser_(p_parser) {
+}
 
-ScopeRelationParserImpl::~ScopeRelationParserImpl() = default;
+ScopeRelationAnalyzerCppAst::~ScopeRelationAnalyzerCppAst() = default;
 
-std::vector<ScopeInfo> ScopeRelationParserImpl::Get() noexcept {
-  if (!ready_) return {};
 
+std::vector<std::shared_ptr<FunctionAttributeInterface>> ScopeRelationAnalyzerCppAst::GetFunctions() {
+  return {};
+}
+
+
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::GetScopes() {
+  return Get();
+}
+
+
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::Get() noexcept {
   std::vector<ScopeInfo> infos;
-  for (const auto &file : p_parser_->files()) {
+  for (const auto &file : p_parser_->GetParserRef().files()) {
     cppast::visit(file, ScopeRelationWhiteList(), [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
       if (info.event == cppast::visitor_info::container_entity_exit) return true;
       // type handling
       std::vector<ScopeInfo> infos_parsed;
       if (e.kind() == cppast::cpp_namespace::kind()) {
-        Log("Scope Global Namespace in:", e.name(), cppast::severity::debug);
+        p_parser_->Log("Scope Global Namespace in:", e.name(), cppast::severity::debug);
         infos_parsed = ParseNamespaceScopeRelation(e);
-        Log("Scope Global Namespace out:", e.name(), cppast::severity::debug);
+        p_parser_->Log("Scope Global Namespace out:", e.name(), cppast::severity::debug);
       } else if (e.kind() == cppast::cpp_class::kind()) {
-        Log("Scope Global Class in:", e.name(), cppast::severity::debug);
+        p_parser_->Log("Scope Global Class in:", e.name(), cppast::severity::debug);
         infos_parsed = ParseClassScopeRelation(e, true);
-        Log("Scope Global Class out:", e.name(), cppast::severity::debug);
+        p_parser_->Log("Scope Global Class out:", e.name(), cppast::severity::debug);
       }
       infos.insert(infos.end(), infos_parsed.begin(), infos_parsed.end());
       return true;
@@ -45,16 +54,16 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::Get() noexcept {
 }
 
 template <typename T>
-std::vector<ScopeInfo> ScopeRelationParserImpl::ParseScopeRelation(const T &entity) const noexcept {
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseScopeRelation(const T &entity) const noexcept {
   std::vector<ScopeInfo> infos, infos_parsed;
   if (entity.kind() == cppast::cpp_namespace::kind()) {
-    Log("Scope Namespace in:", entity.name(), cppast::severity::debug);
+    p_parser_->Log("Scope Namespace in:", entity.name(), cppast::severity::debug);
     infos_parsed = ParseNamespaceScopeRelation(entity);
-    Log("Scope Namespace out:", entity.name(), cppast::severity::debug);
+    p_parser_->Log("Scope Namespace out:", entity.name(), cppast::severity::debug);
   } else if (entity.kind() == cppast::cpp_class::kind()) {
-    Log("Scope Class in:", entity.name(), cppast::severity::debug);
+    p_parser_->Log("Scope Class in:", entity.name(), cppast::severity::debug);
     infos_parsed = ParseClassScopeRelation(entity, false);
-    Log("Scope Class out:", entity.name(), cppast::severity::debug);
+    p_parser_->Log("Scope Class out:", entity.name(), cppast::severity::debug);
   }
   infos.insert(infos.end(), infos_parsed.begin(), infos_parsed.end());
   return infos;
@@ -62,7 +71,7 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseScopeRelation(const T &enti
 
 
 template <typename T>
-std::vector<ScopeInfo> ScopeRelationParserImpl::ParseNamespaceScopeRelation(const T &entity) const noexcept {
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseNamespaceScopeRelation(const T &entity) const noexcept {
   std::vector<ScopeInfo> infos;
   if (entity.kind() == cppast::cpp_namespace::kind()) {
     const auto &namespace_e = reinterpret_cast<const cppast::cpp_namespace &>(entity);
@@ -72,7 +81,7 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseNamespaceScopeRelation(cons
     // kind
     info.kind = namespace_e.is_anonymous() ? ScopeInfo::Kind::kAnonymousNamespace : ScopeInfo::Kind::kNamespace;
     // full name
-    auto full_scope = GetScopes(namespace_e);
+    auto full_scope = p_parser_->GetScopes(namespace_e);
     if (!full_scope.empty())
       info.full_scope = full_scope;
     // children
@@ -86,13 +95,13 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseNamespaceScopeRelation(cons
 }
 
 template <typename T>
-std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T &entity, bool expect_global) const noexcept {
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseClassScopeRelation(const T &entity, bool expect_global) const noexcept {
   std::vector<ScopeInfo> infos;
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     // scoped or global class check
-    if (expect_global && !GetScopes(class_e).empty()) {
-      Log("Scope Global Class skip:", class_e.name(), cppast::severity::debug);
+    if (expect_global && !p_parser_->GetScopes(class_e).empty()) {
+      p_parser_->Log("Scope Global Class skip:", class_e.name(), cppast::severity::debug);
       return {};
     }
     ScopeInfo info;
@@ -104,7 +113,7 @@ std::vector<ScopeInfo> ScopeRelationParserImpl::ParseClassScopeRelation(const T 
     if (expect_global) {
       info.full_scope = std::vector<std::string>({class_e.name()});
     } else {
-      info.full_scope = GetScopes(class_e);
+      info.full_scope = p_parser_->GetScopes(class_e);
       if (!class_e.name().empty()) info.full_scope.push_back(class_e.name());
     }
     // children. According to C++ standard, namespace as class children is not be able to exist.

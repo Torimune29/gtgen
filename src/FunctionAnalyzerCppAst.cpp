@@ -63,9 +63,7 @@ FunctionAnalyzerCppAst::~FunctionAnalyzerCppAst() = default;
 
 
 std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::GetFunctions() {
-  auto &ref = p_parser_->GetParserRef();
-  ref.index();
-  return {};
+  return Get();
 }
 
 std::vector<ScopeInfo> FunctionAnalyzerCppAst::GetScopes() {

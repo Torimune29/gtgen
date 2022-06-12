@@ -6,8 +6,7 @@
 #include <vector>
 
 #include "AbstractTestHarness.h"
-#include "FunctionParser.h"
-#include "ScopeRelationParser.h"
+#include "CodeAnalyzerInterface.h"
 
 /**
  * @brief  Code Parser Class
@@ -28,17 +27,14 @@
  */
 class GoogleMockHarness : public AbstractTestHarness {
  public:
-  GoogleMockHarness(const std::string &name, std::shared_ptr<FunctionParser> p_function_parser,
-                    std::shared_ptr<ScopeRelationParser> p_scope_relation_parser, bool public_only = true)
+  GoogleMockHarness(const std::string &name, std::shared_ptr<CodeAnalyzerInterface> p_analyzer, bool public_only = true)
       : AbstractTestHarness(name),
         public_only_(public_only),
-        p_function_parser_(p_function_parser),
-        p_scope_relation_parser_(p_scope_relation_parser) {}
+        p_analyzer_(p_analyzer) {}
   ~GoogleMockHarness() override = default;
   bool Ready() noexcept final;
 
  private:
   bool public_only_;
-  std::shared_ptr<FunctionParser> p_function_parser_;
-  std::shared_ptr<ScopeRelationParser> p_scope_relation_parser_;
+  std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
 };

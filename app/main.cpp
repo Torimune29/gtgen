@@ -6,7 +6,8 @@
 #include <string>
 
 #include "CLI/CLI.hpp"
-#include "FunctionParser.h"
+#include "gtgen.h"
+#include "CodeAnalyzerInterface.h"
 #include "GoogleMockHarness.h"
 #include "TestTargetViewerHarness.h"
 #include "ProjectInformation.h"
@@ -26,18 +27,17 @@ int main(int argc, char *argv[]) {
   app.add_option("--mock-label", mock_label, "Mock Label for class. (--mock only)");
   CLI11_PARSE(app, argc, argv)
 
-  std::shared_ptr<FunctionParser> p_function_parser(new FunctionParser(files, compile_database, verbose));
-  std::shared_ptr<ScopeRelationParser> p_scope_relation_parser(new ScopeRelationParser(files, compile_database, verbose));
+  auto analyzer = gtgen::CreateAnalyzer(files, compile_database, verbose);
   std::shared_ptr<AbstractTestHarness> p_harness;
   switch (mode) {
     case 0:
-      p_harness = decltype(p_harness)(new GoogleMockHarness(mock_label, p_function_parser, p_scope_relation_parser));
+      p_harness = decltype(p_harness)(new GoogleMockHarness(mock_label, analyzer));
       break;
     case 10:
-      p_harness = decltype(p_harness)(new TestTargetFunctionViewerHarness(p_function_parser));
+      p_harness = decltype(p_harness)(new TestTargetFunctionViewerHarness(analyzer));
       break;
     case 11:
-      p_harness = decltype(p_harness)(new TestTargetScopeRelationViewerHarness(p_scope_relation_parser));
+      p_harness = decltype(p_harness)(new TestTargetScopeRelationViewerHarness(analyzer));
       break;
     default:
       return 1;

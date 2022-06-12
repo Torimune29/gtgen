@@ -6,7 +6,7 @@ option(ENABLE_GOOGLETESTS "Include tests in the library. Setting this to OFF wil
 # List all files containing tests. (Change as needed)
 set(TESTFILES        # All .cpp files in tests/
     main.cpp
-    FunctionParserTest.cpp
+    CreateCodeAnalyzerTest.cpp
     FunctionInfoTest.cpp
     ScopeRelationParserTest.cpp
     GoogleMockHarnessTest.cpp

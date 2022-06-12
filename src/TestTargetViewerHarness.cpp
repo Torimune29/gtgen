@@ -43,44 +43,39 @@ void PrettyPrint(const jsoncons::ojson &json) {
 
 
 bool TestTargetFunctionViewerHarness::Ready() noexcept {
-  bool okay = p_parser_->Ready();
-  if (okay) {
-    jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}});
-    jsoncons::ojson functions(jsoncons::json_array_arg);
+  jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}});
+  jsoncons::ojson functions(jsoncons::json_array_arg);
 
-    auto v_func = p_parser_->Get();
-    for (const auto &it : v_func) {
-      jsoncons::ojson each_functions(jsoncons::json_object_arg, {
-                                                                   {"base", SetFunctionBase(it)},
-                                                                   {"storageClass", it->StorageClass()},
-                                                                   {"isClassMember", it->IsClassMember()},
-                                                                   {"accessSpecifier", it->AccessSpecifier()},
-                                                                   {"constMemberFunction", it->CvQualifier()},
-                                                                   {"polymorphicMemberFunction", it->IsAbleToPolymorphic()},
-                                                                   {"baseClasses", it->BaseClasses()},
-                                                               });
-      functions.push_back(std::move(each_functions));
-    }
-    result["function"] = std::move(functions);
-    PrettyPrint(result);
+  auto v_func = p_analyzer_->GetFunctions();
+  for (const auto &it : v_func) {
+    jsoncons::ojson each_functions(jsoncons::json_object_arg, {
+                                                                 {"base", SetFunctionBase(it)},
+                                                                 {"storageClass", it->StorageClass()},
+                                                                 {"isClassMember", it->IsClassMember()},
+                                                                 {"accessSpecifier", it->AccessSpecifier()},
+                                                                 {"constMemberFunction", it->CvQualifier()},
+                                                                 {"polymorphicMemberFunction", it->IsAbleToPolymorphic()},
+                                                                 {"baseClasses", it->BaseClasses()},
+                                                             });
+    functions.push_back(std::move(each_functions));
   }
-  return okay;
+  result["function"] = std::move(functions);
+  PrettyPrint(result);
+
+  return true;
 }
 
 bool TestTargetScopeRelationViewerHarness::Ready() noexcept {
-  bool okay = p_parser_->Ready();
-  if (okay) {
-    jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"scopeRelations", ""}});
-    jsoncons::ojson scopes(jsoncons::json_array_arg);
+  jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"scopeRelations", ""}});
+  jsoncons::ojson scopes(jsoncons::json_array_arg);
 
-    auto v_scopes = p_parser_->Get();
-    for (const auto &it : v_scopes) {
-      scopes.push_back(SetScopesRecursively(it));
-    }
-    result["scopeRelations"] = std::move(scopes);
-    PrettyPrint(result);
+  auto v_scopes = p_analyzer_->GetScopes();
+  for (const auto &it : v_scopes) {
+    scopes.push_back(SetScopesRecursively(it));
   }
-  return okay;
+  result["scopeRelations"] = std::move(scopes);
+  PrettyPrint(result);
+  return true;
 }
 
 

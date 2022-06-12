@@ -122,20 +122,16 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
 }  // namespace
 
 bool GoogleMockHarness::Ready() noexcept {
-  bool okay_function = p_function_parser_->Ready();
-  bool okay_scope = p_scope_relation_parser_->Ready();
-  if (!(okay_function && okay_scope) ) return false;
-
   body_ += "// " + notice_message_ + '\n';
 
   std::unordered_map<std::string, std::vector<std::string>> class_bases_map;
 
   // scope
-  auto v_scope = p_scope_relation_parser_->Get();
+  auto v_scope = p_analyzer_->GetScopes();
   auto map = InitializeScopedFunction(v_scope, true);
 
   // function
-  auto v_func = p_function_parser_->Get();
+  auto v_func = p_analyzer_->GetFunctions();
   for (const auto &it : v_func) {
     if (it->DefinitionSuffix() == "deleted"
       || (public_only_ && it->IsClassMember() && it->AccessSpecifier() != "public")

@@ -2,7 +2,6 @@
 
 #include <string>
 #include <memory>
-#include "AbstractCodeParser.h"
 #include "ProjectInformation.h"
 
 /**
