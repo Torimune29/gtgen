@@ -20,17 +20,7 @@ ScopeRelationAnalyzerCppAst::ScopeRelationAnalyzerCppAst(std::shared_ptr<CodePar
 ScopeRelationAnalyzerCppAst::~ScopeRelationAnalyzerCppAst() = default;
 
 
-std::vector<std::shared_ptr<FunctionAttributeInterface>> ScopeRelationAnalyzerCppAst::GetFunctions() {
-  return {};
-}
-
-
-std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::GetScopes() {
-  return Get();
-}
-
-
-std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::Get() noexcept {
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::GetScopes() noexcept {
   std::vector<ScopeInfo> infos;
   for (const auto &file : p_parser_->GetParserRef().files()) {
     cppast::visit(file, ScopeRelationWhiteList(), [&](const cppast::cpp_entity &e, cppast::visitor_info info) {
@@ -52,6 +42,7 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::Get() noexcept {
   }
   return infos;
 }
+
 
 template <typename T>
 std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseScopeRelation(const T &entity) const noexcept {

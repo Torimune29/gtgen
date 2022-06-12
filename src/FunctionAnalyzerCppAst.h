@@ -18,12 +18,10 @@ class FunctionAnalyzerCppAst :
   explicit FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser);
   ~FunctionAnalyzerCppAst() override;
 
-  std::vector<std::shared_ptr<FunctionAttributeInterface>> GetFunctions() override;
-  std::vector<ScopeInfo> GetScopes() override;
+  std::vector<std::shared_ptr<FunctionAttributeInterface>> GetFunctions() noexcept override;
  private:
   std::shared_ptr<CodeParserCppAst> p_parser_;
 
-  std::vector<std::shared_ptr<FunctionAttributeInterface>> Get() noexcept;
   std::vector<FunctionInfo> GetFunction() noexcept;
   std::vector<MemberFunctionInfo> GetMemberFunction() noexcept;
   template <typename T>

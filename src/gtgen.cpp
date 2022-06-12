@@ -1,5 +1,6 @@
 #include "gtgen.h"
 #include "CodeAnalyzerInterface.h"
+#include "CodeAnalyzerResultStorage.h"
 #include "FunctionAnalyzerCppAst.h"
 #include "ScopeRelationAnalyzerCppAst.h"
 

@@ -59,7 +59,8 @@ target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL AS_ERROR ALL DISABLE Annoying)
-# target_compile_options(${LIBRARY_NAME} ... )  # For setting manually.
+# for g++ return pointer to upcast pointer move
+target_compile_options(${LIBRARY_NAME} PRIVATE "-Wno-redundant-move" )  # For setting manually.
 
 # Add an executable for the file app/main.cpp.
 # If you add more executables, copy these lines accordingly.

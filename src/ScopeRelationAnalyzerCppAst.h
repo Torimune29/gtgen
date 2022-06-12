@@ -21,8 +21,7 @@ class ScopeRelationAnalyzerCppAst :
   explicit ScopeRelationAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser);
   ~ScopeRelationAnalyzerCppAst() override;
 
-  std::vector<std::shared_ptr<FunctionAttributeInterface>> GetFunctions() override;
-  std::vector<ScopeInfo> GetScopes() override;
+  std::vector<ScopeInfo> GetScopes() noexcept override;
  private:
   std::shared_ptr<CodeParserCppAst> p_parser_;
 

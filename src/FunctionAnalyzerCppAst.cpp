@@ -62,16 +62,7 @@ FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst>
 FunctionAnalyzerCppAst::~FunctionAnalyzerCppAst() = default;
 
 
-std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::GetFunctions() {
-  return Get();
-}
-
-std::vector<ScopeInfo> FunctionAnalyzerCppAst::GetScopes() {
-  return {};
-}
-
-
-std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::Get() noexcept {
+std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::GetFunctions() noexcept {
   auto functions = GetFunction();
   auto member_functions = GetMemberFunction();
   std::vector<std::shared_ptr<FunctionAttributeInterface>> v;
@@ -83,6 +74,7 @@ std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst:
   });
   return v;
 }
+
 
 std::vector<FunctionInfo> FunctionAnalyzerCppAst::GetFunction() noexcept {
   std::vector<FunctionInfo> infos;
