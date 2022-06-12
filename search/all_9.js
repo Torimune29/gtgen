@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['testtargetfunctionviewerharness_16',['TestTargetFunctionViewerHarness',['../class_test_target_function_viewer_harness.html',1,'']]],
-  ['testtargetscoperelationviewerharness_17',['TestTargetScopeRelationViewerHarness',['../class_test_target_scope_relation_viewer_harness.html',1,'']]]
+  ['namespacefunctionattribute_20',['NamespaceFunctionAttribute',['../class_namespace_function_attribute.html',1,'']]],
+  ['nonelogger_21',['NoneLogger',['../structcppast_1_1_none_logger.html',1,'cppast']]]
 ];

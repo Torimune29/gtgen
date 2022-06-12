@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['functioninfo_4',['FunctionInfo',['../struct_function_info.html',1,'']]],
-  ['functioninfobase_5',['FunctionInfoBase',['../struct_function_info_base.html',1,'']]],
-  ['functionparser_6',['FunctionParser',['../class_function_parser.html',1,'']]],
-  ['functionparserimpl_7',['FunctionParserImpl',['../class_function_parser_impl.html',1,'']]]
+  ['definitionsuffix_6',['DefinitionSuffix',['../class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe',1,'FunctionAttributeInterface::DefinitionSuffix()'],['../class_function_attribute_base.html#a2c32b65bf30cf24a90d8d0a43a6dee3d',1,'FunctionAttributeBase::DefinitionSuffix()']]]
 ];

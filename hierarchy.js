@@ -16,8 +16,15 @@ var hierarchy =
     [ "diagnostic_logger", null, [
       [ "cppast::NoneLogger", "structcppast_1_1_none_logger.html", null ]
     ] ],
+    [ "FunctionAttributeInterface", "class_function_attribute_interface.html", [
+      [ "FunctionAttributeBase", "class_function_attribute_base.html", [
+        [ "MemberFunctionAttribute", "class_member_function_attribute.html", null ],
+        [ "NamespaceFunctionAttribute", "class_namespace_function_attribute.html", null ]
+      ] ]
+    ] ],
     [ "FunctionInfo", "struct_function_info.html", null ],
     [ "FunctionInfoBase", "struct_function_info_base.html", null ],
+    [ "FunctionScope", "struct_function_scope.html", null ],
     [ "MemberFunctionInfo", "struct_member_function_info.html", null ],
     [ "ScopeInfo", "struct_scope_info.html", null ]
 ];
