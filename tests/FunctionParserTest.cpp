@@ -39,9 +39,16 @@ TEST(FunctionParserTest, ValidateFunctionInfo) {
   };
   std::string compile_database = "./";
   FunctionParser parser(paths, compile_database, true);
-
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetFunction()) {
+
+  auto v = parser .Get();
+  std::vector<FunctionInfo> v_function;
+  for (const auto &it : v) {
+    if (it->IsClassMember())
+      v_function.push_back(static_cast<NamespaceFunctionAttribute *>(it.get())->GetAttribute());
+  }
+
+  for (const auto &it : v_function) {
     SCOPED_TRACE(::testing::Message() << it.base.name);
     if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
@@ -195,9 +202,16 @@ TEST(FunctionParserTest, ValidateMemberFunctionInfo) {
   };
   std::string compile_database = "./";
   FunctionParser parser(paths, compile_database, true);
-
   EXPECT_TRUE(parser.Ready());
-  for (const auto &it : parser.GetMemberFunction()) {
+
+  auto v = parser .Get();
+  std::vector<MemberFunctionInfo> v_member;
+  for (const auto &it : v) {
+    if (it->IsClassMember())
+      v_member.push_back(static_cast<MemberFunctionAttribute *>(it.get())->GetAttribute());
+  }
+
+  for (const auto &it : v_member) {
     SCOPED_TRACE(::testing::Message() << it.base.name);
     SCOPED_TRACE(::testing::Message() << it.class_name);
     if (it.base.name == "const_function") {

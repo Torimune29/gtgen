@@ -107,6 +107,12 @@ class FunctionAttributeInterface {
   virtual bool InScopeOf(const FunctionScope &rhs) const noexcept = 0;
 
   /**
+   * @brief Constant expression
+   *
+   * @return std::string "constexpr" "consteval" or ""
+   */
+  virtual std::string ConstantExpression() const noexcept = 0;  // 5.19 Constant expressions
+  /**
    * @brief Definition suffix
    *
    * @return std::string "deleted" "default" or ""
@@ -164,6 +170,7 @@ class FunctionAttributeBase : public FunctionAttributeInterface {
 
   bool InScopeOf(const FunctionScope &rhs) const noexcept final;
 
+  std::string ConstantExpression() const noexcept final;  // 5.19 Constant expressions
   std::string DefinitionSuffix() const noexcept final;  // 8.4.3 Deleted definitions
   std::string ExceptionSuffix() const noexcept final;  // 15.4 Exception specification
   FunctionScope Scope() const noexcept final;

@@ -29,6 +29,15 @@ bool FunctionAttributeBase::InScopeOf(const FunctionScope &scope) const noexcept
 }
 
 
+std::string FunctionAttributeBase::ConstantExpression() const noexcept {
+  if (info_.is_constexpr)
+    return "constexpr";
+  if (info_.is_consteval)
+    return "consteval";
+  return "";
+}
+
+
 std::string FunctionAttributeBase::DefinitionSuffix() const noexcept {
   // default will support...
   if (info_.is_deleted)

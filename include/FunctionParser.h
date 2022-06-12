@@ -21,9 +21,9 @@ class FunctionParser : public AbstractCodeParser {
   bool Ready() noexcept final;
 
   std::vector<std::shared_ptr<FunctionAttributeInterface>> Get() noexcept;
-  std::vector<FunctionInfo> GetFunction() noexcept;
-  std::vector<MemberFunctionInfo> GetMemberFunction() noexcept;
 
  private:
   std::unique_ptr<FunctionParserImpl> p_impl_;
+
+
 };

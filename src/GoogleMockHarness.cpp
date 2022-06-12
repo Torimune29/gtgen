@@ -127,7 +127,6 @@ bool GoogleMockHarness::Ready() noexcept {
 
   body_ += "// " + notice_message_ + '\n';
 
-  std::unordered_map<std::string, std::vector<std::string>> class_function_map;
   std::unordered_map<std::string, std::vector<std::string>> class_bases_map;
 
   // scope

@@ -9,7 +9,7 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
   jsoncons::ojson scope_relations(jsoncons::json_object_arg, {
                                                                {"name", info.name},
                                                                {"kind", static_cast<int>(info.kind)},
-                                                               {"fullName", info.full_scope},
+                                                               {"fullScope", info.full_scope},
                                                            });
   jsoncons::ojson children(jsoncons::json_array_arg);
   for (const auto &it : info.children) {
@@ -20,17 +20,16 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
 }
 
 
-jsoncons::ojson SetFunctionBase(const FunctionBase &base) {
+jsoncons::ojson SetFunctionBase(const std::shared_ptr<FunctionAttributeInterface> &p_if) {
   return jsoncons::ojson(jsoncons::json_object_arg, {
-    {"functionName", base.name},
-    {"signature", base.signature},
-    {"parameters", base.parameters},
-    {"scope", base.scope},
-    {"returnType", base.return_type},
-    {"noexcept", base.is_noexcept},
-    {"constexpr", base.is_constexpr},
-    {"consteval", base.is_consteval},
-    {"deleted", base.is_deleted},
+    {"functionName", p_if->Name()},
+    {"parameterList", p_if->ParameterList()},
+    {"parameters", p_if->Parameters()},
+    {"scope", p_if->Scope().scope_names},
+    {"returnType", p_if->ReturnType()},
+    {"constantExpression", p_if->ConstantExpression()},
+    {"exceptionSuffix", p_if->ExceptionSuffix()},
+    {"definitionSuffix", p_if->DefinitionSuffix()},
   });
 }
 
@@ -46,34 +45,23 @@ void PrettyPrint(const jsoncons::ojson &json) {
 bool TestTargetFunctionViewerHarness::Ready() noexcept {
   bool okay = p_parser_->Ready();
   if (okay) {
-    jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}, {"memberFunction", ""}});
-    jsoncons::ojson functions(jsoncons::json_array_arg), member_functions(jsoncons::json_array_arg);
+    jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"function", ""}});
+    jsoncons::ojson functions(jsoncons::json_array_arg);
 
-    auto v_func = p_parser_->GetFunction();
+    auto v_func = p_parser_->Get();
     for (const auto &it : v_func) {
       jsoncons::ojson each_functions(jsoncons::json_object_arg, {
-                                                                   {"base", SetFunctionBase(it.base)},
-                                                                   {"extern", it.is_extern},
-                                                                   {"static", it.is_static},
+                                                                   {"base", SetFunctionBase(it)},
+                                                                   {"storageClass", it->StorageClass()},
+                                                                   {"isClassMember", it->IsClassMember()},
+                                                                   {"accessSpecifier", it->AccessSpecifier()},
+                                                                   {"constMemberFunction", it->CvQualifier()},
+                                                                   {"polymorphicMemberFunction", it->IsAbleToPolymorphic()},
+                                                                   {"baseClasses", it->BaseClasses()},
                                                                });
       functions.push_back(std::move(each_functions));
     }
-    auto v_member_func = p_parser_->GetMemberFunction();
-    for (const auto &it : v_member_func) {
-      jsoncons::ojson each_functions(jsoncons::json_object_arg,
-                                    {
-                                        {"base", SetFunctionBase(it.base)},
-                                        {"className", it.class_name},
-                                        {"accessSpecifier", static_cast<int>(it.access_specifier)},
-                                        {"constMemberFunction", it.is_const},
-                                        {"volatile", it.is_volatile},
-                                        {"polymorphicMemberFunction", it.is_polymorphic},
-                                        {"baseClasses", it.base_classes},
-                                    });
-      member_functions.push_back(std::move(each_functions));
-    }
     result["function"] = std::move(functions);
-    result["memberFunction"] = std::move(member_functions);
     PrettyPrint(result);
   }
   return okay;
