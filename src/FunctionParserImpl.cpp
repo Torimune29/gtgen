@@ -61,6 +61,20 @@ FunctionParserImpl::FunctionParserImpl(const std::vector<std::string> &file_path
 
 FunctionParserImpl::~FunctionParserImpl() = default;
 
+
+std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionParserImpl::Get() noexcept {
+  auto functions = GetFunction();
+  auto member_functions = GetMemberFunction();
+  std::vector<std::shared_ptr<FunctionAttributeInterface>> v;
+  std::for_each(functions.cbegin(), functions.cend(), [&v] (const FunctionInfo &info) {
+    v.emplace_back(std::make_shared<NamespaceFunctionAttribute>(info));
+  });
+  std::for_each(member_functions.cbegin(), member_functions.cend(), [&v] (const MemberFunctionInfo &info) {
+    v.emplace_back(std::make_shared<MemberFunctionAttribute>(info));
+  });
+  return v;
+}
+
 std::vector<FunctionInfo> FunctionParserImpl::GetFunction() noexcept {
   if (!ready_) return {};
 
@@ -106,7 +120,7 @@ std::vector<FunctionInfo> FunctionParserImpl::ParseFunction(const T &entity) con
     function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
     // scope
     function_info.base.scope = GetScopes(func.parent().value());
-
+    NamespaceFunctionAttribute fu(function_info);
     infos.push_back(function_info);
   }
   return infos;

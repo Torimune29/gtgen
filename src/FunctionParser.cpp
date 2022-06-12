@@ -13,6 +13,8 @@ FunctionParser::~FunctionParser() = default;
 
 bool FunctionParser::Ready() noexcept { return p_impl_->Ready(); }
 
+std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionParser::Get() noexcept { return p_impl_->Get(); }
+
 std::vector<FunctionInfo> FunctionParser::GetFunction() noexcept { return p_impl_->GetFunction(); }
 
 std::vector<MemberFunctionInfo> FunctionParser::GetMemberFunction() noexcept { return p_impl_->GetMemberFunction(); }

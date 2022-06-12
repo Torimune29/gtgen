@@ -18,12 +18,14 @@ typedef struct ScopedMockFunction {
   std::vector<ScopedMockFunction> children;
 } ScopedMockFunction;
 
-std::string GenerateMockMethod(const char header[], const FunctionBase &base) {
+
+std::string GenerateMockMethod(const char header[], const FunctionAttributeInterface * const interface) {
    std::string mock_method(header);
-   mock_method += std::to_string(base.parameters.size());
-   mock_method += "(" + base.name + ", " + base.return_type + base.signature + ");\n";
+   mock_method += std::to_string(interface->Parameters().size());
+   mock_method += "(" + interface->Name() + ", " + interface->ReturnType() + interface->ParameterList() + ");\n";
    return mock_method;
 }
+
 
 std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<ScopeInfo> &infos, bool expect_global) {
   std::vector<ScopedMockFunction> functions;
@@ -133,49 +135,26 @@ bool GoogleMockHarness::Ready() noexcept {
   auto map = InitializeScopedFunction(v_scope, true);
 
   // function
-  auto v_func = p_function_parser_->GetFunction();
+  auto v_func = p_function_parser_->Get();
   for (const auto &it : v_func) {
-    if (it.base.is_deleted)
-      continue;
-    AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockMethodName, it.base));
-  }
-
-  // class
-  auto v_member_func = p_function_parser_->GetMemberFunction();
-  for (const auto &it : v_member_func) {
-    if (it.base.is_deleted
-      || (public_only_ && it.access_specifier != MemberFunctionInfo::AccessSpecifier::kPublic)
-      || it.is_volatile) {  // not support volatile method mocking
+    if (it->DefinitionSuffix() == "deleted"
+      || (public_only_ && it->IsClassMember() && it->AccessSpecifier() != "public")
+      || it->CvQualifier().find("volatile") != std::string::npos) {  // not support volatile method mocking
       continue;
     }
-    if (it.class_name.empty()) {
-      AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockMethodName, it.base));
+    if (it->CvQualifier().find("const") != std::string::npos) {
+      AddMockFunction(&map, it->Scope().scope_names, GenerateMockMethod(kMockConstMethodName, it.get()));
     } else {
-      if (it.is_const) {
-        AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockConstMethodName, it.base));
+      AddMockFunction(&map, it->Scope().scope_names, GenerateMockMethod(kMockMethodName, it.get()));
+    }
+    if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {
+      auto base_classes = it->BaseClasses();
+      if (base_classes.empty()) {
+        // target class is base
+        class_bases_map[it->Scope().scope_names.back()] = std::vector<std::string>({it->Scope().scope_names.back()});
       } else {
-        AddMockFunction(&map, it.base.scope, GenerateMockMethod(kMockMethodName, it.base));
+        class_bases_map[it->Scope().scope_names.back()] = it->BaseClasses();
       }
-      if (class_bases_map[it.class_name].empty())
-        class_bases_map[it.class_name] = it.base_classes;
-    }
-  }
-
-
-  // derrived check
-  for(const auto &it : class_function_map) {
-    auto class_name = it.first;
-    bool mock_is_able_to_derrived = true;
-    std::for_each(v_member_func.begin(), v_member_func.end(), [class_name, &mock_is_able_to_derrived] (const MemberFunctionInfo &info) {
-      if (info.class_name == class_name && !info.is_polymorphic)
-        mock_is_able_to_derrived = false;
-    });
-    if (mock_is_able_to_derrived) {
-      if (class_bases_map[class_name].empty()) {  // Target class is a base class
-        class_bases_map[class_name].push_back(class_name);
-      }
-    } else {
-      class_bases_map[class_name].clear();
     }
   }
 
@@ -183,23 +162,6 @@ bool GoogleMockHarness::Ready() noexcept {
   body_ += std::string(kMockFileHeader) + "\n\n"
         + std::string(kMockIncludeHeader) + "\n\n";
   body_ += GenerateMockBody(map, class_bases_map, name_);
-
-  // for (const auto &it : class_function_map) {
-  //   body_ += "class " + std::string(kMockClassNamePrefix) + it.first;
-  //   if (class_bases_map.count(it.first) != 0
-  //     && !class_bases_map[it.first].empty()) {
-  //     body_ += " : public ";
-  //     for (const auto &it_class : class_bases_map[it.first]) {
-  //       body_ += it_class + ", ";
-  //     }
-  //     body_ = body_.substr(0, body_.size() - 2);
-  //   }
-  //   body_ += " {\n";
-  //   for (const auto &it_method : it.second) {
-  //     body_ += "  " + it_method;
-  //   }
-  //   body_ += "};\n";
-  // }
 
   return true;
 }

@@ -42,6 +42,7 @@ set(SOURCES          # All .cpp files in src/
     src/AbstractTestHarness.cpp
     src/GoogleMockHarness.cpp
     src/TestTargetViewerHarness.cpp
+    src/FunctionInfo.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
