@@ -85,7 +85,7 @@ $(document).ready(function(){initNavTree('class_code_parser_cpp_ast.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_code_parser_cpp_ast-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -102,10 +102,8 @@ Inheritance diagram for CodeParserCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_code_parser_cpp_ast__inherit__graph.png" border="0" usemap="#a_code_parser_cpp_ast_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_code_parser_cpp_ast_inherit__map" id="a_code_parser_cpp_ast_inherit__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="120,219,297,457"/>
-<area shape="rect" href="class_function_parser_impl.html" title="Code ParserCppAst Class." alt="" coords="5,505,188,641"/>
-<area shape="rect" href="class_scope_relation_parser_impl.html" title="Code ParserCppAst Class." alt="" coords="212,520,432,627"/>
-<area shape="rect" href="class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="116,5,301,171"/>
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="9,219,187,457"/>
+<area shape="rect" href="class_abstract_code_parser.html" title="Abstract Code Parser Class." alt="" coords="5,5,191,171"/>
 </map>
 </div>
 <div class="dynheader">
@@ -120,9 +118,18 @@ Collaboration diagram for CodeParserCppAst:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a39a5c00cd6b77bbaec0443402cf61b4b"><td class="memItemLeft" align="right" valign="top"><a id="a39a5c00cd6b77bbaec0443402cf61b4b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CodeParserCppAst</b> (const std::vector&lt; std::string &gt; &amp;file_paths, const std::string &amp;compile_database_path, bool verbose)</td></tr>
+<tr class="separator:a39a5c00cd6b77bbaec0443402cf61b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4db4209bf5d74e3afe8fdd2f8b109b6a"><td class="memItemLeft" align="right" valign="top"><a id="a4db4209bf5d74e3afe8fdd2f8b109b6a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Ready</b> () noexcept final</td></tr>
 <tr class="separator:a4db4209bf5d74e3afe8fdd2f8b109b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae61fb3469afde3ca5089e46678210fca"><td class="memItemLeft" align="right" valign="top"><a id="ae61fb3469afde3ca5089e46678210fca"></a>
+const cppast::simple_file_parser&lt; cppast::libclang_parser &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetParserRef</b> () noexcept</td></tr>
+<tr class="separator:ae61fb3469afde3ca5089e46678210fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d35e339d9688e3a97d70929dc9afac1"><td class="memItemLeft" align="right" valign="top"><a id="a2d35e339d9688e3a97d70929dc9afac1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const std::string &amp;label, const std::string &amp;message, cppast::severity severity) const noexcept</td></tr>
+<tr class="separator:a2d35e339d9688e3a97d70929dc9afac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
 <tr class="memitem:a0d68f35e78bdb140953776cab7265a20 inherit pub_methods_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="a0d68f35e78bdb140953776cab7265a20"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilePaths</b> () const noexcept</td></tr>
@@ -131,24 +138,14 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetSettings</b> () const noexcept</td></tr>
 <tr class="separator:a3545b33dfc3350bb346daed44a9a54f6 inherit pub_methods_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a10646d81d742473223e2cd743f2b3803"><td class="memItemLeft" align="right" valign="top"><a id="a10646d81d742473223e2cd743f2b3803"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CodeParserCppAst</b> (const std::vector&lt; std::string &gt; &amp;file_paths, const FilterType &amp;filter, const std::string &amp;compile_database_path, bool verbose)</td></tr>
-<tr class="separator:a10646d81d742473223e2cd743f2b3803"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c9e9c3e6278fd7e05356bb143491103"><td class="memItemLeft" align="right" valign="top"><a id="a7c9e9c3e6278fd7e05356bb143491103"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFullName</b> (const cppast::cpp_entity &amp;e) const noexcept</td></tr>
-<tr class="separator:a7c9e9c3e6278fd7e05356bb143491103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ec1f7739b1e8ec91671db707b5962d"><td class="memItemLeft" align="right" valign="top"><a id="a89ec1f7739b1e8ec91671db707b5962d"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> (const cppast::cpp_entity &amp;e) const noexcept</td></tr>
-<tr class="separator:a89ec1f7739b1e8ec91671db707b5962d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d35e339d9688e3a97d70929dc9afac1"><td class="memItemLeft" align="right" valign="top"><a id="a2d35e339d9688e3a97d70929dc9afac1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Log</b> (const std::string &amp;label, const std::string &amp;message, cppast::severity severity) const noexcept</td></tr>
-<tr class="separator:a2d35e339d9688e3a97d70929dc9afac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
-<tr class="memitem:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="ad64516de2319ef2c36560e693b7c27b0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AbstractCodeParser</b> (const std::vector&lt; std::string &gt; &amp;file_paths)</td></tr>
-<tr class="separator:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae6ac5f6105514f89d817dabc33658fb8"><td class="memItemLeft" align="right" valign="top"><a id="ae6ac5f6105514f89d817dabc33658fb8"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFullName</b> (const cppast::cpp_entity &amp;e) noexcept</td></tr>
+<tr class="separator:ae6ac5f6105514f89d817dabc33658fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14ec391c2f8d0396569633f81059e24c"><td class="memItemLeft" align="right" valign="top"><a id="a14ec391c2f8d0396569633f81059e24c"></a>
+static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScopes</b> (const cppast::cpp_entity &amp;e) noexcept</td></tr>
+<tr class="separator:a14ec391c2f8d0396569633f81059e24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -161,9 +158,6 @@ std::unique_ptr&lt; ParserType &gt;&#160;</td><td class="memItemRight" valign="b
 <tr class="memitem:a5b88f2d4afb970e70eabc4706f161071"><td class="memItemLeft" align="right" valign="top"><a id="a5b88f2d4afb970e70eabc4706f161071"></a>
 std::unique_ptr&lt; DatabaseType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p_database_</b></td></tr>
 <tr class="separator:a5b88f2d4afb970e70eabc4706f161071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d04233d07bb03a4f7b81e415230bd2"><td class="memItemLeft" align="right" valign="top"><a id="a80d04233d07bb03a4f7b81e415230bd2"></a>
-FilterType&#160;</td><td class="memItemRight" valign="bottom"><b>filter_</b></td></tr>
-<tr class="separator:a80d04233d07bb03a4f7b81e415230bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c5fae9a4196ba56f55954fdaf237d6b"><td class="memItemLeft" align="right" valign="top"><a id="a6c5fae9a4196ba56f55954fdaf237d6b"></a>
 std::vector&lt; EntityType &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>entities_</b></td></tr>
 <tr class="separator:a6c5fae9a4196ba56f55954fdaf237d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,6 +174,13 @@ std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bott
 <tr class="memitem:a5a5dc559d1e9b358dace88350cbe1d20 inherit pro_attribs_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="a5a5dc559d1e9b358dace88350cbe1d20"></a>
 std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>settings_</b></td></tr>
 <tr class="separator:a5a5dc559d1e9b358dace88350cbe1d20 inherit pro_attribs_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_abstract_code_parser"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_abstract_code_parser')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_abstract_code_parser.html">AbstractCodeParser</a></td></tr>
+<tr class="memitem:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memItemLeft" align="right" valign="top"><a id="ad64516de2319ef2c36560e693b7c27b0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AbstractCodeParser</b> (const std::vector&lt; std::string &gt; &amp;file_paths)</td></tr>
+<tr class="separator:ad64516de2319ef2c36560e693b7c27b0 inherit pro_methods_class_abstract_code_parser"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Code ParserCppAst Class. </p>

@@ -1,0 +1,6 @@
+<map id="CodeAnalyzerInterface" name="CodeAnalyzerInterface">
+<area shape="rect" id="node1" title="Abstract Code Parser Class." alt="" coords="273,5,480,127"/>
+<area shape="rect" id="node2" href="$class_code_analyzer_result_storage.html" title="Abstract Code Parser Class." alt="" coords="5,182,244,318"/>
+<area shape="rect" id="node3" href="$class_function_analyzer_cpp_ast.html" title="Abstract Code Parser Class." alt="" coords="269,189,485,311"/>
+<area shape="rect" id="node4" href="$class_scope_relation_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="509,175,732,325"/>
+</map>

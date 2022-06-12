@@ -1,6 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_function_attribute_interface.html" title=" " alt="" coords="5,31,197,57"/>
-<area shape="rect" id="node2" href="$class_function_attribute_base.html" title=" " alt="" coords="245,31,412,57"/>
-<area shape="rect" id="node3" href="$class_member_function_attribute.html" title=" " alt="" coords="471,5,659,32"/>
-<area shape="rect" id="node4" href="$class_namespace_function_attribute.html" title=" " alt="" coords="460,56,671,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,143,32"/>
+<area shape="rect" id="node2" href="$structcppast_1_1_none_logger.html" title="cppast logger for log suppression" alt="" coords="191,5,341,32"/>
 </map>
