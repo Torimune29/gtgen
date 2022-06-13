@@ -1,7 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,48,176,75"/>
+<area shape="rect" id="node1" href="$class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,56,176,83"/>
 <area shape="rect" id="node2" href="$class_code_analyzer_result_storage.html" title="Abstract Code Parser Class." alt="" coords="232,5,435,32"/>
-<area shape="rect" id="node3" href="$class_function_analyzer_cpp_ast.html" title="Abstract Code Parser Class." alt="" coords="243,107,423,133"/>
-<area shape="rect" id="node4" href="$class_scope_relation_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="224,56,443,83"/>
-<area shape="rect" id="node5" title=" " alt="" coords="18,99,163,141"/>
+<area shape="rect" id="node3" href="$class_function_analyzer_cpp_ast.html" title="Abstract Code Parser Class." alt="" coords="243,56,423,83"/>
+<area shape="rect" id="node4" href="$class_include_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="247,107,419,133"/>
+<area shape="rect" id="node5" href="$class_scope_relation_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="224,157,443,184"/>
+<area shape="rect" id="node6" title=" " alt="" coords="18,107,163,149"/>
 </map>

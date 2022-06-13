@@ -15,11 +15,14 @@ var annotated_dup =
     [ "FunctionInfoBase", "struct_function_info_base.html", "struct_function_info_base" ],
     [ "FunctionScope", "struct_function_scope.html", "struct_function_scope" ],
     [ "GoogleMockHarness", "class_google_mock_harness.html", "class_google_mock_harness" ],
+    [ "IncludeAnalyzerCppAst", "class_include_analyzer_cpp_ast.html", "class_include_analyzer_cpp_ast" ],
+    [ "IncludeInfo", "struct_include_info.html", "struct_include_info" ],
     [ "MemberFunctionAttribute", "class_member_function_attribute.html", "class_member_function_attribute" ],
     [ "MemberFunctionInfo", "struct_member_function_info.html", "struct_member_function_info" ],
     [ "NamespaceFunctionAttribute", "class_namespace_function_attribute.html", "class_namespace_function_attribute" ],
     [ "ScopeInfo", "struct_scope_info.html", "struct_scope_info" ],
     [ "ScopeRelationAnalyzerCppAst", "class_scope_relation_analyzer_cpp_ast.html", "class_scope_relation_analyzer_cpp_ast" ],
     [ "TestTargetFunctionViewerHarness", "class_test_target_function_viewer_harness.html", "class_test_target_function_viewer_harness" ],
+    [ "TestTargetLocalIncludeViewerHarness", "class_test_target_local_include_viewer_harness.html", "class_test_target_local_include_viewer_harness" ],
     [ "TestTargetScopeRelationViewerHarness", "class_test_target_scope_relation_viewer_harness.html", "class_test_target_scope_relation_viewer_harness" ]
 ];

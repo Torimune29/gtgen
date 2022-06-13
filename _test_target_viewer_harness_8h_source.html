@@ -119,8 +119,21 @@ $(document).ready(function(){initNavTree('_test_target_viewer_harness_8h_source.
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::shared_ptr&lt;CodeAnalyzerInterface&gt; p_analyzer_;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_test_target_local_include_viewer_harness.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_test_target_local_include_viewer_harness.html">TestTargetLocalIncludeViewerHarness</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a> {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="class_test_target_local_include_viewer_harness.html">TestTargetLocalIncludeViewerHarness</a>(std::shared_ptr&lt;CodeAnalyzerInterface&gt; p_analyzer)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    : <a class="code" href="class_abstract_test_harness.html">AbstractTestHarness</a>(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    , p_analyzer_(p_analyzer) {}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  ~<a class="code" href="class_test_target_local_include_viewer_harness.html">TestTargetLocalIncludeViewerHarness</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> Ready() noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  std::shared_ptr&lt;CodeAnalyzerInterface&gt; p_analyzer_;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
 <div class="ttc" id="aclass_abstract_test_harness_html"><div class="ttname"><a href="class_abstract_test_harness.html">AbstractTestHarness</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractTestHarness.h:11</div></div>
 <div class="ttc" id="aclass_test_target_function_viewer_harness_html"><div class="ttname"><a href="class_test_target_function_viewer_harness.html">TestTargetFunctionViewerHarness</a></div><div class="ttdoc">Code Parser Class.</div><div class="ttdef"><b>Definition:</b> TestTargetViewerHarness.h:14</div></div>
+<div class="ttc" id="aclass_test_target_local_include_viewer_harness_html"><div class="ttname"><a href="class_test_target_local_include_viewer_harness.html">TestTargetLocalIncludeViewerHarness</a></div><div class="ttdoc">Code Parser Class.</div><div class="ttdef"><b>Definition:</b> TestTargetViewerHarness.h:46</div></div>
 <div class="ttc" id="aclass_test_target_scope_relation_viewer_harness_html"><div class="ttname"><a href="class_test_target_scope_relation_viewer_harness.html">TestTargetScopeRelationViewerHarness</a></div><div class="ttdoc">Code Parser Class.</div><div class="ttdef"><b>Definition:</b> TestTargetViewerHarness.h:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

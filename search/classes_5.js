@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['namespacefunctionattribute_43',['NamespaceFunctionAttribute',['../class_namespace_function_attribute.html',1,'']]],
-  ['nonelogger_44',['NoneLogger',['../structcppast_1_1_none_logger.html',1,'cppast']]]
+  ['memberfunctionattribute_46',['MemberFunctionAttribute',['../class_member_function_attribute.html',1,'']]],
+  ['memberfunctioninfo_47',['MemberFunctionInfo',['../struct_member_function_info.html',1,'']]]
 ];

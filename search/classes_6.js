@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scopeinfo_45',['ScopeInfo',['../struct_scope_info.html',1,'']]],
-  ['scoperelationanalyzercppast_46',['ScopeRelationAnalyzerCppAst',['../class_scope_relation_analyzer_cpp_ast.html',1,'']]]
+  ['namespacefunctionattribute_48',['NamespaceFunctionAttribute',['../class_namespace_function_attribute.html',1,'']]],
+  ['nonelogger_49',['NoneLogger',['../structcppast_1_1_none_logger.html',1,'cppast']]]
 ];
