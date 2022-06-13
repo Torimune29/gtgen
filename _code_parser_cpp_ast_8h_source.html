@@ -89,28 +89,28 @@ $(document).ready(function(){initNavTree('_code_parser_cpp_ast_8h_source.html','
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;AbstractCodeParser.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cppast/libclang_parser.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cppast/visitor.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cppast/diagnostic.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_code_parser_cpp_ast.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">using</span> DatabaseType = cppast::libclang_compilation_database;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using</span> ParserType = cppast::simple_file_parser&lt;cppast::libclang_parser&gt;;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using</span> ResultTypeIndex = cppast::cpp_entity_index;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">using</span> FilterType = cppast::detail::visitor_filter_t;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">using</span> EntityType = cppast::cpp_entity;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">using</span> LoggerType = cppast::diagnostic_logger;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                   <span class="keyword">const</span> std::string &amp;compile_database_path, <span class="keywordtype">bool</span> verbose);</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cppast/diagnostic.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cppast/libclang_parser.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cppast/visitor.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;AbstractCodeParser.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_code_parser_cpp_ast.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_code_parser.html">AbstractCodeParser</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using</span> DatabaseType = cppast::libclang_compilation_database;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using</span> ParserType = cppast::simple_file_parser&lt;cppast::libclang_parser&gt;;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">using</span> ResultTypeIndex = cppast::cpp_entity_index;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">using</span> FilterType = cppast::detail::visitor_filter_t;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">using</span> EntityType = cppast::cpp_entity;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">using</span> LoggerType = cppast::diagnostic_logger;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths, <span class="keyword">const</span> std::string &amp;compile_database_path, <span class="keywordtype">bool</span> verbose);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ~<a class="code" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">bool</span> Ready() noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> cppast::simple_file_parser&lt;cppast::libclang_parser&gt; &amp;  GetParserRef() noexcept;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> cppast::simple_file_parser&lt;cppast::libclang_parser&gt; &amp;GetParserRef() noexcept;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">static</span> std::string GetFullName(<span class="keyword">const</span> cppast::cpp_entity &amp;e) noexcept;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">static</span> std::vector&lt;std::string&gt; GetScopes(<span class="keyword">const</span> cppast::cpp_entity &amp;e) noexcept;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">void</span> Log(<span class="keyword">const</span> std::string &amp;label, <span class="keyword">const</span> std::string &amp;message, cppast::severity severity) <span class="keyword">const</span> noexcept;</div>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('_code_parser_cpp_ast_8h_source.html','
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">bool</span> ready_;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
 <div class="ttc" id="aclass_abstract_code_parser_html"><div class="ttname"><a href="class_abstract_code_parser.html">AbstractCodeParser</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> AbstractCodeParser.h:11</div></div>
-<div class="ttc" id="aclass_code_parser_cpp_ast_html"><div class="ttname"><a href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></div><div class="ttdoc">Code ParserCppAst Class.</div><div class="ttdef"><b>Definition:</b> CodeParserCppAst.h:14</div></div>
+<div class="ttc" id="aclass_code_parser_cpp_ast_html"><div class="ttname"><a href="class_code_parser_cpp_ast.html">CodeParserCppAst</a></div><div class="ttdoc">Code ParserCppAst Class.</div><div class="ttdef"><b>Definition:</b> CodeParserCppAst.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

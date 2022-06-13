@@ -89,17 +89,19 @@ $(document).ready(function(){initNavTree('gtgen_8h_source.html',''); initResizab
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;CodeAnalyzerInterface.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a>;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gtgen {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;std::shared_ptr&lt;CodeAnalyzerInterface&gt; CreateAnalyzer(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths, <span class="keyword">const</span> std::string &amp;compile_database_path, <span class="keywordtype">bool</span> verbose);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}  <span class="comment">// namespace gtgen</span></div>
-<div class="ttc" id="aclass_code_analyzer_interface_html"><div class="ttname"><a href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> CodeAnalyzerInterface.h:14</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;CodeAnalyzerInterface.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span><a class="code" href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>gtgen {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;std::shared_ptr&lt;CodeAnalyzerInterface&gt; CreateAnalyzer(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;file_paths,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                                      <span class="keyword">const</span> std::string &amp;compile_database_path, <span class="keywordtype">bool</span> verbose);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}  <span class="comment">// namespace gtgen</span></div>
+<div class="ttc" id="aclass_code_analyzer_interface_html"><div class="ttname"><a href="class_code_analyzer_interface.html">CodeAnalyzerInterface</a></div><div class="ttdoc">Abstract Code Parser Class.</div><div class="ttdef"><b>Definition:</b> CodeAnalyzerInterface.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
