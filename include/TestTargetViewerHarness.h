@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <unordered_map>
 #include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "AbstractTestHarness.h"
 #include "CodeAnalyzerInterface.h"
 
@@ -14,13 +15,12 @@
 class TestTargetFunctionViewerHarness : public AbstractTestHarness {
  public:
   TestTargetFunctionViewerHarness(std::shared_ptr<CodeAnalyzerInterface> p_analyzer)
-    : AbstractTestHarness("")
-    , p_analyzer_(p_analyzer) {}
+      : AbstractTestHarness(""), p_analyzer_(p_analyzer) {}
   ~TestTargetFunctionViewerHarness() override = default;
   bool Ready() noexcept final;
+
  private:
   std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
-
 };
 
 /**
@@ -30,13 +30,12 @@ class TestTargetFunctionViewerHarness : public AbstractTestHarness {
 class TestTargetScopeRelationViewerHarness : public AbstractTestHarness {
  public:
   TestTargetScopeRelationViewerHarness(std::shared_ptr<CodeAnalyzerInterface> p_analyzer)
-    : AbstractTestHarness("")
-    , p_analyzer_(p_analyzer) {}
+      : AbstractTestHarness(""), p_analyzer_(p_analyzer) {}
   ~TestTargetScopeRelationViewerHarness() override = default;
   bool Ready() noexcept final;
+
  private:
   std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
-
 };
 
 /**
@@ -46,11 +45,10 @@ class TestTargetScopeRelationViewerHarness : public AbstractTestHarness {
 class TestTargetLocalIncludeViewerHarness : public AbstractTestHarness {
  public:
   TestTargetLocalIncludeViewerHarness(std::shared_ptr<CodeAnalyzerInterface> p_analyzer)
-    : AbstractTestHarness("")
-    , p_analyzer_(p_analyzer) {}
+      : AbstractTestHarness(""), p_analyzer_(p_analyzer) {}
   ~TestTargetLocalIncludeViewerHarness() override = default;
   bool Ready() noexcept final;
+
  private:
   std::shared_ptr<CodeAnalyzerInterface> p_analyzer_;
-
 };
