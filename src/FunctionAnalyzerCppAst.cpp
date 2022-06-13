@@ -117,7 +117,6 @@ std::vector<FunctionInfo> FunctionAnalyzerCppAst::ParseFunction(const T &entity)
     function_info.is_static = (func.storage_class() == cppast::cpp_storage_class_static);
     // scope
     function_info.base.scope = p_parser_->GetScopes(func.parent().value());
-    NamespaceFunctionAttribute fu(function_info);
     infos.push_back(function_info);
   }
   return infos;

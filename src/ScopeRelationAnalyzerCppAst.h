@@ -9,8 +9,6 @@
 #include "FunctionInfo.h"
 #include "ScopeInfo.h"
 
-class ScopeRelationParserImpl;
-
 /**
  * @brief  Code ParserCppAst Class
  *

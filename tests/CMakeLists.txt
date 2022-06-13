@@ -12,6 +12,7 @@ set(TESTFILES        # All .cpp files in tests/
     GoogleMockHarnessTest.cpp
     TestTargetViewerHarnessTest.cpp
     FunctionAnalyzerCppAstTest.cpp
+    IncludeAnalyzerTest.cpp
 )
 
 set(TEST_MAIN unit_tests_${LIBRARY_NAME})   # Default name for test executable (change if you wish).

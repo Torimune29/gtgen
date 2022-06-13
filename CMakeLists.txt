@@ -41,6 +41,7 @@ set(SOURCES          # All .cpp files in src/
     src/FunctionInfo.cpp
     src/FunctionAnalyzerCppAst.cpp
     src/ScopeRelationAnalyzerCppAst.cpp
+    src/IncludeAnalyzerCppAst.cpp
     src/gtgen.cpp
 )
 set(TESTFILES        # All .cpp files in tests/

@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   app.add_option("-f,--files", files, "Analyze file paths. If empty, parse all files using compile database.");
   app.add_option("-p,--compile-database", compile_database, "Compile database directory path")->required();
   app.add_flag("--verbose", verbose, "Verbose parse result");
-  app.add_flag("--mock{0}, --view-functions{10}, --view-scopes{11}", mode, "Mode");
+  app.add_flag("--mock{0}, --view-functions{10}, --view-scopes{11}, --view-includes{12}", mode, "Mode");
   app.add_option("--mock-label", mock_label, "Mock Label for class. (--mock only)");
   CLI11_PARSE(app, argc, argv)
 
@@ -38,6 +38,9 @@ int main(int argc, char *argv[]) {
       break;
     case 11:
       p_harness = decltype(p_harness)(new TestTargetScopeRelationViewerHarness(analyzer));
+      break;
+    case 12:
+      p_harness = decltype(p_harness)(new TestTargetLocalIncludeViewerHarness(analyzer));
       break;
     default:
       return 1;

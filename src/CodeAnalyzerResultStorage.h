@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "FunctionInfo.h"
 #include "ScopeInfo.h"
+#include "IncludeInfo.h"
 
 /**
  * @brief Abstract Code Parser Class
@@ -27,6 +28,15 @@ class CodeAnalyzerResultStorage : public CodeAnalyzerInterface {
     std::vector<ScopeInfo> v;
     for (const auto &it : analyzers_) {
       auto v_result = it->GetScopes();
+      v.insert(v.end(), v_result.begin(), v_result.end());
+    }
+    return v;
+  }
+
+  std::vector<IncludeInfo> GetIncludes() noexcept override {
+    std::vector<IncludeInfo> v;
+    for (const auto &it : analyzers_) {
+      auto v_result = it->GetIncludes();
       v.insert(v.end(), v_result.begin(), v_result.end());
     }
     return v;

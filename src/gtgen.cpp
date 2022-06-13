@@ -3,6 +3,7 @@
 #include "CodeAnalyzerResultStorage.h"
 #include "FunctionAnalyzerCppAst.h"
 #include "ScopeRelationAnalyzerCppAst.h"
+#include "IncludeAnalyzerCppAst.h"
 
 namespace gtgen {
 
@@ -11,11 +12,9 @@ std::shared_ptr<CodeAnalyzerInterface> CreateAnalyzer(const std::vector<std::str
   if (!parser->Ready())
     return nullptr;
   std::shared_ptr<CodeAnalyzerResultStorage> storage(new CodeAnalyzerResultStorage());
-  std::shared_ptr<FunctionAnalyzerCppAst> function_analyzer(new FunctionAnalyzerCppAst(parser));
-  std::shared_ptr<ScopeRelationAnalyzerCppAst> scope_analyzer(new ScopeRelationAnalyzerCppAst(parser));
-
-  storage->AddAnalyzer(function_analyzer);
-  storage->AddAnalyzer(scope_analyzer);
+  storage->AddAnalyzer(std::make_shared<FunctionAnalyzerCppAst>(parser));
+  storage->AddAnalyzer(std::make_shared<ScopeRelationAnalyzerCppAst>(parser));
+  storage->AddAnalyzer(std::make_shared<IncludeAnalyzerCppAst>(parser));
   return std::move(storage);
 }
 

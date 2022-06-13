@@ -33,6 +33,16 @@ jsoncons::ojson SetFunctionBase(const std::shared_ptr<FunctionAttributeInterface
   });
 }
 
+
+jsoncons::ojson SetIncludesRecursively(const IncludeInfo &info) {
+  jsoncons::ojson includes(jsoncons::json_object_arg, {
+                                                               {"name", info.name},
+                                                               {"kind", static_cast<int>(info.kind)},
+                                                               {"fullPath", info.full_path},
+                                                           });
+  return includes;
+}
+
 void PrettyPrint(const jsoncons::ojson &json) {
   jsoncons::json_options options;
   options.escape_all_non_ascii(true);
@@ -74,6 +84,20 @@ bool TestTargetScopeRelationViewerHarness::Ready() noexcept {
     scopes.push_back(SetScopesRecursively(it));
   }
   result["scopeRelations"] = std::move(scopes);
+  PrettyPrint(result);
+  return true;
+}
+
+
+bool TestTargetLocalIncludeViewerHarness::Ready() noexcept {
+  jsoncons::ojson result(jsoncons::json_object_arg, {{"notice", notice_message_}, {"includes", ""}});
+  jsoncons::ojson includes(jsoncons::json_array_arg);
+
+  auto v_includes = p_analyzer_->GetIncludes();
+  for (const auto &it : v_includes) {
+    includes.push_back(SetIncludesRecursively(it));
+  }
+  result["includes"] = std::move(includes);
   PrettyPrint(result);
   return true;
 }
