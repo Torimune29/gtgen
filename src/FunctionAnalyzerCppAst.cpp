@@ -55,26 +55,21 @@ FunctionBase GetBase(const T &func) {
 
 }  // namespace
 
-FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
-    : p_parser_(p_parser) {
-}
+FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {}
 
 FunctionAnalyzerCppAst::~FunctionAnalyzerCppAst() = default;
-
 
 std::vector<std::shared_ptr<FunctionAttributeInterface>> FunctionAnalyzerCppAst::GetFunctions() noexcept {
   auto functions = GetFunction();
   auto member_functions = GetMemberFunction();
   std::vector<std::shared_ptr<FunctionAttributeInterface>> v;
-  std::for_each(functions.cbegin(), functions.cend(), [&v] (const FunctionInfo &info) {
-    v.emplace_back(std::make_shared<NamespaceFunctionAttribute>(info));
-  });
-  std::for_each(member_functions.cbegin(), member_functions.cend(), [&v] (const MemberFunctionInfo &info) {
+  std::for_each(functions.cbegin(), functions.cend(),
+                [&v](const FunctionInfo &info) { v.emplace_back(std::make_shared<NamespaceFunctionAttribute>(info)); });
+  std::for_each(member_functions.cbegin(), member_functions.cend(), [&v](const MemberFunctionInfo &info) {
     v.emplace_back(std::make_shared<MemberFunctionAttribute>(info));
   });
   return v;
 }
-
 
 std::vector<FunctionInfo> FunctionAnalyzerCppAst::GetFunction() noexcept {
   std::vector<FunctionInfo> infos;

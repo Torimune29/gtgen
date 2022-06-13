@@ -1,7 +1,9 @@
 #include "GoogleMockHarness.h"
-#include "CodeAnalyzerInterface.h"
+
 #include <algorithm>
 #include <iostream>
+
+#include "CodeAnalyzerInterface.h"
 
 namespace {
 const char kMockFileHeader[] = "#pragma once";
@@ -19,14 +21,12 @@ typedef struct ScopedMockFunction {
   std::vector<ScopedMockFunction> children;
 } ScopedMockFunction;
 
-
-std::string GenerateMockMethod(const char header[], const FunctionAttributeInterface * const interface) {
-   std::string mock_method(header);
-   mock_method += std::to_string(interface->Parameters().size());
-   mock_method += "(" + interface->Name() + ", " + interface->ReturnType() + interface->ParameterList() + ");\n";
-   return mock_method;
+std::string GenerateMockMethod(const char header[], const FunctionAttributeInterface *const interface) {
+  std::string mock_method(header);
+  mock_method += std::to_string(interface->Parameters().size());
+  mock_method += "(" + interface->Name() + ", " + interface->ReturnType() + interface->ParameterList() + ");\n";
+  return mock_method;
 }
-
 
 std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<ScopeInfo> &infos, bool expect_global) {
   std::vector<ScopedMockFunction> functions;
@@ -50,10 +50,10 @@ std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<Scope
   return functions;
 }
 
-bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<std::string> &scope, const std::string &function) {
-  auto it = std::find_if(p_map->begin(), p_map->end(), [&scope] (const ScopedMockFunction &info) {
-    return info.full_scope == scope;
-  });
+bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<std::string> &scope,
+                     const std::string &function) {
+  auto it = std::find_if(p_map->begin(), p_map->end(),
+                         [&scope](const ScopedMockFunction &info) { return info.full_scope == scope; });
   if (it != p_map->end()) {
     it->mock_function_declaration.push_back(function);
     return true;
@@ -66,10 +66,9 @@ bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<s
   return false;
 }
 
-
 std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
-  const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map,
-  const std::string &mock_class_name) {
+                             const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map,
+                             const std::string &mock_class_name) {
   std::string body_all;
   for (const auto &it : map) {
     std::string body;
@@ -94,8 +93,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
           body += base_class_list.substr(0, base_class_list.size() - 2);
         }
         body += " {\n";
-        if (!it.mock_function_declaration.empty())
-          body += " public:\n";
+        if (!it.mock_function_declaration.empty()) body += " public:\n";
         break;
       }
       default: {
@@ -133,9 +131,9 @@ bool GoogleMockHarness::Ready() noexcept {
   // function
   auto v_func = p_analyzer_->GetFunctions();
   for (const auto &it : v_func) {
-    if (it->DefinitionSuffix() == "deleted"
-      || (public_only_ && it->IsClassMember() && it->AccessSpecifier() != "public")
-      || it->CvQualifier().find("volatile") != std::string::npos) {  // not support volatile method mocking
+    if (it->DefinitionSuffix() == "deleted" ||
+        (public_only_ && it->IsClassMember() && it->AccessSpecifier() != "public") ||
+        it->CvQualifier().find("volatile") != std::string::npos) {  // not support volatile method mocking
       continue;
     }
     if (it->CvQualifier().find("const") != std::string::npos) {
@@ -155,10 +153,8 @@ bool GoogleMockHarness::Ready() noexcept {
   }
 
   // generate mock
-  body_ += std::string(kMockFileHeader) + "\n\n"
-        + std::string(kMockIncludeHeader) + "\n\n";
+  body_ += std::string(kMockFileHeader) + "\n\n" + std::string(kMockIncludeHeader) + "\n\n";
   body_ += GenerateMockBody(map, class_bases_map, name_);
 
   return true;
 }
-

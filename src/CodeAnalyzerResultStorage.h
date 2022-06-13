@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
+
 #include "FunctionInfo.h"
-#include "ScopeInfo.h"
 #include "IncludeInfo.h"
+#include "ScopeInfo.h"
 
 /**
  * @brief Abstract Code Parser Class
@@ -42,9 +43,7 @@ class CodeAnalyzerResultStorage : public CodeAnalyzerInterface {
     return v;
   }
 
-  void AddAnalyzer(std::shared_ptr<CodeAnalyzerInterface> p_if) {
-    analyzers_.emplace_back(p_if);
-  }
+  void AddAnalyzer(std::shared_ptr<CodeAnalyzerInterface> p_if) { analyzers_.emplace_back(p_if); }
 
  private:
   std::vector<std::shared_ptr<CodeAnalyzerInterface>> analyzers_;

@@ -14,11 +14,9 @@ cppast::detail::visitor_filter_t ScopeRelationWhiteList() {
 }  // namespace
 
 ScopeRelationAnalyzerCppAst::ScopeRelationAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
-    : p_parser_(p_parser) {
-}
+    : p_parser_(p_parser) {}
 
 ScopeRelationAnalyzerCppAst::~ScopeRelationAnalyzerCppAst() = default;
-
 
 std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::GetScopes() noexcept {
   std::vector<ScopeInfo> infos;
@@ -43,7 +41,6 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::GetScopes() noexcept {
   return infos;
 }
 
-
 template <typename T>
 std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseScopeRelation(const T &entity) const noexcept {
   std::vector<ScopeInfo> infos, infos_parsed;
@@ -60,7 +57,6 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseScopeRelation(const T &
   return infos;
 }
 
-
 template <typename T>
 std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseNamespaceScopeRelation(const T &entity) const noexcept {
   std::vector<ScopeInfo> infos;
@@ -73,8 +69,7 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseNamespaceScopeRelation(
     info.kind = namespace_e.is_anonymous() ? ScopeInfo::Kind::kAnonymousNamespace : ScopeInfo::Kind::kNamespace;
     // full name
     auto full_scope = p_parser_->GetScopes(namespace_e);
-    if (!full_scope.empty())
-      info.full_scope = full_scope;
+    if (!full_scope.empty()) info.full_scope = full_scope;
     // children
     for (auto &child : namespace_e) {
       auto info_parsed = ParseScopeRelation(child);
@@ -86,7 +81,8 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseNamespaceScopeRelation(
 }
 
 template <typename T>
-std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseClassScopeRelation(const T &entity, bool expect_global) const noexcept {
+std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseClassScopeRelation(const T &entity,
+                                                                            bool expect_global) const noexcept {
   std::vector<ScopeInfo> infos;
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
@@ -116,4 +112,3 @@ std::vector<ScopeInfo> ScopeRelationAnalyzerCppAst::ParseClassScopeRelation(cons
   }
   return infos;
 }
-

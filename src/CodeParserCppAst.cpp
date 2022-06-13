@@ -3,10 +3,10 @@
 #include <cppast/cpp_class.hpp>
 #include <cppast/cpp_function.hpp>
 #include <cppast/cpp_member_function.hpp>
-#include <iostream>
 #include <deque>
-#include <vector>
+#include <iostream>
 #include <type_traits>
+#include <vector>
 
 #include "FunctionInfo.h"
 
@@ -19,21 +19,16 @@ namespace cppast {
  *
  */
 struct NoneLogger : diagnostic_logger {
-  bool do_log(const char* /* source */, const diagnostic& /* d */) const override {
-    return true;
-  }
+  bool do_log(const char * /* source */, const diagnostic & /* d */) const override { return true; }
 };
 
-
-
 }  // namespace cppast
-
 
 const char kSettingsNameCompileDatabase[] = "compile_database_path";
 const char kSettingsVerbose[] = "verbose";
 
-CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths,
-                                   const std::string &compile_database_path, bool verbose)
+CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path,
+                                   bool verbose)
     : AbstractCodeParser(std::move(file_paths)), ready_(false) {
   settings_.insert({kSettingsNameCompileDatabase, compile_database_path});
   settings_.insert({kSettingsVerbose, (verbose ? "true" : "false")});
@@ -60,11 +55,9 @@ bool CodeParserCppAst::Ready() noexcept {
   return ready_;
 }
 
-
-const cppast::simple_file_parser<cppast::libclang_parser> & CodeParserCppAst::GetParserRef() noexcept {
+const cppast::simple_file_parser<cppast::libclang_parser> &CodeParserCppAst::GetParserRef() noexcept {
   return (*p_parser_);
 }
-
 
 std::string CodeParserCppAst::GetFullName(const cppast::cpp_entity &e) noexcept {
   std::string full_name;
@@ -88,12 +81,11 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
 
   for (auto cur = e.parent(); cur; cur = cur.value().parent()) {
     // prepend each scope, if there is any
-    type_safe::with(cur.value().scope_name(), [&](const cppast::cpp_scope_name& cur_scope) {
+    type_safe::with(cur.value().scope_name(), [&](const cppast::cpp_scope_name &cur_scope) {
       // if class, cur_scope includes class name at the end. Cut.
       if (e.kind() == cppast::cpp_entity_kind::class_t) {
-        const auto& c = static_cast<const cppast::cpp_class&>(e);
-        if (cur_scope.name() == c.name())
-          return;
+        const auto &c = static_cast<const cppast::cpp_class &>(e);
+        if (cur_scope.name() == c.name()) return;
       }
       if (!cur_scope.name().empty()) {
         scopes.push_front(cur_scope.name());
@@ -102,9 +94,8 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
   }
 
   if (e.kind() == cppast::cpp_entity_kind::class_t) {
-    const auto& c = static_cast<const cppast::cpp_class&>(e);
-    if (!c.semantic_scope().empty())
-      scopes.push_back(c.semantic_scope());
+    const auto &c = static_cast<const cppast::cpp_class &>(e);
+    if (!c.semantic_scope().empty()) scopes.push_back(c.semantic_scope());
   } else if (e.kind() != cppast::cpp_entity_kind::file_t) {
     // free function has file parent entity, so exclude
     scopes.push_back(e.name());
@@ -112,12 +103,10 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
   return std::vector<std::string>(scopes.begin(), scopes.end());
 }
 
-void CodeParserCppAst::Log(const std::string &label, const std::string &message, cppast::severity severity) const noexcept{
+void CodeParserCppAst::Log(const std::string &label, const std::string &message,
+                           cppast::severity severity) const noexcept {
   std::string full_message;
   full_message += label + " " + message;
   p_logger_->log("gtgen_CodeParser",
-              cppast::diagnostic{full_message,
-                         cppast::source_location::make_unknown(),
-                         severity});
-
+                 cppast::diagnostic{full_message, cppast::source_location::make_unknown(), severity});
 }

@@ -1,11 +1,12 @@
 #pragma once
 
-#include "AbstractCodeParser.h"
-#include <string>
-#include <memory>
+#include <cppast/diagnostic.hpp>
 #include <cppast/libclang_parser.hpp>
 #include <cppast/visitor.hpp>
-#include <cppast/diagnostic.hpp>
+#include <memory>
+#include <string>
+
+#include "AbstractCodeParser.h"
 
 /**
  * @brief  Code ParserCppAst Class
@@ -20,12 +21,11 @@ class CodeParserCppAst : public AbstractCodeParser {
   using LoggerType = cppast::diagnostic_logger;
 
  public:
-  CodeParserCppAst(const std::vector<std::string> &file_paths,
-                   const std::string &compile_database_path, bool verbose);
+  CodeParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path, bool verbose);
   ~CodeParserCppAst() override;
 
   bool Ready() noexcept final;
-  const cppast::simple_file_parser<cppast::libclang_parser> &  GetParserRef() noexcept;
+  const cppast::simple_file_parser<cppast::libclang_parser> &GetParserRef() noexcept;
   static std::string GetFullName(const cppast::cpp_entity &e) noexcept;
   static std::vector<std::string> GetScopes(const cppast::cpp_entity &e) noexcept;
   void Log(const std::string &label, const std::string &message, cppast::severity severity) const noexcept;

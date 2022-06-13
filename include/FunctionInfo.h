@@ -171,8 +171,8 @@ class FunctionAttributeBase : public FunctionAttributeInterface {
   bool InScopeOf(const FunctionScope &rhs) const noexcept final;
 
   std::string ConstantExpression() const noexcept final;  // 5.19 Constant expressions
-  std::string DefinitionSuffix() const noexcept final;  // 8.4.3 Deleted definitions
-  std::string ExceptionSuffix() const noexcept final;  // 15.4 Exception specification
+  std::string DefinitionSuffix() const noexcept final;    // 8.4.3 Deleted definitions
+  std::string ExceptionSuffix() const noexcept final;     // 15.4 Exception specification
   FunctionScope Scope() const noexcept final;
   std::string Name() const noexcept final;
   std::string ReturnType() const noexcept final;

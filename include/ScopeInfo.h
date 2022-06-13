@@ -15,10 +15,7 @@ typedef struct ScopeInfo {
   std::vector<std::string> full_scope;
   std::vector<ScopeInfo> children;
 
-  bool operator== (const ScopeInfo &rhs) const noexcept {
-    return (name == rhs.name
-      && kind == rhs.kind
-      && children == rhs.children
-    );
+  bool operator==(const ScopeInfo &rhs) const noexcept {
+    return (name == rhs.name && kind == rhs.kind && children == rhs.children);
   }
 } ScopeInfo;

@@ -10,12 +10,9 @@ cppast::detail::visitor_filter_t IncludeWhiteList() {
 
 }  // namespace
 
-IncludeAnalyzerCppAst::IncludeAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
-    : p_parser_(p_parser) {
-}
+IncludeAnalyzerCppAst::IncludeAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {}
 
 IncludeAnalyzerCppAst::~IncludeAnalyzerCppAst() = default;
-
 
 std::vector<IncludeInfo> IncludeAnalyzerCppAst::GetIncludes() noexcept {
   std::vector<IncludeInfo> infos;
@@ -29,7 +26,8 @@ std::vector<IncludeInfo> IncludeAnalyzerCppAst::GetIncludes() noexcept {
         p_parser_->Log("Include directive in:", include.target().name(), cppast::severity::debug);
 
         // kind
-        info.kind = include.include_kind() == cppast::cpp_include_kind::system ? IncludeInfo::Kind::kSystem : IncludeInfo::Kind::kLocal;
+        info.kind = include.include_kind() == cppast::cpp_include_kind::system ? IncludeInfo::Kind::kSystem
+                                                                               : IncludeInfo::Kind::kLocal;
         // name
         info.name = include.target().name();
         // name
@@ -44,5 +42,3 @@ std::vector<IncludeInfo> IncludeAnalyzerCppAst::GetIncludes() noexcept {
   }
   return infos;
 }
-
-
