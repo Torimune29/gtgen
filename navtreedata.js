@@ -27,9 +27,10 @@ var NAVTREE =
   [ "gtgen", "index.html", [
     [ "How to Build", "index.html#autotoc_md1", null ],
     [ "How to Use", "index.html#autotoc_md2", [
-      [ "Generate mock", "index.html#autotoc_md3", null ]
+      [ "options", "index.html#autotoc_md3", null ],
+      [ "Generate mock", "index.html#autotoc_md4", null ]
     ] ],
-    [ "How to Develop", "index.html#autotoc_md4", null ],
+    [ "How to Develop", "index.html#autotoc_md5", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
