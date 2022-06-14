@@ -5,10 +5,12 @@
 [![codecov](https://codecov.io/gh/Torimune29/gtgen/branch/main/graph/badge.svg)](https://codecov.io/gh/Torimune29/gtgen)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ab150dd86c44db9ba17df846aa309a3)](https://www.codacy.com/gh/Torimune29/gtgen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Torimune29/dev-cpp-oss-template&amp;utm_campaign=Badge_Grade)
 ![CodeQL](https://github.com/Torimune29/gtgen/workflows/CodeQL/badge.svg)
+<br>[Github Repo](https://github.com/Torimune29/gtgen)
 
 ## How to Build
 
 - Requirement
+  - cmake >=3.14
   - libclang (like libclang-dev on Ubuntu20.04) for building [cppast](https://github.com/foonathan/cppast)
 - Build
 
