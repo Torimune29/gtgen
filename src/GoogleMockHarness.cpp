@@ -39,6 +39,7 @@ std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<Scope
     ScopedMockFunction free_function;
     free_function.name = kMockFreeFunctionScopeName;
     free_function.kind = ScopeInfo::Kind::kGlobal;
+    free_function.full_scope = {""};
     functions.push_back(free_function);
   }
 
