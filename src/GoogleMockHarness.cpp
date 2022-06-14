@@ -13,6 +13,10 @@ const char kMockConstMethodName[] = "MOCK_CONST_METHOD";
 const char kMockFreeFunctionClassName[] = "FreeFunction";
 const char kMockFreeFunctionScopeName[] = "@FreeFunction@";
 
+const size_t kIncludeStringMaxSize = 255;
+const char kSystemIncludeFormat[] = R"xxx(#include <%s>)xxx";
+const char kLocalIncludeFormat[] = R"xxx(#include "%s")xxx";
+
 typedef struct ScopedMockFunction {
   std::string name;
   std::vector<std::string> full_scope;
@@ -117,6 +121,32 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
   return body_all;
 }
 
+
+std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
+  std::vector<std::string> headers;
+  char header_buf[kIncludeStringMaxSize] = {};
+  for (const auto &it : includes) {
+    int header_buf_size = 0;
+    if (it.kind == IncludeInfo::Kind::kSystem) {
+      header_buf_size = snprintf(header_buf, kIncludeStringMaxSize, kSystemIncludeFormat, it.name.c_str());
+    } else if (it.kind == IncludeInfo::Kind::kLocal) {
+      header_buf_size = snprintf(header_buf, kIncludeStringMaxSize, kLocalIncludeFormat, it.name.c_str());
+    }
+    if (header_buf_size > 0)
+      headers.push_back(std::string(header_buf, static_cast<size_t>(header_buf_size)));
+  }
+  std::sort(headers.begin(), headers.end());
+  headers.erase(std::unique(headers.begin(), headers.end()), headers.end());
+
+  std::string header_lines;
+  for (const auto &it : headers) {
+    header_lines += it + "\n";
+  }
+  return header_lines;
+}
+
+
+
 }  // namespace
 
 bool GoogleMockHarness::Ready() noexcept {
@@ -154,6 +184,7 @@ bool GoogleMockHarness::Ready() noexcept {
 
   // generate mock
   body_ += std::string(kMockFileHeader) + "\n\n" + std::string(kMockIncludeHeader) + "\n\n";
+  body_ += AddIncludes(p_analyzer_->GetIncludes()) + "\n\n";
   body_ += GenerateMockBody(map, class_bases_map, name_);
 
   return true;

@@ -24,7 +24,7 @@ struct NoneLogger : diagnostic_logger {
 
 }  // namespace cppast
 
-const char kSettingsNameCompileDatabase[] = "compile_database_path";
+const char kSettingsNameCompileDatabase[] = "compile_database_directory_path";
 const char kSettingsVerbose[] = "verbose";
 
 CodeParserCppAst::CodeParserCppAst(const std::vector<std::string> &file_paths, const std::string &compile_database_path,
