@@ -16,15 +16,15 @@ class CodeAnalyzerInterface {
  public:
   virtual ~CodeAnalyzerInterface() = default;
 
-  virtual std::vector<std::shared_ptr<FunctionAttributeInterface>> GetFunctions() noexcept {
+  virtual std::vector<std::shared_ptr<FunctionAttributeInterface>> GetFunctions() {
     return {};
   }
 
-  virtual std::vector<ScopeInfo> GetScopes() noexcept {
+  virtual std::vector<ScopeInfo> GetScopes() {
     return {};
   }
 
-  virtual std::vector<IncludeInfo> GetIncludes() noexcept {
+  virtual std::vector<IncludeInfo> GetIncludes() {
     return {};
   }
 
