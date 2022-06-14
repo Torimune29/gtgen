@@ -28,7 +28,8 @@
 class GoogleMockHarness : public AbstractTestHarness {
  public:
   GoogleMockHarness(const std::string &name, std::shared_ptr<CodeAnalyzerInterface> p_analyzer, bool public_only = true)
-      : AbstractTestHarness(name), public_only_(public_only), p_analyzer_(p_analyzer) {}
+      : AbstractTestHarness(name), public_only_(public_only), p_analyzer_(p_analyzer) {
+  }
   ~GoogleMockHarness() override = default;
   bool Ready() noexcept final;
 

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <gmock/gmock.h>
+
 #include "testdata/MockGenerate.h"
 
 class Mockfoo {
@@ -23,22 +24,21 @@ class Mockbaz {
   MOCK_METHOD0(struct_function, void());
 };
 class Mockfizz {
-class Mockbuzz {
-  MOCK_METHOD0(inner_class_func, void());
-};
+  class Mockbuzz {
+    MOCK_METHOD0(inner_class_func, void());
+  };
 };
 namespace n3 {
 namespace n3_1 {
 class Mockfizz {
-class Mockbuzz {
-  MOCK_METHOD0(inner_class_func, void());
+  class Mockbuzz {
+    MOCK_METHOD0(inner_class_func, void());
+  };
 };
-};
-};
+};  // namespace n3_1
 class Mockfizz {
-class Mockbuzz {
-  MOCK_METHOD0(inner_class_func, void());
+  class Mockbuzz {
+    MOCK_METHOD0(inner_class_func, void());
+  };
 };
-};
-};
-
+};  // namespace n3

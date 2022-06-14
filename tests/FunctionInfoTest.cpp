@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include <algorithm>
 
 #include "FunctionInfo.h"
@@ -8,7 +9,6 @@
 
 const std::string kSourceTreePath = SOURCE_DIR;
 
-
 TEST(FunctionInfoTest, EqualOperator) {
   MemberFunctionInfo func_1 = {}, func_2 = {};
   func_1.base.scope = {"fizz", "buzz"};
@@ -17,11 +17,11 @@ TEST(FunctionInfoTest, EqualOperator) {
 
   // filter
   MemberFunctionInfo func_3 = {};
-    func_3.base.scope = {"foo"};
-    func_3.base.name = "overload";
-    func_3.base.parameters.push_back("int");
-    func_3.is_const = true;
-    func_3.is_volatile = true;
+  func_3.base.scope = {"foo"};
+  func_3.base.name = "overload";
+  func_3.base.parameters.push_back("int");
+  func_3.is_const = true;
+  func_3.is_volatile = true;
   MemberFunctionInfo filter_match = {};
   filter_match.base.name = "overload";
   filter_match.base.parameters.push_back("int");
@@ -29,11 +29,8 @@ TEST(FunctionInfoTest, EqualOperator) {
   filter_match.is_const = true;
   filter_match.is_volatile = true;
   EXPECT_EQ(func_3, filter_match);
-  MemberFunctionInfo filter_1 = filter_match,
-    filter_2 = filter_match,
-    filter_3 = filter_match,
-    filter_4 = filter_match,
-    filter_5 = filter_match;
+  MemberFunctionInfo filter_1 = filter_match, filter_2 = filter_match, filter_3 = filter_match, filter_4 = filter_match,
+                     filter_5 = filter_match;
   {
     filter_1.base.name = "override";
     EXPECT_NE(func_3, filter_1);
@@ -67,9 +64,7 @@ TEST(FunctionInfoTest, EqualOperatorFreeFunction) {
     FunctionInfo filter_match = {};
     filter_match.base.name = "static_function";
     EXPECT_EQ(func_3, filter_match);
-    FunctionInfo filter_1 = filter_match,
-      filter_2 = filter_match,
-      filter_3 = filter_match;
+    FunctionInfo filter_1 = filter_match, filter_2 = filter_match, filter_3 = filter_match;
     {
       filter_1.base.name = "extern_function";
       EXPECT_NE(func_3, filter_1);
@@ -84,7 +79,6 @@ TEST(FunctionInfoTest, EqualOperatorFreeFunction) {
     }
   }
 }
-
 
 TEST(FunctionInfoTest, InScopeOf) {
   FunctionInfo func_1 = {};

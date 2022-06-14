@@ -18,8 +18,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
   auto v = analyzer->GetFunctions();
   std::vector<FunctionInfo> v_function;
   for (const auto &it : v) {
-    if (!it->IsClassMember())
-      v_function.push_back(static_cast<NamespaceFunctionAttribute *>(it.get())->GetAttribute());
+    if (!it->IsClassMember()) v_function.push_back(static_cast<NamespaceFunctionAttribute *>(it.get())->GetAttribute());
   }
 
   for (const auto &it : v_function) {
@@ -171,8 +170,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
 
   std::vector<MemberFunctionInfo> v_member;
   for (const auto &it : v) {
-    if (it->IsClassMember())
-      v_member.push_back(static_cast<MemberFunctionAttribute *>(it.get())->GetAttribute());
+    if (it->IsClassMember()) v_member.push_back(static_cast<MemberFunctionAttribute *>(it.get())->GetAttribute());
   }
 
   for (const auto &it : v_member) {

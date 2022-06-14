@@ -10,7 +10,8 @@ cppast::detail::visitor_filter_t IncludeWhiteList() {
 
 }  // namespace
 
-IncludeAnalyzerCppAst::IncludeAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {}
+IncludeAnalyzerCppAst::IncludeAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {
+}
 
 IncludeAnalyzerCppAst::~IncludeAnalyzerCppAst() = default;
 

@@ -19,7 +19,9 @@ namespace cppast {
  *
  */
 struct NoneLogger : diagnostic_logger {
-  bool do_log(const char * /* source */, const diagnostic & /* d */) const override { return true; }
+  bool do_log(const char * /* source */, const diagnostic & /* d */) const override {
+    return true;
+  }
 };
 
 }  // namespace cppast

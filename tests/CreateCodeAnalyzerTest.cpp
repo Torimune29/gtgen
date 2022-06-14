@@ -27,4 +27,3 @@ TEST(CreateCodeAnalyzerTest, Ready) {
 
   EXPECT_TRUE(analyzer != nullptr);
 }
-

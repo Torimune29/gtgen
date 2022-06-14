@@ -55,7 +55,8 @@ FunctionBase GetBase(const T &func) {
 
 }  // namespace
 
-FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {}
+FunctionAnalyzerCppAst::FunctionAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser) : p_parser_(p_parser) {
+}
 
 FunctionAnalyzerCppAst::~FunctionAnalyzerCppAst() = default;
 

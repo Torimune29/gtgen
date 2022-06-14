@@ -30,7 +30,9 @@ typedef struct FunctionInfoBase {
     return (name == rhs.name && parameters == rhs.parameters && scope == rhs.scope);
   }
 
-  bool operator!=(const FunctionInfoBase &rhs) const noexcept { return !(this->operator==(rhs)); }
+  bool operator!=(const FunctionInfoBase &rhs) const noexcept {
+    return !(this->operator==(rhs));
+  }
 
   bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
     return scope.size() >= rhs_scope.size() && std::equal(rhs_scope.begin(), rhs_scope.end(), scope.begin());
@@ -55,9 +57,13 @@ typedef struct MemberFunctionInfo {
     return (base == rhs.base && is_const == rhs.is_const && is_volatile == rhs.is_volatile);
   }
 
-  bool operator!=(const MemberFunctionInfo &rhs) const noexcept { return !(this->operator==(rhs)); }
+  bool operator!=(const MemberFunctionInfo &rhs) const noexcept {
+    return !(this->operator==(rhs));
+  }
 
-  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept { return base.InScopeOf(rhs_scope); }
+  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
+    return base.InScopeOf(rhs_scope);
+  }
 } MemberFunctionInfo;
 
 /**
@@ -69,19 +75,28 @@ typedef struct FunctionInfo {
   bool is_extern = false;
   bool is_static = false;
 
-  bool operator==(const FunctionInfo &rhs) const noexcept { return (base == rhs.base); }
+  bool operator==(const FunctionInfo &rhs) const noexcept {
+    return (base == rhs.base);
+  }
 
-  bool operator!=(const FunctionInfo &rhs) const noexcept { return !(this->operator==(rhs)); }
+  bool operator!=(const FunctionInfo &rhs) const noexcept {
+    return !(this->operator==(rhs));
+  }
 
-  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept { return base.InScopeOf(rhs_scope); }
+  bool InScopeOf(const std::vector<std::string> &rhs_scope) const noexcept {
+    return base.InScopeOf(rhs_scope);
+  }
 } FunctionInfo;
 
 typedef struct FunctionScope {
   std::vector<std::string> scope_names;
 
-  FunctionScope(const std::vector<std::string> rhs_scope_names) : scope_names(rhs_scope_names) {}
+  FunctionScope(const std::vector<std::string> rhs_scope_names) : scope_names(rhs_scope_names) {
+  }
 
-  bool operator==(const FunctionScope &rhs) const noexcept { return scope_names == rhs.scope_names; }
+  bool operator==(const FunctionScope &rhs) const noexcept {
+    return scope_names == rhs.scope_names;
+  }
 
   bool In(const FunctionScope &rhs) const noexcept {
     return scope_names.size() >= rhs.scope_names.size() &&
@@ -91,7 +106,8 @@ typedef struct FunctionScope {
   std::string FullName() const noexcept {
     if (scope_names.empty()) return "";
     std::string full_name;
-    for (const auto &it : scope_names) full_name += it + "::";
+    for (const auto &it : scope_names)
+      full_name += it + "::";
     return full_name.substr(0, full_name.size() - 2);
   }
 } FunctionScope;

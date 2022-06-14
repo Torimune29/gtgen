@@ -1,13 +1,12 @@
 #include <gtest/gtest.h>
+
 #include <string>
 
 #include "IncludeInfo.h"
-#include "gtgen.h"
 #include "TestTargetViewerHarness.h"
-
+#include "gtgen.h"
 
 const std::string kSourceTreePath = SOURCE_DIR;
-
 
 TEST(IncludeAnalyzerTest, ValidateIncludeInfo) {
   std::vector<std::string> paths = {

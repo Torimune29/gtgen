@@ -14,7 +14,8 @@ cppast::detail::visitor_filter_t ScopeRelationWhiteList() {
 }  // namespace
 
 ScopeRelationAnalyzerCppAst::ScopeRelationAnalyzerCppAst(std::shared_ptr<CodeParserCppAst> p_parser)
-    : p_parser_(p_parser) {}
+    : p_parser_(p_parser) {
+}
 
 ScopeRelationAnalyzerCppAst::~ScopeRelationAnalyzerCppAst() = default;
 

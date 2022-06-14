@@ -121,7 +121,6 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
   return body_all;
 }
 
-
 std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
   std::vector<std::string> headers;
   char header_buf[kIncludeStringMaxSize] = {};
@@ -132,8 +131,7 @@ std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
     } else if (it.kind == IncludeInfo::Kind::kLocal) {
       header_buf_size = snprintf(header_buf, kIncludeStringMaxSize, kLocalIncludeFormat, it.name.c_str());
     }
-    if (header_buf_size > 0)
-      headers.push_back(std::string(header_buf, static_cast<size_t>(header_buf_size)));
+    if (header_buf_size > 0) headers.push_back(std::string(header_buf, static_cast<size_t>(header_buf_size)));
   }
   std::sort(headers.begin(), headers.end());
   headers.erase(std::unique(headers.begin(), headers.end()), headers.end());
@@ -144,8 +142,6 @@ std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
   }
   return header_lines;
 }
-
-
 
 }  // namespace
 
