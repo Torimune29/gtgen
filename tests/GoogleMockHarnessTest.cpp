@@ -141,6 +141,6 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   EXPECT_TRUE(harness.Ready());
   auto body = harness.Generate();
   std::cout << body << std::endl;
-  EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
-  EXPECT_TRUE(body.find(free_function_class) != std::string::npos);
+  EXPECT_TRUE(body.find(mock_method_1) == std::string::npos);
+  EXPECT_TRUE(body.find(free_function_class) == std::string::npos);
 }
