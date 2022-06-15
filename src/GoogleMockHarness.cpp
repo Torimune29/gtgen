@@ -107,7 +107,10 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
     }
     // generate child function
     for (const auto &it_function : it.mock_function_declaration) {
-      body += "  " + it_function;
+      // only support free or class member function
+      if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
+        body += "  " + it_function;
+      }
     }
     // generate child scope
     auto body_child = GenerateMockBody(it.children, class_bases_map, mock_class_name);
