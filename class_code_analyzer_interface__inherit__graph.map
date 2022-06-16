@@ -1,7 +1,7 @@
 <map id="CodeAnalyzerInterface" name="CodeAnalyzerInterface">
 <area shape="rect" id="node1" title="Abstract Code Parser Class." alt="" coords="391,5,597,141"/>
-<area shape="rect" id="node2" href="$class_code_analyzer_result_storage.html" title="Abstract Code Parser Class." alt="" coords="5,189,244,340"/>
-<area shape="rect" id="node3" href="$class_function_analyzer_cpp_ast.html" title="Abstract Code Parser Class." alt="" coords="269,211,485,318"/>
-<area shape="rect" id="node4" href="$class_include_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="509,211,717,318"/>
-<area shape="rect" id="node5" href="$class_scope_relation_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="741,197,964,333"/>
+<area shape="rect" id="node2" href="$class_code_analyzer_result_storage.html" title="Abstract Code Parser Class." alt="" coords="5,211,244,362"/>
+<area shape="rect" id="node3" href="$class_function_analyzer_cpp_ast.html" title="Abstract Code Parser Class." alt="" coords="269,204,485,369"/>
+<area shape="rect" id="node4" href="$class_include_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="509,233,717,340"/>
+<area shape="rect" id="node5" href="$class_scope_relation_analyzer_cpp_ast.html" title="Code ParserCppAst Class." alt="" coords="741,189,988,384"/>
 </map>

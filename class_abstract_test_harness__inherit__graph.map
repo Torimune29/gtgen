@@ -1,6 +1,6 @@
 <map id="AbstractTestHarness" name="AbstractTestHarness">
 <area shape="rect" id="node1" title="Abstract Code Parser Class." alt="" coords="359,5,550,156"/>
-<area shape="rect" id="node2" href="$class_google_mock_harness.html" title="Code Parser Class." alt="" coords="5,226,197,333"/>
+<area shape="rect" id="node2" href="$class_google_mock_harness.html" title="Code Parser Class." alt="" coords="5,219,197,340"/>
 <area shape="rect" id="node3" href="$class_test_target_function_viewer_harness.html" title="Code Parser Class." alt="" coords="222,204,437,355"/>
 <area shape="rect" id="node4" href="$class_test_target_local_include_viewer_harness.html" title="Code Parser Class." alt="" coords="461,204,701,355"/>
 <area shape="rect" id="node5" href="$class_test_target_scope_relation_viewer_harness.html" title="Code Parser Class." alt="" coords="726,204,967,355"/>

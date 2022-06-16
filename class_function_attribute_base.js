@@ -14,5 +14,6 @@ var class_function_attribute_base =
     [ "ParameterTypes", "class_function_attribute_base.html#af9be874fc306138e324520fb352a20e2", null ],
     [ "ReturnType", "class_function_attribute_base.html#aa55548db5cfcfefa335d0a93d01db4ea", null ],
     [ "Scope", "class_function_attribute_base.html#a5c2e0cf531134255a4387392932d830d", null ],
-    [ "Signature", "class_function_attribute_base.html#a76dda86e6a9d6eb4d43b38affbcb9b97", null ]
+    [ "Signature", "class_function_attribute_base.html#a76dda86e6a9d6eb4d43b38affbcb9b97", null ],
+    [ "info_", "class_function_attribute_base.html#a73aa086a2f21524371ffe86146e68e64", null ]
 ];

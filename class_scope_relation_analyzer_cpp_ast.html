@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('class_scope_relation_analyzer_cpp_ast.
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_scope_relation_analyzer_cpp_ast-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ScopeRelationAnalyzerCppAst Class Reference</div>  </div>
@@ -100,7 +102,7 @@ Inheritance diagram for ScopeRelationAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scope_relation_analyzer_cpp_ast__inherit__graph.png" border="0" usemap="#a_scope_relation_analyzer_cpp_ast_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_scope_relation_analyzer_cpp_ast_inherit__map" id="a_scope_relation_analyzer_cpp_ast_inherit__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,189,351,325"/>
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="116,189,363,384"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,141"/>
 <area shape="rect" title=" " alt="" coords="237,27,506,119"/>
 </map>
@@ -110,7 +112,7 @@ Collaboration diagram for ScopeRelationAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scope_relation_analyzer_cpp_ast__coll__graph.png" border="0" usemap="#a_scope_relation_analyzer_cpp_ast_coll__map" alt="Collaboration graph"/></div>
 <map name="a_scope_relation_analyzer_cpp_ast_coll__map" id="a_scope_relation_analyzer_cpp_ast_coll__map">
-<area shape="rect" title="Code ParserCppAst Class." alt="" coords="128,189,351,325"/>
+<area shape="rect" title="Code ParserCppAst Class." alt="" coords="116,189,363,384"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,141"/>
 <area shape="rect" title=" " alt="" coords="237,27,506,119"/>
 </map>
@@ -131,6 +133,30 @@ virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_function_a
 <tr class="memitem:a9e10bb0fcedbcc72f1985901a2d70952 inherit pub_methods_class_code_analyzer_interface"><td class="memItemLeft" align="right" valign="top"><a id="a9e10bb0fcedbcc72f1985901a2d70952"></a>
 virtual std::vector&lt; <a class="el" href="struct_include_info.html">IncludeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetIncludes</b> () noexcept</td></tr>
 <tr class="separator:a9e10bb0fcedbcc72f1985901a2d70952 inherit pub_methods_class_code_analyzer_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa5f929b8be13e3fa408e1cf736df7b90"><td class="memItemLeft" align="right" valign="top"><a id="aa5f929b8be13e3fa408e1cf736df7b90"></a>
+std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> () noexcept</td></tr>
+<tr class="separator:aa5f929b8be13e3fa408e1cf736df7b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb20eb036425ed7e3bb07b657c0961b6"><td class="memTemplParams" colspan="2"><a id="abb20eb036425ed7e3bb07b657c0961b6"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:abb20eb036425ed7e3bb07b657c0961b6"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ParseScopeRelation</b> (const T &amp;entity) const noexcept</td></tr>
+<tr class="separator:abb20eb036425ed7e3bb07b657c0961b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71880db33367829fa1207a2be73312f0"><td class="memTemplParams" colspan="2"><a id="a71880db33367829fa1207a2be73312f0"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a71880db33367829fa1207a2be73312f0"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ParseNamespaceScopeRelation</b> (const T &amp;entity) const noexcept</td></tr>
+<tr class="separator:a71880db33367829fa1207a2be73312f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98662bb1c2f368aed6e6b09b12952a78"><td class="memTemplParams" colspan="2"><a id="a98662bb1c2f368aed6e6b09b12952a78"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a98662bb1c2f368aed6e6b09b12952a78"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ParseClassScopeRelation</b> (const T &amp;entity, bool expect_global) const noexcept</td></tr>
+<tr class="separator:a98662bb1c2f368aed6e6b09b12952a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ac2ebc0c76b94164fe4fb589f8be9a73b"><td class="memItemLeft" align="right" valign="top"><a id="ac2ebc0c76b94164fe4fb589f8be9a73b"></a>
+std::shared_ptr&lt; <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p_parser_</b></td></tr>
+<tr class="separator:ac2ebc0c76b94164fe4fb589f8be9a73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Code ParserCppAst Class. </p>

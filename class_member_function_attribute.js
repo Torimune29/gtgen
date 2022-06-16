@@ -8,5 +8,6 @@ var class_member_function_attribute =
     [ "GetAttribute", "class_member_function_attribute.html#ac89b7263393ffae0b3e3f845b856d06b", null ],
     [ "IsAbleToPolymorphic", "class_member_function_attribute.html#aa3f13583b45e4ad148b1a3d7139fcf63", null ],
     [ "IsClassMember", "class_member_function_attribute.html#ad18762cd53de2f6623bd18342ed6cc06", null ],
-    [ "StorageClass", "class_member_function_attribute.html#abc76bff7b5d957f8c91e53787c74d1ae", null ]
+    [ "StorageClass", "class_member_function_attribute.html#abc76bff7b5d957f8c91e53787c74d1ae", null ],
+    [ "info_", "class_member_function_attribute.html#a0f2fbece638e75ee99ca2bec08dad530", null ]
 ];

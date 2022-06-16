@@ -1,5 +1,7 @@
 <map id="MemberFunctionAttribute" name="MemberFunctionAttribute">
-<area shape="rect" id="node1" title=" " alt="" coords="7,608,231,803"/>
-<area shape="rect" id="node2" href="$class_function_attribute_base.html" title=" " alt="" coords="18,277,221,560"/>
-<area shape="rect" id="node3" href="$class_function_attribute_interface.html" title=" " alt="" coords="5,5,233,229"/>
+<area shape="rect" id="node1" title=" " alt="" coords="117,667,341,861"/>
+<area shape="rect" id="node2" href="$class_function_attribute_base.html" title=" " alt="" coords="26,321,229,604"/>
+<area shape="rect" id="node3" href="$class_function_attribute_interface.html" title=" " alt="" coords="5,20,233,244"/>
+<area shape="rect" id="node4" href="$struct_function_info_base.html" title=" " alt="" coords="257,5,405,259"/>
+<area shape="rect" id="node5" href="$struct_member_function_info.html" title="Member Function Info." alt="" coords="253,373,409,553"/>
 </map>

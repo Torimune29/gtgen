@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('class_function_analyzer_cpp_ast.html',
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_function_analyzer_cpp_ast-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">FunctionAnalyzerCppAst Class Reference</div>  </div>
@@ -100,7 +102,7 @@ Inheritance diagram for FunctionAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_function_analyzer_cpp_ast__inherit__graph.png" border="0" usemap="#a_function_analyzer_cpp_ast_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_function_analyzer_cpp_ast_inherit__map" id="a_function_analyzer_cpp_ast_inherit__map">
-<area shape="rect" title="Abstract Code Parser Class." alt="" coords="131,189,347,296"/>
+<area shape="rect" title="Abstract Code Parser Class." alt="" coords="131,189,347,355"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,141"/>
 <area shape="rect" title=" " alt="" coords="237,27,506,119"/>
 </map>
@@ -110,7 +112,7 @@ Collaboration diagram for FunctionAnalyzerCppAst:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_function_analyzer_cpp_ast__coll__graph.png" border="0" usemap="#a_function_analyzer_cpp_ast_coll__map" alt="Collaboration graph"/></div>
 <map name="a_function_analyzer_cpp_ast_coll__map" id="a_function_analyzer_cpp_ast_coll__map">
-<area shape="rect" title="Abstract Code Parser Class." alt="" coords="131,189,347,296"/>
+<area shape="rect" title="Abstract Code Parser Class." alt="" coords="131,189,347,355"/>
 <area shape="rect" href="class_code_analyzer_interface.html" title="Abstract Code Parser Class." alt="" coords="5,5,212,141"/>
 <area shape="rect" title=" " alt="" coords="237,27,506,119"/>
 </map>
@@ -131,6 +133,29 @@ virtual std::vector&lt; <a class="el" href="struct_scope_info.html">ScopeInfo</a
 <tr class="memitem:a9e10bb0fcedbcc72f1985901a2d70952 inherit pub_methods_class_code_analyzer_interface"><td class="memItemLeft" align="right" valign="top"><a id="a9e10bb0fcedbcc72f1985901a2d70952"></a>
 virtual std::vector&lt; <a class="el" href="struct_include_info.html">IncludeInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetIncludes</b> () noexcept</td></tr>
 <tr class="separator:a9e10bb0fcedbcc72f1985901a2d70952 inherit pub_methods_class_code_analyzer_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a39731219ad216021e3e9f2f346e371b6"><td class="memItemLeft" align="right" valign="top"><a id="a39731219ad216021e3e9f2f346e371b6"></a>
+std::vector&lt; <a class="el" href="struct_function_info.html">FunctionInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetFunction</b> () noexcept</td></tr>
+<tr class="separator:a39731219ad216021e3e9f2f346e371b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c2203672cd95717312cd4bc29c6bae"><td class="memItemLeft" align="right" valign="top"><a id="a81c2203672cd95717312cd4bc29c6bae"></a>
+std::vector&lt; <a class="el" href="struct_member_function_info.html">MemberFunctionInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMemberFunction</b> () noexcept</td></tr>
+<tr class="separator:a81c2203672cd95717312cd4bc29c6bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16958fc2338d39c6f3e7c464cb4178f9"><td class="memTemplParams" colspan="2"><a id="a16958fc2338d39c6f3e7c464cb4178f9"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a16958fc2338d39c6f3e7c464cb4178f9"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_function_info.html">FunctionInfo</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ParseFunction</b> (const T &amp;entity) const noexcept</td></tr>
+<tr class="separator:a16958fc2338d39c6f3e7c464cb4178f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c1d6869168405560b330df8a8ea14d"><td class="memTemplParams" colspan="2"><a id="a63c1d6869168405560b330df8a8ea14d"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a63c1d6869168405560b330df8a8ea14d"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_member_function_info.html">MemberFunctionInfo</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ParseMemberFunction</b> (const T &amp;entity) const noexcept</td></tr>
+<tr class="separator:a63c1d6869168405560b330df8a8ea14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aaf714a09079d77ba9fb1d75675f1114b"><td class="memItemLeft" align="right" valign="top"><a id="aaf714a09079d77ba9fb1d75675f1114b"></a>
+std::shared_ptr&lt; <a class="el" href="class_code_parser_cpp_ast.html">CodeParserCppAst</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p_parser_</b></td></tr>
+<tr class="separator:aaf714a09079d77ba9fb1d75675f1114b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Code Parser Class. </p>
