@@ -144,3 +144,54 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   EXPECT_TRUE(body.find(mock_method_1) == std::string::npos);
   EXPECT_TRUE(body.find(free_function_class) == std::string::npos);
 }
+
+/**
+ * @brief Construct a new TEST object
+ * @warning function in namespace scoped is unsupported
+ *
+ */
+TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
+  MemberFunctionInfo info_1 = {};
+  info_1.base.name = "test1";
+  info_1.base.return_type = "void";
+  info_1.base.signature = "(int,uint32_t*)";
+  info_1.base.parameters = {"int", "uint32_t*"};
+  info_1.base.scope = {"TestNamespace", "TestClass1"};
+  info_1.base.is_constexpr = false;
+  info_1.base.is_consteval = false;
+  info_1.base.is_noexcept = false;
+  info_1.base.is_deleted = false;
+  info_1.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
+  info_1.class_name = "TestClass1";
+  info_1.is_const = false;
+  info_1.is_volatile = false;
+  info_1.is_polymorphic = false;
+
+  ScopeInfo info_2 = {}, info_2_1 = {};
+  info_2.name = "TestNamespace";
+  info_2.kind = ScopeInfo::Kind::kNamespace;
+  info_2.full_scope = {"TestNamespace"};
+  info_2_1.name = "TestClass1";
+  info_2_1.kind = ScopeInfo::Kind::kClass;
+  info_2_1.full_scope = {info_2.name, "TestClass1"};
+  info_2_1.name = "TestClass1";
+  info_2.children = {info_2_1};
+
+  const std::string mock_label = "Test";
+  const std::string mock_method_1 = "MOCK_METHOD2(test1, void(int,uint32_t*));";
+  const std::string function_class_namespace =
+      "namespace " + info_2.name + " {\n" + "class " + mock_label + info_1.class_name;
+
+  std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
+  std::shared_ptr<FunctionAttributeInterface> p_function_if(new MemberFunctionAttribute(info_1));
+  GoogleMockHarness harness("Test", p_analyzer);
+  EXPECT_CALL(*p_analyzer, GetFunctions())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
+  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_TRUE(harness.Ready());
+  auto body = harness.Generate();
+  std::cout << body << std::endl;
+  EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
+  EXPECT_TRUE(body.find(function_class_namespace) != std::string::npos);
+}
