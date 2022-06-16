@@ -145,11 +145,6 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   EXPECT_TRUE(body.find(free_function_class) == std::string::npos);
 }
 
-/**
- * @brief Construct a new TEST object
- * @warning function in namespace scoped is unsupported
- *
- */
 TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   MemberFunctionInfo info_1 = {};
   info_1.base.name = "test1";
