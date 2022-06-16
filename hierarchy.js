@@ -23,6 +23,10 @@ var hierarchy =
       [ "IncludeAnalyzerCppAst", "class_include_analyzer_cpp_ast.html", null ],
       [ "ScopeRelationAnalyzerCppAst", "class_scope_relation_analyzer_cpp_ast.html", null ]
     ] ],
+    [ "FunctionAttributeDecorator", "class_function_attribute_decorator.html", [
+      [ "GoogleMockDecorator", "class_google_mock_decorator.html", null ],
+      [ "GoogleMockLegacyDecorator", "class_google_mock_legacy_decorator.html", null ]
+    ] ],
     [ "FunctionAttributeInterface", "class_function_attribute_interface.html", [
       [ "FunctionAttributeBase", "class_function_attribute_base.html", [
         [ "MemberFunctionAttribute", "class_member_function_attribute.html", null ],

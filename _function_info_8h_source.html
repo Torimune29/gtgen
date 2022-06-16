@@ -98,203 +98,208 @@ $(document).ready(function(){initNavTree('_function_info_8h_source.html',''); in
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  std::string name;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  std::string return_type;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  std::string signature;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  std::vector&lt;std::string&gt; parameters;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  std::vector&lt;std::string&gt; scope;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keywordtype">bool</span> is_noexcept = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordtype">bool</span> is_constexpr = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordtype">bool</span> is_consteval = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordtype">bool</span> is_variadic = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">bool</span> is_deleted = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">   29</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">operator==</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> (name == rhs.name &amp;&amp; parameters == rhs.parameters &amp;&amp; scope == rhs.scope);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;<a class="code" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">operator==</a>(rhs));</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> scope.size() &gt;= rhs_scope.size() &amp;&amp; std::equal(rhs_scope.begin(), rhs_scope.end(), scope.begin());</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <a class="code" href="struct_function_info_base.html">FunctionBase</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="struct_member_function_info.html">   46</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">enum class</span> AccessSpecifier : int { kPublic, kPrivate, kProtected };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  std::string class_name;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">enum</span> AccessSpecifier access_specifier;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> is_const = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> is_volatile = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">bool</span> is_polymorphic = <span class="keyword">false</span>;  </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">   54</a></span>&#160;  std::vector&lt;std::string&gt; <a class="code" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">base_classes</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base &amp;&amp; is_const == rhs.is_const &amp;&amp; is_volatile == rhs.is_volatile);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;operator==(rhs));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> base.InScopeOf(rhs_scope);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="struct_function_info.html">   73</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">bool</span> is_extern = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">bool</span> is_static = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;operator==(rhs));</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> base.InScopeOf(rhs_scope);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="struct_function_scope.html">   91</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_scope.html">FunctionScope</a> {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  std::vector&lt;std::string&gt; scope_names;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="struct_function_scope.html">FunctionScope</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; rhs_scope_names) : scope_names(rhs_scope_names) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> scope_names == rhs.scope_names;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">bool</span> In(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> scope_names.size() &gt;= rhs.scope_names.size() &amp;&amp;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;           std::equal(rhs.scope_names.begin(), rhs.scope_names.end(), scope_names.begin());</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  std::string FullName() <span class="keyword">const</span> noexcept {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (scope_names.empty()) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::string full_name;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;it : scope_names)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      full_name += it + <span class="stringliteral">&quot;::&quot;</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">return</span> full_name.substr(0, full_name.size() - 2);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <a class="code" href="struct_function_scope.html">FunctionScope</a>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html">  115</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">  130</a></span>&#160;  <span class="keyword">virtual</span> std::string <a class="code" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">ConstantExpression</a>() const noexcept = 0;  <span class="comment">// 5.19 Constant expressions</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">  136</a></span>&#160;<span class="comment"></span>  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">DefinitionSuffix</a>() const noexcept = 0;  <span class="comment">// 8.4.3 Deleted definitions</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">  143</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">ExceptionSuffix</a>() const noexcept = 0;  <span class="comment">// 15.4 Exception specification</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  virtual <a class="code" href="struct_function_scope.html">FunctionScope</a> Scope() const noexcept = 0;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  virtual std::<span class="keywordtype">string</span> Name() const noexcept = 0;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  virtual std::<span class="keywordtype">string</span> ReturnType() const noexcept = 0;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  virtual std::<span class="keywordtype">string</span> ParameterList() const noexcept = 0;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  virtual std::vector&lt;std::<span class="keywordtype">string</span>&gt; Parameters() const noexcept = 0;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  virtual <span class="keywordtype">bool</span> IsClassMember() const noexcept = 0;  <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">  157</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() const noexcept = 0;  <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">  164</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() const noexcept = 0;  <span class="comment">// 9.3 cv-qualifiers</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">  173</a></span>&#160;  virtual <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() const noexcept = 0;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  virtual std::vector&lt;std::<span class="keywordtype">string</span>&gt; BaseClasses() const noexcept = 0;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  virtual std::<span class="keywordtype">string</span> StorageClass() const noexcept = 0;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  std::vector&lt;std::string&gt; parameter_types;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; parameters;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  std::vector&lt;std::string&gt; scope;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordtype">bool</span> is_noexcept = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordtype">bool</span> is_constexpr = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordtype">bool</span> is_consteval = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">bool</span> is_variadic = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">bool</span> is_deleted = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">   30</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">operator==</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> (name == rhs.name &amp;&amp; parameter_types == rhs.parameter_types &amp;&amp; scope == rhs.scope);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;<a class="code" href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">operator==</a>(rhs));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> scope.size() &gt;= rhs_scope.size() &amp;&amp; std::equal(rhs_scope.begin(), rhs_scope.end(), scope.begin());</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <a class="code" href="struct_function_info_base.html">FunctionBase</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="struct_member_function_info.html">   47</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">enum class</span> AccessSpecifier : int { kPublic, kPrivate, kProtected };</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  std::string class_name;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">enum</span> AccessSpecifier access_specifier;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> is_const = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">bool</span> is_volatile = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">bool</span> is_polymorphic = <span class="keyword">false</span>;  </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">   55</a></span>&#160;  std::vector&lt;std::string&gt; <a class="code" href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">base_classes</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base &amp;&amp; is_const == rhs.is_const &amp;&amp; is_volatile == rhs.is_volatile);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;operator==(rhs));</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> base.InScopeOf(rhs_scope);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="struct_function_info.html">   74</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_info.html">FunctionInfo</a> {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> base;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">bool</span> is_extern = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">bool</span> is_static = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> (base == rhs.base);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> !(this-&gt;operator==(rhs));</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;rhs_scope) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> base.InScopeOf(rhs_scope);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <a class="code" href="struct_function_info.html">FunctionInfo</a>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="struct_function_scope.html">   92</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_function_scope.html">FunctionScope</a> {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  std::vector&lt;std::string&gt; scope_names;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="struct_function_scope.html">FunctionScope</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt; rhs_scope_names) : scope_names(rhs_scope_names) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> scope_names == rhs.scope_names;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">bool</span> In(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> scope_names.size() &gt;= rhs.scope_names.size() &amp;&amp;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;           std::equal(rhs.scope_names.begin(), rhs.scope_names.end(), scope_names.begin());</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  std::string FullName() <span class="keyword">const</span> noexcept {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (scope_names.empty()) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::string full_name;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;it : scope_names)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      full_name += it + <span class="stringliteral">&quot;::&quot;</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> full_name.substr(0, full_name.size() - 2);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <a class="code" href="struct_function_scope.html">FunctionScope</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html">  116</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept = 0;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">  131</a></span>&#160;  <span class="keyword">virtual</span> std::string <a class="code" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">ConstantExpression</a>() const noexcept = 0;  <span class="comment">// 5.19 Constant expressions</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">  137</a></span>&#160;<span class="comment"></span>  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">DefinitionSuffix</a>() const noexcept = 0;  <span class="comment">// 8.4.3 Deleted definitions</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">  144</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">ExceptionSuffix</a>() const noexcept = 0;  <span class="comment">// 15.4 Exception specification</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  virtual <a class="code" href="struct_function_scope.html">FunctionScope</a> Scope() const noexcept = 0;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  virtual std::<span class="keywordtype">string</span> Name() const noexcept = 0;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  virtual std::<span class="keywordtype">string</span> ReturnType() const noexcept = 0;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  virtual std::<span class="keywordtype">string</span> Signature() const noexcept = 0;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  virtual std::vector&lt;std::<span class="keywordtype">string</span>&gt; ParameterTypes() const noexcept = 0;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  virtual std::vector&lt;std::pair&lt;std::<span class="keywordtype">string</span>, std::<span class="keywordtype">string</span>&gt;&gt; Parameters() const noexcept = 0;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  virtual std::<span class="keywordtype">string</span> Declaration() const noexcept = 0;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  virtual <span class="keywordtype">bool</span> IsClassMember() const noexcept = 0;  <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">  160</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() const noexcept = 0;  <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">  167</a></span>&#160;  virtual std::<span class="keywordtype">string</span> <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() const noexcept = 0;  <span class="comment">// 9.3 cv-qualifiers</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">  176</a></span>&#160;  virtual <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() const noexcept = 0;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  virtual std::vector&lt;std::<span class="keywordtype">string</span>&gt; BaseClasses() const noexcept = 0;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="class_function_attribute_base.html">  180</a></span>&#160;class <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> : public <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  virtual std::<span class="keywordtype">string</span> StorageClass() const noexcept = 0;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;};</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="class_function_attribute_base.html">  183</a></span>&#160;class <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> : public <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">ConstantExpression</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 5.19 Constant expressions</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">DefinitionSuffix</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;    <span class="comment">// 8.4.3 Deleted definitions</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">ExceptionSuffix</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;     <span class="comment">// 15.4 Exception specification</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <a class="code" href="struct_function_scope.html">FunctionScope</a> Scope() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  std::string Name() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  std::string ReturnType() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  std::string ParameterList() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  std::vector&lt;std::string&gt; Parameters() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;info);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> info_;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;};</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="class_member_function_attribute.html">  205</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a> : <span class="keyword">public</span> <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a>(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;info);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="class_function_attribute_interface.html">FunctionAttributeInterface</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordtype">bool</span> InScopeOf(<span class="keyword">const</span> <a class="code" href="struct_function_scope.html">FunctionScope</a> &amp;rhs) <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">ConstantExpression</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 5.19 Constant expressions</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">DefinitionSuffix</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;    <span class="comment">// 8.4.3 Deleted definitions</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">ExceptionSuffix</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;     <span class="comment">// 15.4 Exception specification</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <a class="code" href="struct_function_scope.html">FunctionScope</a> Scope() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  std::string Name() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  std::string ReturnType() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  std::string Signature() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  std::vector&lt;std::string&gt; ParameterTypes() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; Parameters() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  std::string Declaration() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> &amp;info);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <a class="code" href="struct_function_info_base.html">FunctionInfoBase</a> info_;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;};</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="keywordtype">bool</span> IsClassMember() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;           <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;      <span class="comment">// 9.3 cv-qualifiers</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  std::vector&lt;std::string&gt; BaseClasses() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  std::string StorageClass() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> GetAttribute();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> info_;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;};</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="class_namespace_function_attribute.html">  224</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a> : <span class="keyword">public</span> <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;info);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="class_member_function_attribute.html">  210</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a> : <span class="keyword">public</span> <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a>(<span class="keyword">const</span> <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> &amp;info);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_member_function_attribute.html">MemberFunctionAttribute</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keywordtype">bool</span> IsClassMember() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;           <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;      <span class="comment">// 9.3 cv-qualifiers</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  std::vector&lt;std::string&gt; BaseClasses() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  std::string StorageClass() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> GetAttribute();</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <a class="code" href="struct_member_function_info.html">MemberFunctionInfo</a> info_;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;};</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <span class="keywordtype">bool</span> IsClassMember() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;           <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 9.2 Class members</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;      <span class="comment">// 9.3 cv-qualifiers</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  std::vector&lt;std::string&gt; BaseClasses() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  std::string StorageClass() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <a class="code" href="struct_function_info.html">FunctionInfo</a> GetAttribute();</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  <a class="code" href="struct_function_info.html">FunctionInfo</a> info_;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;};</div>
-<div class="ttc" id="aclass_function_attribute_base_html"><div class="ttname"><a href="class_function_attribute_base.html">FunctionAttributeBase</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:180</div></div>
-<div class="ttc" id="aclass_function_attribute_interface_html"><div class="ttname"><a href="class_function_attribute_interface.html">FunctionAttributeInterface</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:115</div></div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="class_namespace_function_attribute.html">  229</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a> : <span class="keyword">public</span> <a class="code" href="class_function_attribute_base.html">FunctionAttributeBase</a> {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a>(<span class="keyword">const</span> <a class="code" href="struct_function_info.html">FunctionInfo</a> &amp;info);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  <span class="keywordtype">bool</span> IsClassMember() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;           <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">AccessSpecifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// 9.2 Class members</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  std::string <a class="code" href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">CvQualifier</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;      <span class="comment">// 9.3 cv-qualifiers</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">IsAbleToPolymorphic</a>() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  std::vector&lt;std::string&gt; BaseClasses() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  std::string StorageClass() <span class="keyword">const</span> noexcept <span class="keyword">final</span>;  <span class="comment">// At most one (7.1.1 Storage class specifiers)</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <a class="code" href="struct_function_info.html">FunctionInfo</a> GetAttribute();</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <a class="code" href="struct_function_info.html">FunctionInfo</a> info_;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;};</div>
+<div class="ttc" id="aclass_function_attribute_base_html"><div class="ttname"><a href="class_function_attribute_base.html">FunctionAttributeBase</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:183</div></div>
+<div class="ttc" id="aclass_function_attribute_interface_html"><div class="ttname"><a href="class_function_attribute_interface.html">FunctionAttributeInterface</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:116</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_a2cd25a185211ec024dde1bd2e7c77fbe"><div class="ttname"><a href="class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe">FunctionAttributeInterface::DefinitionSuffix</a></div><div class="ttdeci">virtual std::string DefinitionSuffix() const noexcept=0</div><div class="ttdoc">Definition suffix.</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_a374b4d8ab7e24dd8aa4f16e9c8cb97df"><div class="ttname"><a href="class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df">FunctionAttributeInterface::ExceptionSuffix</a></div><div class="ttdeci">virtual std::string ExceptionSuffix() const noexcept=0</div><div class="ttdoc">Exception suffix.</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_a6c3973fb7000162a31a6691098b5c034"><div class="ttname"><a href="class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034">FunctionAttributeInterface::IsAbleToPolymorphic</a></div><div class="ttdeci">virtual bool IsAbleToPolymorphic() const noexcept=0</div><div class="ttdoc">polymorphic availability</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_a8dddd0de5da72498fa20405562d45fa5"><div class="ttname"><a href="class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5">FunctionAttributeInterface::ConstantExpression</a></div><div class="ttdeci">virtual std::string ConstantExpression() const noexcept=0</div><div class="ttdoc">Constant expression.</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_ad841a84b0da68913e419e35088607193"><div class="ttname"><a href="class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193">FunctionAttributeInterface::CvQualifier</a></div><div class="ttdeci">virtual std::string CvQualifier() const noexcept=0</div><div class="ttdoc">CvQualifier.</div></div>
 <div class="ttc" id="aclass_function_attribute_interface_html_adec9235ba64f529e7c6bf61c3f1850c4"><div class="ttname"><a href="class_function_attribute_interface.html#adec9235ba64f529e7c6bf61c3f1850c4">FunctionAttributeInterface::AccessSpecifier</a></div><div class="ttdeci">virtual std::string AccessSpecifier() const noexcept=0</div><div class="ttdoc">AccessSpecifier.</div></div>
-<div class="ttc" id="aclass_member_function_attribute_html"><div class="ttname"><a href="class_member_function_attribute.html">MemberFunctionAttribute</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:205</div></div>
-<div class="ttc" id="aclass_namespace_function_attribute_html"><div class="ttname"><a href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:224</div></div>
+<div class="ttc" id="aclass_member_function_attribute_html"><div class="ttname"><a href="class_member_function_attribute.html">MemberFunctionAttribute</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:210</div></div>
+<div class="ttc" id="aclass_namespace_function_attribute_html"><div class="ttname"><a href="class_namespace_function_attribute.html">NamespaceFunctionAttribute</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:229</div></div>
 <div class="ttc" id="astruct_function_info_base_html"><div class="ttname"><a href="struct_function_info_base.html">FunctionInfoBase</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:8</div></div>
-<div class="ttc" id="astruct_function_info_base_html_a1328156eaf47d5de0c595598dc772e3c"><div class="ttname"><a href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">FunctionInfoBase::operator==</a></div><div class="ttdeci">bool operator==(const FunctionInfoBase &amp;rhs) const noexcept</div><div class="ttdoc">operator== for overload check</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:29</div></div>
-<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:73</div></div>
-<div class="ttc" id="astruct_function_scope_html"><div class="ttname"><a href="struct_function_scope.html">FunctionScope</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:91</div></div>
-<div class="ttc" id="astruct_member_function_info_html"><div class="ttname"><a href="struct_member_function_info.html">MemberFunctionInfo</a></div><div class="ttdoc">Member Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:46</div></div>
-<div class="ttc" id="astruct_member_function_info_html_a7a6d151d49ed90f919416332c3b09677"><div class="ttname"><a href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">MemberFunctionInfo::base_classes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; base_classes</div><div class="ttdoc">virtual, override or final</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:54</div></div>
+<div class="ttc" id="astruct_function_info_base_html_a1328156eaf47d5de0c595598dc772e3c"><div class="ttname"><a href="struct_function_info_base.html#a1328156eaf47d5de0c595598dc772e3c">FunctionInfoBase::operator==</a></div><div class="ttdeci">bool operator==(const FunctionInfoBase &amp;rhs) const noexcept</div><div class="ttdoc">operator== for overload check</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:30</div></div>
+<div class="ttc" id="astruct_function_info_html"><div class="ttname"><a href="struct_function_info.html">FunctionInfo</a></div><div class="ttdoc">Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:74</div></div>
+<div class="ttc" id="astruct_function_scope_html"><div class="ttname"><a href="struct_function_scope.html">FunctionScope</a></div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:92</div></div>
+<div class="ttc" id="astruct_member_function_info_html"><div class="ttname"><a href="struct_member_function_info.html">MemberFunctionInfo</a></div><div class="ttdoc">Member Function Info.</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:47</div></div>
+<div class="ttc" id="astruct_member_function_info_html_a7a6d151d49ed90f919416332c3b09677"><div class="ttname"><a href="struct_member_function_info.html#a7a6d151d49ed90f919416332c3b09677">MemberFunctionInfo::base_classes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; base_classes</div><div class="ttdoc">virtual, override or final</div><div class="ttdef"><b>Definition:</b> FunctionInfo.h:55</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

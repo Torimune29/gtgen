@@ -6,6 +6,7 @@ var class_function_attribute_interface =
     [ "BaseClasses", "class_function_attribute_interface.html#a05895275ee325f3bb3963a2e78a88d53", null ],
     [ "ConstantExpression", "class_function_attribute_interface.html#a8dddd0de5da72498fa20405562d45fa5", null ],
     [ "CvQualifier", "class_function_attribute_interface.html#ad841a84b0da68913e419e35088607193", null ],
+    [ "Declaration", "class_function_attribute_interface.html#a95b8ba6d25994e8e147f819d15249f00", null ],
     [ "DefinitionSuffix", "class_function_attribute_interface.html#a2cd25a185211ec024dde1bd2e7c77fbe", null ],
     [ "ExceptionSuffix", "class_function_attribute_interface.html#a374b4d8ab7e24dd8aa4f16e9c8cb97df", null ],
     [ "InScopeOf", "class_function_attribute_interface.html#acbce2dd221f95f6d5547d81930a0a708", null ],
@@ -14,9 +15,10 @@ var class_function_attribute_interface =
     [ "Name", "class_function_attribute_interface.html#aa5a6b1e4f3cfd975d1ffddc7ed6fca76", null ],
     [ "operator!=", "class_function_attribute_interface.html#ab93eaaeeb4ca6d43c458e52d7c8a15d7", null ],
     [ "operator==", "class_function_attribute_interface.html#ac301ef902ef3324462a9474a5a5b1005", null ],
-    [ "ParameterList", "class_function_attribute_interface.html#a82af4b59e6d0dee3b494fde58e758b48", null ],
-    [ "Parameters", "class_function_attribute_interface.html#a179ec2fa89aa41d5b1175c6bdba173ec", null ],
+    [ "Parameters", "class_function_attribute_interface.html#a4f041a678f1e933a83f178f4b3b80579", null ],
+    [ "ParameterTypes", "class_function_attribute_interface.html#a1f3f3d2f6ebae48ce95ab21cd57aa412", null ],
     [ "ReturnType", "class_function_attribute_interface.html#ac0e539b099db008b7660b7a37973f7ff", null ],
     [ "Scope", "class_function_attribute_interface.html#a72a3381ad6b43939322a83ec4e117ca5", null ],
+    [ "Signature", "class_function_attribute_interface.html#a9e386dea69678943c05278c6da71c4d6", null ],
     [ "StorageClass", "class_function_attribute_interface.html#aba06644f050979b29250ce9bd0731de3", null ]
 ];
