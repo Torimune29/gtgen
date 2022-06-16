@@ -1,7 +1,11 @@
 <map id="NamespaceFunctionAttribute" name="NamespaceFunctionAttribute">
-<area shape="rect" id="node1" title=" " alt="" coords="113,667,360,861"/>
-<area shape="rect" id="node2" href="$class_function_attribute_base.html" title=" " alt="" coords="42,321,245,604"/>
-<area shape="rect" id="node3" href="$class_function_attribute_interface.html" title=" " alt="" coords="5,20,233,244"/>
-<area shape="rect" id="node4" href="$struct_function_info_base.html" title=" " alt="" coords="257,5,405,259"/>
-<area shape="rect" id="node5" href="$struct_function_info.html" title="Function Info." alt="" coords="269,402,393,523"/>
+<area shape="rect" id="node1" title=" " alt="" coords="107,1088,353,1283"/>
+<area shape="rect" id="node2" href="$class_function_attribute_base.html" title=" " alt="" coords="35,743,238,1025"/>
+<area shape="rect" id="node3" href="$class_function_attribute_interface.html" title=" " alt="" coords="5,456,233,680"/>
+<area shape="rect" id="node4" href="$struct_function_info_base.html" title=" " alt="" coords="257,485,392,651"/>
+<area shape="rect" id="node9" href="$struct_function_info.html" title="Function Info." alt="" coords="263,823,387,945"/>
+<area shape="rect" id="node5" title=" " alt="" coords="99,147,185,224"/>
+<area shape="rect" id="node7" title=" " alt="" coords="231,294,418,371"/>
+<area shape="rect" id="node6" title=" " alt="" coords="73,5,211,97"/>
+<area shape="rect" id="node8" title=" " alt="" coords="442,287,647,379"/>
 </map>
