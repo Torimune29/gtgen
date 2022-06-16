@@ -26,7 +26,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -39,7 +39,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "noexcept_only") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -52,7 +52,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "noexcept_false") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -65,7 +65,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "noexcept_complex") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);  // except without noexcept or noexcept(true)
       EXPECT_FALSE(it.base.is_constexpr);
@@ -78,7 +78,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "extern_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -91,7 +91,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "static_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -104,7 +104,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "constexpr_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
@@ -117,7 +117,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "static_constexpr") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_TRUE(it.base.is_constexpr);
@@ -130,7 +130,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "namespace_deleted") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"ns"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -143,7 +143,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "namespace_normal") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"ns"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -156,7 +156,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "namespace_type_return") {
       EXPECT_STREQ(it.base.return_type.c_str(), "ns::m");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_TRUE(it.base.scope.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -179,7 +179,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "const_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -195,7 +195,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "volatile_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -211,7 +211,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "full_suffix") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_TRUE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -227,7 +227,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "noise_suffix") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -243,7 +243,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "virtual_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -268,7 +268,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "pure_virtual") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);
@@ -297,7 +297,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
       static bool duplicated = false;
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -315,7 +315,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "deleted") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -331,7 +331,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "struct_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"baz"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -347,7 +347,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "private_function" || it.base.name == "private_function_2") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -363,7 +363,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "protected_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -379,7 +379,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "public_function") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
@@ -393,11 +393,11 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
       EXPECT_FALSE(it.is_volatile);
     }
     if (it.base.name == "overload") {
-      if (it.base.parameters.at(0) == "int") {
+      if (it.base.parameter_types.at(0) == "int") {
         static size_t count = 0;
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(int)");
-        EXPECT_EQ(it.base.parameters.size(), 1);
+        EXPECT_EQ(it.base.parameter_types.size(), 1);
         EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
         EXPECT_FALSE(it.base.is_noexcept);
         EXPECT_FALSE(it.base.is_constexpr);
@@ -424,7 +424,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
       } else {
         EXPECT_STREQ(it.base.return_type.c_str(), "int");
         EXPECT_STREQ(it.base.signature.c_str(), "(double)");
-        EXPECT_EQ(it.base.parameters.size(), 1);
+        EXPECT_EQ(it.base.parameter_types.size(), 1);
         EXPECT_EQ(it.base.scope, std::vector<std::string>({"foo"}));
         EXPECT_FALSE(it.base.is_noexcept);
         EXPECT_FALSE(it.base.is_constexpr);
@@ -441,7 +441,7 @@ TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
     if (it.base.name == "inner_class_func") {
       EXPECT_STREQ(it.base.return_type.c_str(), "void");
       EXPECT_STREQ(it.base.signature.c_str(), "()");
-      EXPECT_TRUE(it.base.parameters.empty());
+      EXPECT_TRUE(it.base.parameter_types.empty());
       EXPECT_FALSE(it.base.is_noexcept);
       EXPECT_FALSE(it.base.is_constexpr);
       EXPECT_FALSE(it.base.is_consteval);

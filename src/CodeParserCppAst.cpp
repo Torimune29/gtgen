@@ -75,7 +75,7 @@ std::vector<std::string> CodeParserCppAst::GetScopes(const cppast::cpp_entity &e
   if (e.name().empty()) {
     return {};
   }
-  if (cppast::is_parameter(e.kind())) {  // parameters don't have a full name
+  if (cppast::is_parameter(e.kind())) {  // parameter_types don't have a full name
     return {e.name()};
   }
 

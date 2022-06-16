@@ -22,8 +22,10 @@ jsoncons::ojson SetScopesRecursively(const ScopeInfo &info) {
 jsoncons::ojson SetFunctionBase(const std::shared_ptr<FunctionAttributeInterface> &p_if) {
   return jsoncons::ojson(jsoncons::json_object_arg, {
                                                         {"functionName", p_if->Name()},
-                                                        {"parameterList", p_if->ParameterList()},
+                                                        {"signature", p_if->Signature()},
+                                                        {"parameterTypes", p_if->ParameterTypes()},
                                                         {"parameters", p_if->Parameters()},
+                                                        {"declaration", p_if->Declaration()},
                                                         {"scope", p_if->Scope().scope_names},
                                                         {"returnType", p_if->ReturnType()},
                                                         {"constantExpression", p_if->ConstantExpression()},

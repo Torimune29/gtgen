@@ -19,12 +19,12 @@ TEST(FunctionInfoTest, EqualOperator) {
   MemberFunctionInfo func_3 = {};
   func_3.base.scope = {"foo"};
   func_3.base.name = "overload";
-  func_3.base.parameters.push_back("int");
+  func_3.base.parameter_types.push_back("int");
   func_3.is_const = true;
   func_3.is_volatile = true;
   MemberFunctionInfo filter_match = {};
   filter_match.base.name = "overload";
-  filter_match.base.parameters.push_back("int");
+  filter_match.base.parameter_types.push_back("int");
   filter_match.base.scope.push_back("foo");
   filter_match.is_const = true;
   filter_match.is_volatile = true;
@@ -36,7 +36,7 @@ TEST(FunctionInfoTest, EqualOperator) {
     EXPECT_NE(func_3, filter_1);
   }
   {
-    filter_2.base.parameters.push_back("float");
+    filter_2.base.parameter_types.push_back("float");
     EXPECT_NE(func_3, filter_2);
   }
   {
@@ -70,7 +70,7 @@ TEST(FunctionInfoTest, EqualOperatorFreeFunction) {
       EXPECT_NE(func_3, filter_1);
     }
     {
-      filter_2.base.parameters.push_back("float");
+      filter_2.base.parameter_types.push_back("float");
       EXPECT_NE(func_3, filter_2);
     }
     {

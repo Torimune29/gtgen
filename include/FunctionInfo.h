@@ -9,7 +9,8 @@ typedef struct FunctionInfoBase {
   std::string name;
   std::string return_type;
   std::string signature;
-  std::vector<std::string> parameters;
+  std::vector<std::string> parameter_types;
+  std::vector<std::pair<std::string, std::string>> parameters;
   std::vector<std::string> scope;
   bool is_noexcept = false;
   bool is_constexpr = false;
@@ -27,7 +28,7 @@ typedef struct FunctionInfoBase {
    * @details see https://stackoverflow.com/questions/9568852/overloading-by-return-type
    */
   bool operator==(const FunctionInfoBase &rhs) const noexcept {
-    return (name == rhs.name && parameters == rhs.parameters && scope == rhs.scope);
+    return (name == rhs.name && parameter_types == rhs.parameter_types && scope == rhs.scope);
   }
 
   bool operator!=(const FunctionInfoBase &rhs) const noexcept {
@@ -144,8 +145,10 @@ class FunctionAttributeInterface {
   virtual FunctionScope Scope() const noexcept = 0;
   virtual std::string Name() const noexcept = 0;
   virtual std::string ReturnType() const noexcept = 0;
-  virtual std::string ParameterList() const noexcept = 0;
-  virtual std::vector<std::string> Parameters() const noexcept = 0;
+  virtual std::string Signature() const noexcept = 0;
+  virtual std::vector<std::string> ParameterTypes() const noexcept = 0;
+  virtual std::vector<std::pair<std::string, std::string>> Parameters() const noexcept = 0;
+  virtual std::string Declaration() const noexcept = 0;
 
   virtual bool IsClassMember() const noexcept = 0;  // 9.2 Class members
 
@@ -192,8 +195,10 @@ class FunctionAttributeBase : public FunctionAttributeInterface {
   FunctionScope Scope() const noexcept final;
   std::string Name() const noexcept final;
   std::string ReturnType() const noexcept final;
-  std::string ParameterList() const noexcept final;
-  std::vector<std::string> Parameters() const noexcept final;
+  std::string Signature() const noexcept final;
+  std::vector<std::string> ParameterTypes() const noexcept final;
+  std::vector<std::pair<std::string, std::string>> Parameters() const noexcept final;
+  std::string Declaration() const noexcept final;
 
  protected:
   FunctionAttributeBase(const FunctionInfoBase &info);

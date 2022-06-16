@@ -23,9 +23,10 @@ TEST(GoogleMockHarness, Create) {
 TEST(GoogleMockHarness, CreateWithMock) {
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   GoogleMockHarness harness("Test", p_analyzer);
-  EXPECT_CALL(*p_analyzer, GetFunctions()).WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>()));
-  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>()));
-  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>()));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
   std::cout << harness.Generate() << std::endl;
 }
@@ -35,7 +36,7 @@ TEST(GoogleMockHarness, FreeFunctions) {
   info_1.base.name = "test1";
   info_1.base.return_type = "void";
   info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameters = {"int", "uint32_t*"};
+  info_1.base.parameter_types = {"int", "uint32_t*"};
   info_1.base.scope = {""};
   info_1.base.is_constexpr = false;
   info_1.base.is_consteval = false;
@@ -50,10 +51,10 @@ TEST(GoogleMockHarness, FreeFunctions) {
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   std::shared_ptr<FunctionAttributeInterface> p_function_if(new NamespaceFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
-  EXPECT_CALL(*p_analyzer, GetFunctions())
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
       .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
-  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>()));
-  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
   auto body = harness.Generate();
   std::cout << body << std::endl;
@@ -66,7 +67,7 @@ TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
   info_1.base.name = "test1";
   info_1.base.return_type = "void";
   info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameters = {"int", "uint32_t*"};
+  info_1.base.parameter_types = {"int", "uint32_t*"};
   info_1.base.scope = {"TestClass1"};
   info_1.base.is_constexpr = false;
   info_1.base.is_consteval = false;
@@ -91,10 +92,10 @@ TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   std::shared_ptr<FunctionAttributeInterface> p_function_if(new MemberFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
-  EXPECT_CALL(*p_analyzer, GetFunctions())
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
       .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
-  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
-  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
   auto body = harness.Generate();
   std::cout << body << std::endl;
@@ -112,7 +113,7 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   info_1.base.name = "test1";
   info_1.base.return_type = "void";
   info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameters = {"int", "uint32_t*"};
+  info_1.base.parameter_types = {"int", "uint32_t*"};
   info_1.base.scope = {"TestNamespace"};
   info_1.base.is_constexpr = false;
   info_1.base.is_consteval = false;
@@ -134,10 +135,10 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   std::shared_ptr<FunctionAttributeInterface> p_function_if(new NamespaceFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
-  EXPECT_CALL(*p_analyzer, GetFunctions())
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
       .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
-  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
-  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
   auto body = harness.Generate();
   std::cout << body << std::endl;
@@ -150,7 +151,7 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   info_1.base.name = "test1";
   info_1.base.return_type = "void";
   info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameters = {"int", "uint32_t*"};
+  info_1.base.parameter_types = {"int", "uint32_t*"};
   info_1.base.scope = {"TestNamespace", "TestClass1"};
   info_1.base.is_constexpr = false;
   info_1.base.is_consteval = false;
@@ -180,10 +181,10 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   std::shared_ptr<FunctionAttributeInterface> p_function_if(new MemberFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
-  EXPECT_CALL(*p_analyzer, GetFunctions())
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
       .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
-  EXPECT_CALL(*p_analyzer, GetScopes()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
-  EXPECT_CALL(*p_analyzer, GetIncludes()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
   auto body = harness.Generate();
   std::cout << body << std::endl;

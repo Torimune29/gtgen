@@ -1,6 +1,24 @@
 #include "FunctionInfo.h"
 
+#include <algorithm>
+#include <iostream>
 #include <memory>
+
+namespace {
+void Format(std::string *p_str, const char *characters = " \t\v\r\n") {
+  // trim first and last spaces
+  auto left = p_str->find_first_not_of(characters);
+  if (left != std::string::npos) {
+    auto right = p_str->find_last_not_of(characters);
+    *p_str = p_str->substr(left, right - left + 1);
+  }
+  // trim dup spaces
+  auto it = std::unique(p_str->begin(), p_str->end(), [](char const &lhs, char const &rhs) {
+    return lhs == rhs && isspace(static_cast<int>(lhs)) != 0;
+  });
+  p_str->erase(it, p_str->end());
+}
+}  // namespace
 
 FunctionAttributeBase::FunctionAttributeBase(const FunctionInfoBase &info) : info_(info) {
 }
@@ -8,7 +26,7 @@ FunctionAttributeBase::FunctionAttributeBase(const FunctionInfoBase &info) : inf
 FunctionAttributeBase::~FunctionAttributeBase() = default;
 
 bool FunctionAttributeBase::operator==(const FunctionAttributeInterface &rhs) const noexcept {
-  return (Name() == rhs.Name() && Parameters() == rhs.Parameters() && Scope() == rhs.Scope() &&
+  return (Name() == rhs.Name() && ParameterTypes() == rhs.ParameterTypes() && Scope() == rhs.Scope() &&
           CvQualifier() == rhs.CvQualifier());
 }
 
@@ -50,12 +68,31 @@ std::string FunctionAttributeBase::ReturnType() const noexcept {
   return info_.return_type;
 }
 
-std::string FunctionAttributeBase::ParameterList() const noexcept {
+std::string FunctionAttributeBase::Signature() const noexcept {
   return info_.signature;
 }
 
-std::vector<std::string> FunctionAttributeBase::Parameters() const noexcept {
+std::vector<std::string> FunctionAttributeBase::ParameterTypes() const noexcept {
+  return info_.parameter_types;
+}
+
+std::vector<std::pair<std::string, std::string>> FunctionAttributeBase::Parameters() const noexcept {
   return info_.parameters;
+}
+
+std::string FunctionAttributeBase::Declaration() const noexcept {
+  std::string declaration = StorageClass() + " " + ConstantExpression() + " " + ReturnType() + " " + Name() + " ";
+  declaration += "(";
+  if (!Parameters().empty()) {
+    for (const auto &it : Parameters()) {
+      declaration += it.first + " " + it.second + ", ";
+    }
+    declaration = declaration.substr(0, declaration.size() - 2);  // trim last separator
+  }
+  declaration += ") ";
+  declaration += CvQualifier() + " " + ExceptionSuffix();
+  Format(&declaration);
+  return declaration;
 }
 
 MemberFunctionAttribute::MemberFunctionAttribute(const MemberFunctionInfo &info)

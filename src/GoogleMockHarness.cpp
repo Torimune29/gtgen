@@ -4,12 +4,11 @@
 #include <iostream>
 
 #include "CodeAnalyzerInterface.h"
+#include "FunctionAttributeDecorator.h"
 
 namespace {
 const char kMockFileHeader[] = "#pragma once";
 const char kMockIncludeHeader[] = "#include <gmock/gmock.h>";
-const char kMockMethodName[] = "MOCK_METHOD";
-const char kMockConstMethodName[] = "MOCK_CONST_METHOD";
 const char kMockFreeFunctionClassName[] = "FreeFunction";
 const char kMockFreeFunctionScopeName[] = "@FreeFunction@";
 
@@ -24,13 +23,6 @@ typedef struct ScopedMockFunction {
   std::vector<std::string> mock_function_declaration;
   std::vector<ScopedMockFunction> children;
 } ScopedMockFunction;
-
-std::string GenerateMockMethod(const char header[], const FunctionAttributeInterface *const interface) {
-  std::string mock_method(header);
-  mock_method += std::to_string(interface->Parameters().size());
-  mock_method += "(" + interface->Name() + ", " + interface->ReturnType() + interface->ParameterList() + ");\n";
-  return mock_method;
-}
 
 std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<ScopeInfo> &infos, bool expect_global) {
   std::vector<ScopedMockFunction> functions;
@@ -109,7 +101,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
     for (const auto &it_function : it.mock_function_declaration) {
       // only support free or class member function
       if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
-        body += "  " + it_function;
+        body += "  " + it_function + "\n";
       }
     }
     // generate child scope
@@ -161,23 +153,18 @@ bool GoogleMockHarness::Ready() noexcept {
   // function
   auto v_func = p_analyzer_->GetFunctions();
   for (const auto &it : v_func) {
-    if (it->DefinitionSuffix() == "deleted" ||
-        (public_only_ && it->IsClassMember() && it->AccessSpecifier() != "public") ||
-        it->CvQualifier().find("volatile") != std::string::npos) {  // not support volatile method mocking
-      continue;
-    }
-    if (it->CvQualifier().find("const") != std::string::npos) {
-      AddMockFunction(&map, it->Scope().scope_names, GenerateMockMethod(kMockConstMethodName, it.get()));
-    } else {
-      AddMockFunction(&map, it->Scope().scope_names, GenerateMockMethod(kMockMethodName, it.get()));
-    }
-    if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {
-      auto base_classes = it->BaseClasses();
-      if (base_classes.empty()) {
-        // target class is base
-        class_bases_map[it->Scope().scope_names.back()] = std::vector<std::string>({it->Scope().scope_names.back()});
-      } else {
-        class_bases_map[it->Scope().scope_names.back()] = it->BaseClasses();
+    GoogleMockLegacyDecorator decorator(it, public_only_);
+    auto declaration = decorator.Declaration();
+    if (!declaration.empty()) {
+      AddMockFunction(&map, it->Scope().scope_names, declaration);
+      if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {
+        auto base_classes = it->BaseClasses();
+        if (base_classes.empty()) {
+          // target class is base
+          class_bases_map[it->Scope().scope_names.back()] = std::vector<std::string>({it->Scope().scope_names.back()});
+        } else {
+          class_bases_map[it->Scope().scope_names.back()] = it->BaseClasses();
+        }
       }
     }
   }
