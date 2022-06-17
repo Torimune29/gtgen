@@ -10,8 +10,15 @@
 ## How to Build
 
 - Requirement
-  - cmake >=3.14
-  - libclang (like libclang-dev on Ubuntu20.04) for building [cppast](https://github.com/foonathan/cppast)
+  - Build
+    - cmake >=3.14
+    - [cppast](https://github.com/foonathan/cppast) (fetching as cmake external)
+    - [CLI11](https://github.com/CLIUtils/CLI11) (fetching as cmake external)
+    - [jsoncons](https://github.com/danielaparker/jsoncons) (fetching as cmake external)
+  - Runtime
+    - libclang (like libclang-dev on Ubuntu20.04) for [cppast](<https://github.com/foonathan/cppast>)
+  - Unit Testing
+    - googletest (fetching as cmake external)
 - Build
 
 ```bash

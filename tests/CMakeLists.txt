@@ -4,22 +4,22 @@ option(ENABLE_GOOGLETESTS "Include tests in the library. Setting this to OFF wil
                         Tests in tests/*.cpp will still be enabled." ON)
 
 # List all files containing tests. (Change as needed)
-set(TESTFILES        # All .cpp files in tests/
+set(TESTFILES # All .cpp files in tests/
     main.cpp
-    CreateCodeAnalyzerTest.cpp
-    FunctionInfoTest.cpp
-    ScopeRelationParserTest.cpp
-    GoogleMockHarnessTest.cpp
-    TestTargetViewerHarnessTest.cpp
-    FunctionAnalyzerCppAstTest.cpp
-    IncludeAnalyzerTest.cpp
+    units/GoogleMockHarnessTest.cpp
+    integrations/CreateCodeAnalyzerTest.cpp
+    integrations/FunctionInfoTest.cpp
+    integrations/ScopeRelationParserTest.cpp
+    integrations/TestTargetViewerHarnessTest.cpp
+    integrations/FunctionAnalyzerCppAstTest.cpp
+    integrations/IncludeAnalyzerTest.cpp
 )
 
-set(TEST_MAIN unit_tests_${LIBRARY_NAME})   # Default name for test executable (change if you wish).
-set(TEST_RUNNER_PARAMS "")  # Any arguemnts to feed the test runner (change as needed).
+set(TEST_MAIN unit_tests_${LIBRARY_NAME}) # Default name for test executable (change if you wish).
+set(TEST_RUNNER_PARAMS "") # Any arguemnts to feed the test runner (change as needed).
 
 # --------------------------------------------------------------------------------
-#                         Make Tests (no change needed).
+# Make Tests (no change needed).
 # --------------------------------------------------------------------------------
 add_executable(${TEST_MAIN} ${TESTFILES})
 target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest_main gmock_main)
@@ -33,6 +33,7 @@ set_target_properties(${TEST_MAIN} PROPERTIES
 )
 
 add_test(
+
     # Use some per-module/project prefix so that it is easier to run only tests for this module
     NAME ${LIBRARY_NAME}.${TEST_MAIN}
     COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS})

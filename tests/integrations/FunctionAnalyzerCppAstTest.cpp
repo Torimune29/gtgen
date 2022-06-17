@@ -9,8 +9,8 @@ const std::string kSourceTreePath = SOURCE_DIR;
 
 TEST(FunctionAnalyzerCppAstTest, ValidateFunctionInfo) {
   std::vector<std::string> paths = {
-      kSourceTreePath + "tests/testdata/Function.h",
-      kSourceTreePath + "tests/testdata/MemberFunction.h",
+      kSourceTreePath + "tests/integrations/testdata/Function.h",
+      kSourceTreePath + "tests/integrations/testdata/MemberFunction.h",
   };
   std::string compile_database = "./";
   auto analyzer = gtgen::CreateAnalyzer(paths, compile_database, false);

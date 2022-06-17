@@ -10,7 +10,7 @@ const std::string kSourceTreePath = SOURCE_DIR;
 
 TEST(ScopeRelationParserTest, ValidateScopeInfo) {
   std::vector<std::string> paths = {
-      kSourceTreePath + "tests/testdata/Scope.h",
+      kSourceTreePath + "tests/integrations/testdata/Scope.h",
   };
   std::string compile_database = "./";
   auto parser = gtgen::CreateAnalyzer(paths, compile_database, true);
