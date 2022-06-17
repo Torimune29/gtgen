@@ -15,6 +15,7 @@ var hierarchy =
       [ "IncludeAnalyzerCppAst", "class_include_analyzer_cpp_ast.html", null ],
       [ "ScopeRelationAnalyzerCppAst", "class_scope_relation_analyzer_cpp_ast.html", null ]
     ] ],
+    [ "CodeGenerator", "class_code_generator.html", null ],
     [ "diagnostic_logger", null, [
       [ "cppast::NoneLogger", "structcppast_1_1_none_logger.html", null ]
     ] ],
@@ -25,6 +26,8 @@ var hierarchy =
     ] ],
     [ "FunctionAttributeDecorator", "class_function_attribute_decorator.html", [
       [ "GoogleMockDecorator", "class_google_mock_decorator.html", null ],
+      [ "GoogleMockDecorator", "class_google_mock_decorator.html", null ],
+      [ "GoogleMockLegacyDecorator", "class_google_mock_legacy_decorator.html", null ],
       [ "GoogleMockLegacyDecorator", "class_google_mock_legacy_decorator.html", null ]
     ] ],
     [ "FunctionAttributeInterface", "class_function_attribute_interface.html", [

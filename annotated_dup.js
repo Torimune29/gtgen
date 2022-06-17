@@ -7,6 +7,7 @@ var annotated_dup =
     [ "AbstractTestHarness", "class_abstract_test_harness.html", "class_abstract_test_harness" ],
     [ "CodeAnalyzerInterface", "class_code_analyzer_interface.html", "class_code_analyzer_interface" ],
     [ "CodeAnalyzerResultStorage", "class_code_analyzer_result_storage.html", "class_code_analyzer_result_storage" ],
+    [ "CodeGenerator", "class_code_generator.html", "class_code_generator" ],
     [ "CodeParserCppAst", "class_code_parser_cpp_ast.html", "class_code_parser_cpp_ast" ],
     [ "FunctionAnalyzerCppAst", "class_function_analyzer_cpp_ast.html", "class_function_analyzer_cpp_ast" ],
     [ "FunctionAttributeBase", "class_function_attribute_base.html", "class_function_attribute_base" ],
