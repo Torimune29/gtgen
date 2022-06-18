@@ -25,6 +25,7 @@ jsoncons::ojson SetFunctionBase(const std::shared_ptr<FunctionAttributeInterface
                                                         {"signature", p_if->Signature()},
                                                         {"parameterTypes", p_if->ParameterTypes()},
                                                         {"parameters", p_if->Parameters()},
+                                                        {"isOverloadedOperator", p_if->IsOverloadedOperator()},
                                                         {"declaration", p_if->Declaration()},
                                                         {"scope", p_if->Scope().scope_names},
                                                         {"returnType", p_if->ReturnType()},

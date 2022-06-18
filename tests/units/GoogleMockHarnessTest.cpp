@@ -3,12 +3,15 @@
 #include "GoogleMockHarness.h"
 #include "gtgen.h"
 #include "mocks/mock_CodeAnalyzerInterface.h"
+#include "mocks/mock_FunctionAttributeInterface.h"
 
 using ::testing::Return;
 
 const std::string kSourceTreePath = SOURCE_DIR;
 
 TEST(GoogleMockHarness, CreateWithMock) {
+  mock_FunctionAttributeInterface mock_function_if;
+
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())

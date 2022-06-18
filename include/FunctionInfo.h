@@ -148,6 +148,7 @@ class FunctionAttributeInterface {
   virtual std::string Signature() const noexcept = 0;
   virtual std::vector<std::string> ParameterTypes() const noexcept = 0;
   virtual std::vector<std::pair<std::string, std::string>> Parameters() const noexcept = 0;
+  virtual bool IsOverloadedOperator() const noexcept = 0;
   virtual std::string Declaration() const noexcept = 0;
 
   virtual bool IsClassMember() const noexcept = 0;  // 9.2 Class members
@@ -198,6 +199,7 @@ class FunctionAttributeBase : public FunctionAttributeInterface {
   std::string Signature() const noexcept final;
   std::vector<std::string> ParameterTypes() const noexcept final;
   std::vector<std::pair<std::string, std::string>> Parameters() const noexcept final;
+  bool IsOverloadedOperator() const noexcept final;
   std::string Declaration() const noexcept final;
 
  protected:

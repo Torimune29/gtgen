@@ -3,8 +3,12 @@
 #include <algorithm>
 #include <iostream>
 #include <memory>
+#include <regex>
 
 namespace {
+const char kOverloadedOperatorTokenRegex[] =
+    R"xxx(^operator(new|delete|new\[\]|delete\[\]\+|-|\*|\/|%|\^|&|\||~|!|=|<|>|\+=|-=|\*=|\/=|%=\^=|&=\||=|<<|>>|>>=|<<=|==|!=|<=|>=|&&|\|\||\+\+|--|,|->\*|->\(\)|\[\])$)xxx";
+
 void Format(std::string *p_str, const char *characters = " \t\v\r\n") {
   // trim first and last spaces
   auto left = p_str->find_first_not_of(characters);
@@ -78,6 +82,17 @@ std::vector<std::string> FunctionAttributeBase::ParameterTypes() const noexcept 
 
 std::vector<std::pair<std::string, std::string>> FunctionAttributeBase::Parameters() const noexcept {
   return info_.parameters;
+}
+
+bool FunctionAttributeBase::IsOverloadedOperator() const noexcept {
+  std::cmatch m;
+  bool ret = false;
+  try {
+    ret = std::regex_match(Name().c_str(), m, std::regex(kOverloadedOperatorTokenRegex));
+  } catch (const std::regex_error & /*e*/) {
+    // do nothing
+  }
+  return ret;
 }
 
 std::string FunctionAttributeBase::Declaration() const noexcept {
