@@ -31,12 +31,13 @@ std::string CreateWorkaroundMethodDefinition(const std::shared_ptr<FunctionAttri
 }
 
 }  // namespace
+
 GoogleMockLegacyDecorator::GoogleMockLegacyDecorator(std::shared_ptr<FunctionAttributeInterface> p_if, bool public_only)
     : FunctionAttributeDecorator(p_if), public_only_(public_only) {
 }
 
 std::string GoogleMockLegacyDecorator::Declaration() const noexcept {
-  if (p_if_->DefinitionSuffix() == "deleted" ||
+  if (p_if_->DefinitionSuffix() == "delete" ||
       (public_only_ && p_if_->IsClassMember() && p_if_->AccessSpecifier() != "public") ||
       p_if_->CvQualifier().find("volatile") != std::string::npos) {  // not support volatile method mocking
     return "";

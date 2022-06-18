@@ -7,7 +7,7 @@
 
 namespace {
 const char kOverloadedOperatorTokenRegex[] =
-    R"xxx(^operator(new|delete|new\[\]|delete\[\]\+|-|\*|\/|%|\^|&|\||~|!|=|<|>|\+=|-=|\*=|\/=|%=\^=|&=\||=|<<|>>|>>=|<<=|==|!=|<=|>=|&&|\|\||\+\+|--|,|->\*|->\(\)|\[\])$)xxx";
+    R"xxx(^operator( new| delete| new\[\]| delete\[\]\+|-|\*|\/|%|\^|&|\||~|!|=|<|>|\+=|-=|\*=|\/=|%=\^=|&=\||=|<<|>>|>>=|<<=|==|!=|<=|>=|&&|\|\||\+\+|--|,|->\*|->\(\)|\[\])$)xxx";
 
 void Format(std::string *p_str, const char *characters = " \t\v\r\n") {
   // trim first and last spaces
@@ -50,7 +50,7 @@ std::string FunctionAttributeBase::ConstantExpression() const noexcept {
 
 std::string FunctionAttributeBase::DefinitionSuffix() const noexcept {
   // default will support...
-  if (info_.is_deleted) return "deleted";
+  if (info_.is_deleted) return "delete";
   return "";
 }
 

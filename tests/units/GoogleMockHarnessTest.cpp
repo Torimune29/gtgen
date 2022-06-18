@@ -10,8 +10,6 @@ using ::testing::Return;
 const std::string kSourceTreePath = SOURCE_DIR;
 
 TEST(GoogleMockHarness, CreateWithMock) {
-  mock_FunctionAttributeInterface mock_function_if;
-
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
@@ -23,27 +21,30 @@ TEST(GoogleMockHarness, CreateWithMock) {
 }
 
 TEST(GoogleMockHarness, FreeFunctions) {
-  FunctionInfo info_1 = {};
-  info_1.base.name = "test1";
-  info_1.base.return_type = "void";
-  info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameter_types = {"int", "uint32_t*"};
-  info_1.base.scope = {""};
-  info_1.base.is_constexpr = false;
-  info_1.base.is_consteval = false;
-  info_1.base.is_noexcept = false;
-  info_1.base.is_deleted = false;
-  info_1.is_extern = false;
-  info_1.is_static = false;
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(std::vector<std::string>({""})));
+  EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return(""));  // volatile and const check
+
   const std::string mock_label = "Test";
   const std::string mock_method_1 = "MOCK_METHOD2(test1, void(int,uint32_t*));";
   const std::string free_function_class = "class " + mock_label + "FreeFunction";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
-  std::shared_ptr<FunctionAttributeInterface> p_function_if(new NamespaceFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
-      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
   EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>()));
   EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
@@ -54,21 +55,22 @@ TEST(GoogleMockHarness, FreeFunctions) {
 }
 
 TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
-  MemberFunctionInfo info_1 = {};
-  info_1.base.name = "test1";
-  info_1.base.return_type = "void";
-  info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameter_types = {"int", "uint32_t*"};
-  info_1.base.scope = {"TestClass1"};
-  info_1.base.is_constexpr = false;
-  info_1.base.is_consteval = false;
-  info_1.base.is_noexcept = false;
-  info_1.base.is_deleted = false;
-  info_1.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
-  info_1.class_name = "TestClass1";
-  info_1.is_const = true;  // MOCK_CONST_METHOD
-  info_1.is_volatile = false;
-  info_1.is_polymorphic = false;
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(std::vector<std::string>({"TestClass1"})));
+  EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("public"));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return("const"));  // volatile and const check
 
   ScopeInfo info_2 = {};
   info_2.name = "TestClass1";
@@ -78,13 +80,12 @@ TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
 
   const std::string mock_label = "Test";
   const std::string mock_method_1 = "MOCK_CONST_METHOD2(test1, void(int,uint32_t*));";
-  const std::string function_class = "class " + mock_label + info_1.class_name;
+  const std::string function_class = "class " + mock_label + "TestClass1";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
-  std::shared_ptr<FunctionAttributeInterface> p_function_if(new MemberFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
-      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
   EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
   EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
@@ -94,24 +95,83 @@ TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
   EXPECT_TRUE(body.find(function_class) != std::string::npos);
 }
 
+TEST(GoogleMockHarness, ClassMemberFunctionsPrivate) {
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("private"));
+
+  ScopeInfo info_2 = {};
+  info_2.name = "TestClass1";
+  info_2.kind = ScopeInfo::Kind::kClass;
+  info_2.full_scope = {"TestClass1"};
+  info_2.children = {};
+
+  const std::string mock_label = "Test";
+  const std::string mock_method_1 = "MOCK_CONST_METHOD2(test1, void(int,uint32_t*));";
+  const std::string function_class = "class " + mock_label + "TestClass1";
+
+  std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
+  GoogleMockHarness harness("Test", p_analyzer);
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_TRUE(harness.Ready());
+  auto body = harness.Generate();
+  std::cout << body << std::endl;
+  EXPECT_TRUE(body.find(mock_method_1) == std::string::npos);
+  EXPECT_TRUE(body.find(function_class) == std::string::npos);
+}
+
+TEST(GoogleMockHarness, ClassMemberFunctionsDeleted) {
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return("delete"));
+
+  ScopeInfo info_2 = {};
+  info_2.name = "TestClass1";
+  info_2.kind = ScopeInfo::Kind::kClass;
+  info_2.full_scope = {"TestClass1"};
+  info_2.children = {};
+
+  const std::string mock_label = "Test";
+  const std::string mock_method_1 = "MOCK_CONST_METHOD2(test1, void(int,uint32_t*));";
+  const std::string function_class = "class " + mock_label + "TestClass1";
+
+  std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
+  GoogleMockHarness harness("Test", p_analyzer);
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_TRUE(harness.Ready());
+  auto body = harness.Generate();
+  std::cout << body << std::endl;
+  EXPECT_TRUE(body.find(mock_method_1) == std::string::npos);
+  EXPECT_TRUE(body.find(function_class) == std::string::npos);
+}
+
 /**
  * @brief Construct a new TEST object
  * @warning function in namespace scoped is unsupported
  *
  */
 TEST(GoogleMockHarness, NamespaceFunctions) {
-  FunctionInfo info_1 = {};
-  info_1.base.name = "test1";
-  info_1.base.return_type = "void";
-  info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameter_types = {"int", "uint32_t*"};
-  info_1.base.scope = {"TestNamespace"};
-  info_1.base.is_constexpr = false;
-  info_1.base.is_consteval = false;
-  info_1.base.is_noexcept = false;
-  info_1.base.is_deleted = false;
-  info_1.is_extern = false;
-  info_1.is_static = false;
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(std::vector<std::string>({"TestNamespace"})));
+  EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return(""));  // volatile and const check
 
   ScopeInfo info_2 = {};
   info_2.name = "TestNamespace";
@@ -124,10 +184,9 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
   const std::string free_function_class = "class " + mock_label + "FreeFunction";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
-  std::shared_ptr<FunctionAttributeInterface> p_function_if(new NamespaceFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
-      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
   EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
   EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
@@ -138,21 +197,23 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
 }
 
 TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
-  MemberFunctionInfo info_1 = {};
-  info_1.base.name = "test1";
-  info_1.base.return_type = "void";
-  info_1.base.signature = "(int,uint32_t*)";
-  info_1.base.parameter_types = {"int", "uint32_t*"};
-  info_1.base.scope = {"TestNamespace", "TestClass1"};
-  info_1.base.is_constexpr = false;
-  info_1.base.is_consteval = false;
-  info_1.base.is_noexcept = false;
-  info_1.base.is_deleted = false;
-  info_1.access_specifier = MemberFunctionInfo::AccessSpecifier::kPublic;
-  info_1.class_name = "TestClass1";
-  info_1.is_const = false;
-  info_1.is_volatile = false;
-  info_1.is_polymorphic = false;
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"TestNamespace", "TestClass1"})));
+  EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("public"));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return(""));  // volatile and const check
 
   ScopeInfo info_2 = {}, info_2_1 = {};
   info_2.name = "TestNamespace";
@@ -167,13 +228,12 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   const std::string mock_label = "Test";
   const std::string mock_method_1 = "MOCK_METHOD2(test1, void(int,uint32_t*));";
   const std::string function_class_namespace =
-      "namespace " + info_2.name + " {\n" + "class " + mock_label + info_1.class_name;
+      "namespace " + info_2.name + " {\n" + "class " + mock_label + "TestClass1";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
-  std::shared_ptr<FunctionAttributeInterface> p_function_if(new MemberFunctionAttribute(info_1));
   GoogleMockHarness harness("Test", p_analyzer);
   EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
-      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_function_if})));
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
   EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
   EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
   EXPECT_TRUE(harness.Ready());
@@ -181,4 +241,111 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   std::cout << body << std::endl;
   EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
   EXPECT_TRUE(body.find(function_class_namespace) != std::string::npos);
+}
+
+TEST(GoogleMockHarness, NoexceptFunctionsWorkaround) {
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Parameters_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return(std::vector<std::pair<std::string, std::string>>({
+          std::make_pair("int", "a"),
+          std::make_pair("uint32_t *", "b"),
+      })));
+  EXPECT_CALL(*p_mock_function_if, Declaration_noexcept())
+      .WillOnce(Return("void test1 (int a, uint32_t * b) const noexcept"));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(std::vector<std::string>({"TestClass1"})));
+  EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return("noexcept"));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("public"));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return("const"));  // volatile and const check
+
+  ScopeInfo info_2 = {};
+  info_2.name = "TestClass1";
+  info_2.kind = ScopeInfo::Kind::kClass;
+  info_2.full_scope = {"TestClass1"};
+  info_2.children = {};
+
+  const std::string mock_label = "Test";
+  const std::string mock_method_1 =
+      R"xxx(MOCK_CONST_METHOD2(test1_noexcept, void(int,uint32_t*));
+  void test1 (int a, uint32_t * b) const noexcept {
+    return this->test1_noexcept(a, b);
+  })xxx";
+  const std::string function_class = "class " + mock_label + "TestClass1";
+
+  std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
+  GoogleMockHarness harness("Test", p_analyzer);
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_TRUE(harness.Ready());
+  auto body = harness.Generate();
+  std::cout << body << std::endl;
+  EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
+  EXPECT_TRUE(body.find(function_class) != std::string::npos);
+}
+
+TEST(GoogleMockHarness, OverloadedOperatorFunctionsWorkaround) {
+  std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return("operator<<"));  // creatng method and generating hash
+  EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
+  EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
+  EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
+      .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
+  EXPECT_CALL(*p_mock_function_if, Parameters_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return(std::vector<std::pair<std::string, std::string>>({
+          std::make_pair("int", "a"),
+          std::make_pair("uint32_t *", "b"),
+      })));
+  EXPECT_CALL(*p_mock_function_if, Declaration_noexcept())
+      .WillOnce(Return("void operator<< (int a, uint32_t * b) const noexcept"));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(std::vector<std::string>({"TestClass1"})));
+  EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
+  EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
+  EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("public"));
+  EXPECT_CALL(*p_mock_function_if, IsAbleToPolymorphic_noexcept()).WillOnce(Return(false));
+  EXPECT_CALL(*p_mock_function_if, CvQualifier_noexcept())
+      .Times(2)
+      .WillRepeatedly(Return("const"));  // volatile and const check
+
+  ScopeInfo info_2 = {};
+  info_2.name = "TestClass1";
+  info_2.kind = ScopeInfo::Kind::kClass;
+  info_2.full_scope = {"TestClass1"};
+  info_2.children = {};
+
+  const std::string mock_label = "Test";
+  const std::string mock_method_1 =
+      R"xxx(MOCK_CONST_METHOD2(operator_2395791331043117477, void(int,uint32_t*));
+  void operator<< (int a, uint32_t * b) const noexcept {
+    return this->operator_2395791331043117477(a, b);
+  })xxx";
+  const std::string function_class = "class " + mock_label + "TestClass1";
+
+  std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
+  GoogleMockHarness harness("Test", p_analyzer);
+  EXPECT_CALL(*p_analyzer, GetFunctions_noexcept())
+      .WillOnce(Return(std::vector<std::shared_ptr<FunctionAttributeInterface>>({p_mock_function_if})));
+  EXPECT_CALL(*p_analyzer, GetScopes_noexcept()).WillOnce(Return(std::vector<ScopeInfo>({info_2})));
+  EXPECT_CALL(*p_analyzer, GetIncludes_noexcept()).WillOnce(Return(std::vector<IncludeInfo>()));
+  EXPECT_TRUE(harness.Ready());
+  auto body = harness.Generate();
+  std::cout << body << std::endl;
+  EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
+  EXPECT_TRUE(body.find(function_class) != std::string::npos);
 }
