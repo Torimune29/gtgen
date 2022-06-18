@@ -7,6 +7,7 @@ var class_function_attribute_base =
     [ "DefinitionSuffix", "class_function_attribute_base.html#a2c32b65bf30cf24a90d8d0a43a6dee3d", null ],
     [ "ExceptionSuffix", "class_function_attribute_base.html#aa43477934bd6d1b9f8077bb5d9c36183", null ],
     [ "InScopeOf", "class_function_attribute_base.html#a67bace6dc7008def13195f5599bf56fe", null ],
+    [ "IsOverloadedOperator", "class_function_attribute_base.html#aa5ab04d624115711bbe331d891aa8263", null ],
     [ "Name", "class_function_attribute_base.html#a565a69d800be6cb89f76c858df84b0a3", null ],
     [ "operator!=", "class_function_attribute_base.html#a123d8e1050a3c6027605fe73bf30471c", null ],
     [ "operator==", "class_function_attribute_base.html#ad1ba768c26fce2531f12d4595e92305f", null ],

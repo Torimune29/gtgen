@@ -12,6 +12,7 @@ var class_function_attribute_interface =
     [ "InScopeOf", "class_function_attribute_interface.html#acbce2dd221f95f6d5547d81930a0a708", null ],
     [ "IsAbleToPolymorphic", "class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034", null ],
     [ "IsClassMember", "class_function_attribute_interface.html#af46867501e7b93611b766a7c5ad5c9f7", null ],
+    [ "IsOverloadedOperator", "class_function_attribute_interface.html#a3f5c4fead898cc7f65f4a3ea48b2d027", null ],
     [ "Name", "class_function_attribute_interface.html#aa5a6b1e4f3cfd975d1ffddc7ed6fca76", null ],
     [ "operator!=", "class_function_attribute_interface.html#ab93eaaeeb4ca6d43c458e52d7c8a15d7", null ],
     [ "operator==", "class_function_attribute_interface.html#ac301ef902ef3324462a9474a5a5b1005", null ],
