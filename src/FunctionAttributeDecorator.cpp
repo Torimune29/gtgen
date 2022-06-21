@@ -5,6 +5,8 @@
 #include <iostream>
 #include <memory>
 
+#include "cppcodegen.h"
+
 namespace {
 const char kMockMethodName[] = "MOCK_METHOD";
 const char kMockConstMethodName[] = "MOCK_CONST_METHOD";
@@ -13,21 +15,21 @@ const char kMockMethodOperatorWorkaroundPrefix[] = "operator_";
 
 std::string CreateWorkaroundMethodDefinition(const std::shared_ptr<FunctionAttributeInterface> &p_if,
                                              const std::string &workaround_method_name) {
+  cppcodegen::Block mock_definition_block(cppcodegen::definition_t, p_if->Declaration());
   std::string method_definition;
-  method_definition = ";\n  " + p_if->Declaration() + " {\n";
-  method_definition += "    return this->" + workaround_method_name;
+  method_definition += "return this->" + workaround_method_name;
   if (p_if->Parameters().empty()) {
-    method_definition += "();\n";
+    method_definition += "()";
   } else {
     method_definition += "(";
     for (const auto &it : p_if->Parameters()) {
       method_definition += it.second + ", ";
     }
     method_definition = method_definition.substr(0, method_definition.size() - 2);
-    method_definition += ");\n";
+    method_definition += ");";
   }
-  method_definition += "  }\n";
-  return method_definition;
+  mock_definition_block << method_definition;
+  return ";\n" + mock_definition_block.Out();
 }
 
 }  // namespace

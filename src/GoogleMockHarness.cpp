@@ -5,6 +5,7 @@
 
 #include "CodeAnalyzerInterface.h"
 #include "FunctionAttributeDecorator.h"
+#include "cppcodegen.h"
 
 namespace {
 const char kMockFileHeader[] = "#pragma once";
@@ -66,55 +67,53 @@ bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<s
 std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
                              const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map,
                              const std::string &mock_class_name) {
-  std::string body_all;
+  cppcodegen::Snippet body_all;
   for (const auto &it : map) {
-    std::string body;
-    // generate scope
+    // generate child function
+    auto body_child = GenerateMockBody(it.children, class_bases_map, mock_class_name);
+    if (body_child.empty() && it.mock_function_declaration.empty()) {  // no children and descendant
+      continue;
+    }
+
+    cppcodegen::Snippet body;
+    // add now scope function
+    for (const auto &it_function : it.mock_function_declaration) {
+      // only support free or class member function
+      if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
+        body << it_function;
+      }
+    }
+    // add child scope
+    body << body_child;
+
+    // concat scope
     switch (it.kind) {
       case ScopeInfo::Kind::kGlobal: {
-        body += "class " + mock_class_name + std::string(kMockFreeFunctionClassName) + " {\n";
+        cppcodegen::Class free_function_class(mock_class_name + kMockFreeFunctionClassName);
+        body_all << (free_function_class << body);
         break;
       }
       case ScopeInfo::Kind::kNamespace: {
-        body += "namespace " + it.name + " {\n";
+        cppcodegen::Block namespace_block(cppcodegen::namespace_t, it.name);
+        body_all << (namespace_block << body);
         break;
       }
       case ScopeInfo::Kind::kClass: {
-        body += "class " + mock_class_name + it.name;
+        cppcodegen::Class s_class(mock_class_name + it.name);
         if (class_bases_map.count(it.name) != 0 && !class_bases_map.at(it.name).empty()) {
-          body += " : public ";
-          std::string base_class_list;
           for (const auto &it_base_class : class_bases_map.at(it.name)) {
-            base_class_list += it_base_class + ", ";
+            s_class.AddInheritance(it_base_class, cppcodegen::AccessSpecifier::kPublic);
           }
-          body += base_class_list.substr(0, base_class_list.size() - 2);
         }
-        body += " {\n";
-        if (!it.mock_function_declaration.empty()) body += " public:\n";
+        body_all << (s_class << body);
         break;
       }
       default: {
         break;
       }
     }
-    // generate child function
-    for (const auto &it_function : it.mock_function_declaration) {
-      // only support free or class member function
-      if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
-        body += "  " + it_function + "\n";
-      }
-    }
-    // generate child scope
-    auto body_child = GenerateMockBody(it.children, class_bases_map, mock_class_name);
-    if (body_child.empty() && it.mock_function_declaration.empty()) {  // no children and descendant
-      body.clear();
-    } else {
-      body += body_child;
-      body += "};\n";
-    }
-    body_all += body;
   }
-  return body_all;
+  return body_all.Out();
 }
 
 std::string AddIncludes(const std::vector<IncludeInfo> &includes) {

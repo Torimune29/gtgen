@@ -228,7 +228,7 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   const std::string mock_label = "Test";
   const std::string mock_method_1 = "MOCK_METHOD2(test1, void(int,uint32_t*));";
   const std::string function_class_namespace =
-      "namespace " + info_2.name + " {\n" + "class " + mock_label + "TestClass1";
+      "namespace " + info_2.name + " {\n" + "  class " + mock_label + "TestClass1";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   GoogleMockHarness harness("Test", p_analyzer);
