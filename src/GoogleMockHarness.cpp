@@ -13,10 +13,6 @@ const char kMockIncludeHeader[] = "#include <gmock/gmock.h>";
 const char kMockFreeFunctionClassName[] = "FreeFunction";
 const char kMockFreeFunctionScopeName[] = "@FreeFunction@";
 
-const size_t kIncludeStringMaxSize = 255;
-const char kSystemIncludeFormat[] = R"xxx(#include <%s>)xxx";
-const char kLocalIncludeFormat[] = R"xxx(#include "%s")xxx";
-
 typedef struct ScopedMockFunction {
   std::string name;
   std::vector<std::string> full_scope;
@@ -105,7 +101,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
             s_class.AddInheritance(it_base_class, cppcodegen::AccessSpecifier::kPublic);
           }
         }
-        body_all << (s_class << body);
+        body_all << (s_class << cppcodegen::AccessSpecifier::kPublic << body);  // public only
         break;
       }
       default: {
@@ -117,32 +113,26 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
 }
 
 std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
+  cppcodegen::Snippet include_snippets;
   std::vector<std::string> headers;
-  char header_buf[kIncludeStringMaxSize] = {};
   for (const auto &it : includes) {
-    int header_buf_size = 0;
     if (it.kind == IncludeInfo::Kind::kSystem) {
-      header_buf_size = snprintf(header_buf, kIncludeStringMaxSize, kSystemIncludeFormat, it.name.c_str());
+      cppcodegen::Snippet system_include(cppcodegen::system_include_t);
+      headers.emplace_back((system_include << it.name).Out());
     } else if (it.kind == IncludeInfo::Kind::kLocal) {
-      header_buf_size = snprintf(header_buf, kIncludeStringMaxSize, kLocalIncludeFormat, it.name.c_str());
+      cppcodegen::Snippet local_include(cppcodegen::local_include_t, "");
+      headers.emplace_back((local_include << it.name).Out());
     }
-    if (header_buf_size > 0) headers.push_back(std::string(header_buf, static_cast<size_t>(header_buf_size)));
   }
   std::sort(headers.begin(), headers.end());
   headers.erase(std::unique(headers.begin(), headers.end()), headers.end());
-
-  std::string header_lines;
-  for (const auto &it : headers) {
-    header_lines += it + "\n";
-  }
-  return header_lines;
+  include_snippets.Add(headers);
+  return include_snippets.Out();
 }
 
 }  // namespace
 
 bool GoogleMockHarness::Ready() noexcept {
-  body_ += "// " + notice_message_ + '\n';
-
   std::unordered_map<std::string, std::vector<std::string>> class_bases_map;
 
   // scope
@@ -169,9 +159,14 @@ bool GoogleMockHarness::Ready() noexcept {
   }
 
   // generate mock
-  body_ += std::string(kMockFileHeader) + "\n\n" + std::string(kMockIncludeHeader) + "\n\n";
-  body_ += AddIncludes(p_analyzer_->GetIncludes()) + "\n\n";
-  body_ += GenerateMockBody(map, class_bases_map, name_);
+  cppcodegen::Snippet file;
+  file << "// " + notice_message_;
+
+  file << std::string(kMockFileHeader) << std::string(kMockIncludeHeader);
+  file << AddIncludes(p_analyzer_->GetIncludes()) << "\n";
+  file << GenerateMockBody(map, class_bases_map, name_);
+
+  body_ = file.Out();
 
   return true;
 }
