@@ -18,6 +18,7 @@ typedef struct ScopedMockFunction {
   std::vector<std::string> full_scope;
   ScopeInfo::Kind kind;
   std::vector<std::string> mock_function_declaration;
+  std::shared_ptr<FunctionAttributeInterface> p_if;
   std::vector<ScopedMockFunction> children;
 } ScopedMockFunction;
 
@@ -45,15 +46,16 @@ std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<Scope
 }
 
 bool AddMockFunction(std::vector<ScopedMockFunction> *p_map, const std::vector<std::string> &scope,
-                     const std::string &function) {
+                     const std::string &function, std::shared_ptr<FunctionAttributeInterface> p_if) {
   auto it = std::find_if(p_map->begin(), p_map->end(),
                          [&scope](const ScopedMockFunction &info) { return info.full_scope == scope; });
   if (it != p_map->end()) {
     it->mock_function_declaration.push_back(function);
+    it->p_if = p_if;
     return true;
   }
   for (auto &&it_each : *p_map) {
-    if (AddMockFunction(&it_each.children, scope, function)) {
+    if (AddMockFunction(&it_each.children, scope, function, p_if)) {
       return true;
     }
   }
@@ -86,7 +88,17 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
     switch (it.kind) {
       case ScopeInfo::Kind::kGlobal: {
         cppcodegen::Class free_function_class(mock_class_name + kMockFreeFunctionClassName);
-        body_all << (free_function_class << body);
+        // singleton settings for stub
+        std::string mock_singleton_signature = mock_class_name + kMockFreeFunctionClassName + "& GetInstance()";
+        cppcodegen::Block singleton_getinstance(cppcodegen::definition_t, mock_singleton_signature);
+        singleton_getinstance << "static " + mock_class_name + kMockFreeFunctionClassName + " instance;"
+                              << "return &instance;";
+        free_function_class << cppcodegen::AccessSpecifier::kPublic
+                            << "~" + mock_class_name + kMockFreeFunctionClassName + "() = default;" << body
+                            << singleton_getinstance;
+        free_function_class << cppcodegen::AccessSpecifier::kPrivate
+                            << mock_class_name + kMockFreeFunctionClassName + "() = default;";
+        body_all << free_function_class;
         break;
       }
       case ScopeInfo::Kind::kNamespace: {
@@ -130,6 +142,19 @@ std::string AddIncludes(const std::vector<IncludeInfo> &includes) {
   return include_snippets.Out();
 }
 
+// std::string GenerateStubFunction(const std::vector<ScopedMockFunction> &map,
+//                                  const std::unordered_map<std::string, std::vector<std::string>> &class_bases_map,
+//                                  const std::string &mock_class_name) {
+//   std::string stub_definition;
+//   // free function
+//   for (const auto &it : map) {
+//     if (it.kind == ScopeInfo::Kind::kGlobal) {
+//       cppcodegen::Block function(cppcodegen::definition_t, it.p_if->Declaration());
+//     }
+//   }
+//   return stub_definition;
+// }
+
 }  // namespace
 
 bool GoogleMockHarness::Ready() noexcept {
@@ -145,7 +170,7 @@ bool GoogleMockHarness::Ready() noexcept {
     GoogleMockLegacyDecorator decorator(it, public_only_);
     auto declaration = decorator.Declaration();
     if (!declaration.empty()) {
-      AddMockFunction(&map, it->Scope().scope_names, declaration);
+      AddMockFunction(&map, it->Scope().scope_names, declaration, it);
       if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {
         auto base_classes = it->BaseClasses();
         if (base_classes.empty()) {

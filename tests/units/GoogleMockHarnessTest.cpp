@@ -39,6 +39,9 @@ TEST(GoogleMockHarness, FreeFunctions) {
 
   const std::string mock_label = "Test";
   const std::string mock_method_1 = "MOCK_METHOD2(test1, void(int,uint32_t*));";
+  const std::string getinstance_method_declaration = mock_label + "FreeFunction& GetInstance()";
+  const std::string getinstance_method_definition_1 = "static " + mock_label + "FreeFunction instance;";
+  const std::string getinstance_method_definition_2 = "return &instance;";
   const std::string free_function_class = "class " + mock_label + "FreeFunction";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
@@ -52,6 +55,9 @@ TEST(GoogleMockHarness, FreeFunctions) {
   std::cout << body << std::endl;
   EXPECT_TRUE(body.find(mock_method_1) != std::string::npos);
   EXPECT_TRUE(body.find(free_function_class) != std::string::npos);
+  EXPECT_TRUE(body.find(getinstance_method_declaration) != std::string::npos);
+  EXPECT_TRUE(body.find(getinstance_method_definition_1) != std::string::npos);
+  EXPECT_TRUE(body.find(getinstance_method_definition_2) != std::string::npos);
 }
 
 TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
