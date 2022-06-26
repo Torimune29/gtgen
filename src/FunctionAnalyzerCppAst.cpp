@@ -125,6 +125,11 @@ std::vector<MemberFunctionInfo> FunctionAnalyzerCppAst::ParseMemberFunction(cons
   if (entity.kind() == cppast::cpp_class::kind()) {
     const auto &class_e = reinterpret_cast<const cppast::cpp_class &>(entity);
     const auto class_name = class_e.name();
+    // parse class only
+    if (class_e.class_kind() != cppast::cpp_class_kind::class_t) {
+      p_parser_->Log("MemberFunction not class. skip:", class_name, cppast::severity::debug);
+      return {};
+    }
 
     p_parser_->Log("MemberFunction Class in:", class_name, cppast::severity::debug);
 
