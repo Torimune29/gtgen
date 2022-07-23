@@ -19,7 +19,7 @@ std::string CreateWorkaroundMethodDefinition(const std::shared_ptr<FunctionAttri
   std::string method_definition;
   method_definition += "return this->" + workaround_method_name;
   if (p_if->Parameters().empty()) {
-    method_definition += "()";
+    method_definition += "();";
   } else {
     method_definition += "(";
     for (const auto &it : p_if->Parameters()) {
