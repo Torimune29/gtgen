@@ -86,6 +86,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
     cppcodegen::Snippet body;
     // add now scope function
     for (const auto &it_function : it.mock_function_declaration) {
+      std::cout << it_function << std::endl;
       // only support free or class member function
       if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
         body << it_function;
