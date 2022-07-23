@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['googlemockdecorator_20',['GoogleMockDecorator',['../class_google_mock_decorator.html',1,'']]],
-  ['googlemockharness_21',['GoogleMockHarness',['../class_google_mock_harness.html',1,'']]],
-  ['googlemocklegacydecorator_22',['GoogleMockLegacyDecorator',['../class_google_mock_legacy_decorator.html',1,'']]],
-  ['gtgen_23',['gtgen',['../index.html',1,'']]]
+  ['includeinfo_11',['IncludeInfo',['../struct_include_info.html',1,'']]],
+  ['isabletopolymorphic_12',['IsAbleToPolymorphic',['../class_function_attribute_interface.html#a6c3973fb7000162a31a6691098b5c034',1,'FunctionAttributeInterface']]]
 ];
