@@ -33,17 +33,17 @@ find_lto(CXX)
 # Locate files (change as needed).
 # --------------------------------------------------------------------------------
 set(SOURCES # All .cpp files in src/
-        src/AbstractCodeParser.cpp
-        src/CodeParserCppAst.cpp
-        src/AbstractTestHarness.cpp
-        src/GoogleMockHarness.cpp
-        src/TestTargetViewerHarness.cpp
-        src/FunctionInfo.cpp
-        src/FunctionAnalyzerCppAst.cpp
-        src/ScopeRelationAnalyzerCppAst.cpp
-        src/IncludeAnalyzerCppAst.cpp
-        src/FunctionAttributeDecorator.cpp
         src/gtgen.cpp
+        src/attribute/FunctionAttributeImpl.cpp
+        src/parser/AbstractCodeParser.cpp
+        src/parser/CodeParserCppAst.cpp
+        src/testharness/AbstractTestHarness.cpp
+        src/testharness/GoogleMockHarness.cpp
+        src/testharness/TestTargetViewerHarness.cpp
+        src/analyzer/FunctionAnalyzerCppAst.cpp
+        src/analyzer/ScopeRelationAnalyzerCppAst.cpp
+        src/analyzer/IncludeAnalyzerCppAst.cpp
+        src/generator/FunctionAttributeDecorator.cpp
 )
 set(TESTFILES # All .cpp files in tests/
         tests/main.cpp
@@ -57,7 +57,11 @@ add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src/analyzer)
+target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src/attribute)
+target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src/generator)
+target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src/parser)
+target_include_directories(${LIBRARY_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src/testharness)
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL AS_ERROR ALL DISABLE Annoying)

@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "FunctionInfo.h"
+#include "FunctionAttribute.h"
 
 class FunctionAttributeDecorator {
  public:

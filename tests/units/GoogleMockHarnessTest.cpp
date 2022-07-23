@@ -3,7 +3,7 @@
 #include "GoogleMockHarness.h"
 #include "gtgen.h"
 #include "mocks/mock_CodeAnalyzerInterface.h"
-#include "mocks/mock_FunctionAttributeInterface.h"
+#include "mocks/mock_FunctionAttribute.h"
 
 using ::testing::Return;
 

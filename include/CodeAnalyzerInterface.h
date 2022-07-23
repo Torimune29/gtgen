@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "FunctionInfo.h"
+#include "FunctionAttribute.h"
 #include "IncludeInfo.h"
 #include "ScopeInfo.h"
 

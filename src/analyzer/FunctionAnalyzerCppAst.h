@@ -6,7 +6,7 @@
 
 #include "CodeAnalyzerInterface.h"
 #include "CodeParserCppAst.h"
-#include "FunctionInfo.h"
+#include "FunctionAttributeImpl.h"
 #include "ScopeInfo.h"
 
 /**

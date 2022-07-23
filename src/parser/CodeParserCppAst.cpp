@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <vector>
 
-#include "FunctionInfo.h"
+#include "FunctionAttributeImpl.h"
 
 namespace cppast {
 /**
