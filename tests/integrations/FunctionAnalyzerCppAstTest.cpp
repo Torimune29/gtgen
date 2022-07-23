@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "../../src/attribute/FunctionAttributeImpl.h"
 #include "gtgen.h"
 
 // Tests that don't naturally fit in the headers/.cpp files directly
