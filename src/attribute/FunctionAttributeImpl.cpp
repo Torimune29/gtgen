@@ -61,9 +61,6 @@ std::string FunctionAttributeBase::ExceptionSuffix() const noexcept {
 }
 
 FunctionScope FunctionAttributeBase::Scope() const noexcept {
-  if (info_.scope.empty()) {
-    return FunctionScope(std::vector<std::string>({""}));
-  }
   return FunctionScope(info_.scope);
 }
 
@@ -99,8 +96,11 @@ bool FunctionAttributeBase::IsOverloadedOperator() const noexcept {
 }
 
 std::string FunctionAttributeBase::Declaration() const noexcept {
-  std::string declaration = StorageClass() + " " + ConstantExpression() + " " + ReturnType() + " " + Name() + " ";
-  declaration += "(";
+  std::string declaration = StorageClass() + " " + ConstantExpression() + " " + ReturnType() + " ";
+  if (!Scope().FullName().empty()) {
+    declaration += Scope().FullName() + "::";
+  }
+  declaration += Name() + " (";
   if (!Parameters().empty()) {
     for (const auto &it : Parameters()) {
       declaration += it.first + " " + it.second + ", ";

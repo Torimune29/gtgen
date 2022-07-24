@@ -45,13 +45,6 @@ std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<Scope
   return functions;
 }
 
-void AddStubFunction(const std::string &function_name, cppcodegen::Snippet *p_snippet) {
-  // macro for stub
-
-  *p_class << cppcodegen::AccessSpecifier::kPublic << "~" + class_name + "() = default;" << singleton_getinstance;
-  *p_class << cppcodegen::AccessSpecifier::kPrivate << class_name + "() = default;";
-}
-
 void AddSingletonDefinition(const std::string &class_name, cppcodegen::Class *p_class) {
   // singleton settings for stub
   std::string mock_singleton_signature = class_name + "& GetInstance()";
@@ -90,17 +83,12 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
       continue;
     }
 
-    cppcodegen::Snippet stub_pre, body;
-    cppcodegen::Block stub_definition(cppcodegen::definition_t, it.p_if->Signature());
+    cppcodegen::Snippet body;
     // add now scope function
-    // only support free or class member function
-    if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
-      if (it.kind == ScopeInfo::Kind::kGlobal) {
-        // define macro
-        stub_pre << std::string("#undef ") + it.name;
-        stub_pre << std::string("#define ") + it.name + std::string(" stub_") + it.name;
-      }
-      for (const auto &it_function : it.mock_function_declaration) {
+    for (const auto &it_function : it.mock_function_declaration) {
+      std::cout << it_function << std::endl;
+      // only support free or class member function
+      if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
         body << it_function;
       }
     }
@@ -110,8 +98,6 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
     // concat scope
     switch (it.kind) {
       case ScopeInfo::Kind::kGlobal: {
-        stub_definition << "return " + mock_class_name + kMockFreeFunctionClassName + "::GetInstance()." + ;
-        AddStubFunction(it.p_if->Name(), &stub_function);
         cppcodegen::Class free_function_class(mock_class_name + kMockFreeFunctionClassName);
         // singleton settings for stub
         AddSingletonDefinition(mock_class_name + kMockFreeFunctionClassName, &free_function_class);

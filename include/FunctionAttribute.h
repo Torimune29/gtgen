@@ -62,7 +62,21 @@ class FunctionAttributeInterface {
   virtual std::string Name() const noexcept = 0;
   virtual std::string ReturnType() const noexcept = 0;
   virtual std::string Signature() const noexcept = 0;
+  /**
+   * @brief ParameterTypes
+   *
+   * @return std::vector<std::string> Formal parameter types
+   * @details
+   * Formal parameter type lists.
+   */
   virtual std::vector<std::string> ParameterTypes() const noexcept = 0;
+  /**
+   * @brief Parameters
+   *
+   * @return std::vector<std::pair<std::string, std::string>>
+   * @details
+   * Parameters. First is formal, and second is actual.
+   */
   virtual std::vector<std::pair<std::string, std::string>> Parameters() const noexcept = 0;
   virtual bool IsOverloadedOperator() const noexcept = 0;
   virtual std::string Declaration() const noexcept = 0;
