@@ -76,7 +76,8 @@
 			"new": "cpp",
 			"shared_mutex": "cpp",
 			"stdexcept": "cpp",
-			"valarray": "cpp"
+			"valarray": "cpp",
+			"*.def": "cpp"
 		},
 		"editor.formatOnSave": true
 	}

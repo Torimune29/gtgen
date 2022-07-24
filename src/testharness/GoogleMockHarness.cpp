@@ -85,10 +85,9 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
 
     cppcodegen::Snippet body;
     // add now scope function
-    for (const auto &it_function : it.mock_function_declaration) {
-      std::cout << it_function << std::endl;
-      // only support free or class member function
-      if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
+    // only support free or class member function
+    if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
+      for (const auto &it_function : it.mock_function_declaration) {
         body << it_function;
       }
     }
@@ -173,8 +172,25 @@ bool GoogleMockHarness::Ready() noexcept {
   auto map = InitializeScopedFunction(v_scope, true);
 
   // function
+  cppcodegen::Snippet stub_pre, stub_body;
   auto v_func = p_analyzer_->GetFunctions();
   for (const auto &it : v_func) {
+    if (it->Scope().FullName().empty()) {  // global
+      // stub_pre << std::string("#undef ") + it->Name();
+      cppcodegen::Block stub_definition(cppcodegen::definition_t, it->Declaration());
+      std::string actual_parameters = "(";
+      if (!it->Parameters().empty()) {
+        for (const auto &it_parameter : it->Parameters()) {
+          actual_parameters += it_parameter.second + ", ";
+        }
+        actual_parameters = actual_parameters.substr(0, actual_parameters.size() - 2);
+      }
+      actual_parameters += ");";
+      stub_definition << "return " + name_ + kMockFreeFunctionClassName + "::GetInstance()." + it->Name() +
+                             actual_parameters;
+      stub_body << std::move(stub_definition);
+    }
+
     GoogleMockLegacyDecorator decorator(it, public_only_);
     auto declaration = decorator.Declaration();
     if (!declaration.empty()) {
@@ -197,6 +213,8 @@ bool GoogleMockHarness::Ready() noexcept {
 
   file << std::string(kMockFileHeader) << std::string(kMockIncludeHeader);
   file << AddIncludes(p_analyzer_->GetIncludes()) << "\n";
+  file << stub_pre;
+  file << stub_body;
   file << GenerateMockBody(map, class_bases_map, name_);
 
   body_ = file.Out();

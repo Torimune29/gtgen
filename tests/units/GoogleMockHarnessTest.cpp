@@ -22,12 +22,19 @@ TEST(GoogleMockHarness, CreateWithMock) {
 
 TEST(GoogleMockHarness, FreeFunctions) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
-  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillRepeatedly(Return("test1"));
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
-  EXPECT_CALL(*p_mock_function_if, Scope_noexcept()).WillOnce(Return(FunctionScope(std::vector<std::string>({""}))));
+  EXPECT_CALL(*p_mock_function_if, Parameters_noexcept())
+      .WillRepeatedly(Return(std::vector<std::pair<std::string, std::string>>({
+          std::make_pair("int", "a"),
+          std::make_pair("uint32_t *", "b"),
+      })));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({""}))));
+  EXPECT_CALL(*p_mock_function_if, Declaration_noexcept()).WillRepeatedly(Return("void test1 (int a, uint32_t *b)"));
   EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
@@ -43,6 +50,9 @@ TEST(GoogleMockHarness, FreeFunctions) {
   const std::string getinstance_method_definition_1 = "static " + mock_label + "FreeFunction instance;";
   const std::string getinstance_method_definition_2 = "return &instance;";
   const std::string free_function_class = "class " + mock_label + "FreeFunction";
+  // const std::string free_function_macro = "#undef test1";
+  const std::string free_function_stub =
+      "void test1 (int a, uint32_t *b) {\n  return " + mock_label + "FreeFunction::GetInstance().test1(a, b);\n}";
 
   std::shared_ptr<mock_CodeAnalyzerInterface> p_analyzer(new mock_CodeAnalyzerInterface());
   GoogleMockHarness harness("Test", p_analyzer);
@@ -58,17 +68,19 @@ TEST(GoogleMockHarness, FreeFunctions) {
   EXPECT_TRUE(body.find(getinstance_method_declaration) != std::string::npos);
   EXPECT_TRUE(body.find(getinstance_method_definition_1) != std::string::npos);
   EXPECT_TRUE(body.find(getinstance_method_definition_2) != std::string::npos);
+  // EXPECT_TRUE(body.find(free_function_macro) != std::string::npos);
+  EXPECT_TRUE(body.find(free_function_stub) != std::string::npos);
 }
 
 TEST(GoogleMockHarness, ClassMemberFunctionsConst) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
-  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillRepeatedly(Return("test1"));
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
   EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
-      .WillOnce(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
   EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
@@ -107,6 +119,8 @@ TEST(GoogleMockHarness, ClassMemberFunctionsPrivate) {
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
   EXPECT_CALL(*p_mock_function_if, AccessSpecifier_noexcept()).WillOnce(Return("private"));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
 
   ScopeInfo info_2 = {};
   info_2.name = "TestClass1";
@@ -134,6 +148,8 @@ TEST(GoogleMockHarness, ClassMemberFunctionsPrivate) {
 TEST(GoogleMockHarness, ClassMemberFunctionsDeleted) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return("delete"));
+  EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
 
   ScopeInfo info_2 = {};
   info_2.name = "TestClass1";
@@ -165,13 +181,13 @@ TEST(GoogleMockHarness, ClassMemberFunctionsDeleted) {
  */
 TEST(GoogleMockHarness, NamespaceFunctions) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
-  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillRepeatedly(Return("test1"));
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
   EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
-      .WillOnce(Return(FunctionScope(std::vector<std::string>({"TestNamespace"}))));
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestNamespace"}))));
   EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
@@ -206,13 +222,13 @@ TEST(GoogleMockHarness, NamespaceFunctions) {
 
 TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
-  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillRepeatedly(Return("test1"));
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
   EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
-      .WillOnce(Return(FunctionScope(std::vector<std::string>({"TestNamespace", "TestClass1"}))));
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestNamespace", "TestClass1"}))));
   EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
@@ -253,7 +269,7 @@ TEST(GoogleMockHarness, ClassMemberFunctionsInNamespace) {
 
 TEST(GoogleMockHarness, NoexceptFunctionsWorkaround) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
-  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillOnce(Return("test1"));
+  EXPECT_CALL(*p_mock_function_if, Name_noexcept()).WillRepeatedly(Return("test1"));
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
@@ -265,9 +281,9 @@ TEST(GoogleMockHarness, NoexceptFunctionsWorkaround) {
           std::make_pair("uint32_t *", "b"),
       })));
   EXPECT_CALL(*p_mock_function_if, Declaration_noexcept())
-      .WillOnce(Return("void test1 (int a, uint32_t * b) const noexcept"));
+      .WillRepeatedly(Return("void test1 (int a, uint32_t * b) const noexcept"));
   EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
-      .WillOnce(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
   EXPECT_CALL(*p_mock_function_if, ExceptionSuffix_noexcept()).WillOnce(Return("noexcept"));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(false));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
@@ -321,9 +337,9 @@ TEST(GoogleMockHarness, OverloadedOperatorFunctionsWorkaround) {
           std::make_pair("uint32_t *", "b"),
       })));
   EXPECT_CALL(*p_mock_function_if, Declaration_noexcept())
-      .WillOnce(Return("void operator<< (int a, uint32_t * b) const noexcept"));
+      .WillRepeatedly(Return("void operator<< (int a, uint32_t * b) const noexcept"));
   EXPECT_CALL(*p_mock_function_if, Scope_noexcept())
-      .WillOnce(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
+      .WillRepeatedly(Return(FunctionScope(std::vector<std::string>({"TestClass1"}))));
   EXPECT_CALL(*p_mock_function_if, IsOverloadedOperator_noexcept()).WillOnce(Return(true));
   EXPECT_CALL(*p_mock_function_if, DefinitionSuffix_noexcept()).WillOnce(Return(""));
   EXPECT_CALL(*p_mock_function_if, IsClassMember_noexcept()).WillOnce(Return(true));
