@@ -102,4 +102,5 @@ install(TARGETS ${APP_NAME}
 # Set up tests (see tests/CMakeLists.txt).
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Coverage")
         add_subdirectory(tests)
+        add_subdirectory(examples)
 endif()
