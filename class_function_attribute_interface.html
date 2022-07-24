@@ -131,11 +131,11 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Return
 <tr class="memitem:a9e386dea69678943c05278c6da71c4d6"><td class="memItemLeft" align="right" valign="top"><a id="a9e386dea69678943c05278c6da71c4d6"></a>
 virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Signature</b> () const noexcept=0</td></tr>
 <tr class="separator:a9e386dea69678943c05278c6da71c4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f3f3d2f6ebae48ce95ab21cd57aa412"><td class="memItemLeft" align="right" valign="top"><a id="a1f3f3d2f6ebae48ce95ab21cd57aa412"></a>
-virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ParameterTypes</b> () const noexcept=0</td></tr>
+<tr class="memitem:a1f3f3d2f6ebae48ce95ab21cd57aa412"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function_attribute_interface.html#a1f3f3d2f6ebae48ce95ab21cd57aa412">ParameterTypes</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a1f3f3d2f6ebae48ce95ab21cd57aa412"><td class="mdescLeft">&#160;</td><td class="mdescRight">ParameterTypes.  <a href="class_function_attribute_interface.html#a1f3f3d2f6ebae48ce95ab21cd57aa412">More...</a><br /></td></tr>
 <tr class="separator:a1f3f3d2f6ebae48ce95ab21cd57aa412"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f041a678f1e933a83f178f4b3b80579"><td class="memItemLeft" align="right" valign="top"><a id="a4f041a678f1e933a83f178f4b3b80579"></a>
-virtual std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Parameters</b> () const noexcept=0</td></tr>
+<tr class="memitem:a4f041a678f1e933a83f178f4b3b80579"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function_attribute_interface.html#a4f041a678f1e933a83f178f4b3b80579">Parameters</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a4f041a678f1e933a83f178f4b3b80579"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters.  <a href="class_function_attribute_interface.html#a4f041a678f1e933a83f178f4b3b80579">More...</a><br /></td></tr>
 <tr class="separator:a4f041a678f1e933a83f178f4b3b80579"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f5c4fead898cc7f65f4a3ea48b2d027"><td class="memItemLeft" align="right" valign="top"><a id="a3f5c4fead898cc7f65f4a3ea48b2d027"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsOverloadedOperator</b> () const noexcept=0</td></tr>
@@ -331,6 +331,64 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Storag
 <dd>
 false</dd></dl>
 <p>If function is virtual override or final, it returns true </p>
+
+</div>
+</div>
+<a id="a4f041a678f1e933a83f178f4b3b80579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f041a678f1e933a83f178f4b3b80579">&#9670;&nbsp;</a></span>Parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;std::pair&lt;std::string, std::string&gt; &gt; FunctionAttributeInterface::Parameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parameters. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</dd></dl>
+<p>Parameters. First is formal, and second is actual. </p>
+
+</div>
+</div>
+<a id="a1f3f3d2f6ebae48ce95ab21cd57aa412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f3f3d2f6ebae48ce95ab21cd57aa412">&#9670;&nbsp;</a></span>ParameterTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;std::string&gt; FunctionAttributeInterface::ParameterTypes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ParameterTypes. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::string&gt; Formal parameter types</dd></dl>
+<p>Formal parameter type lists. </p>
 
 </div>
 </div>
