@@ -275,7 +275,7 @@ TEST(GoogleMockHarness, NoexceptFunctionsWorkaround) {
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
   EXPECT_CALL(*p_mock_function_if, Parameters_noexcept())
-      .Times(2)
+      .Times(4)
       .WillRepeatedly(Return(std::vector<std::pair<std::string, std::string>>({
           std::make_pair("int", "a"),
           std::make_pair("uint32_t *", "b"),
@@ -324,14 +324,12 @@ TEST(GoogleMockHarness, NoexceptFunctionsWorkaround) {
 TEST(GoogleMockHarness, OverloadedOperatorFunctionsWorkaround) {
   std::shared_ptr<mock_FunctionAttributeInterface> p_mock_function_if(new mock_FunctionAttributeInterface());
   EXPECT_CALL(*p_mock_function_if, Name_noexcept())
-      .Times(2)
       .WillRepeatedly(Return("operator<<"));  // creatng method and generating hash
   EXPECT_CALL(*p_mock_function_if, ReturnType_noexcept()).WillOnce(Return("void"));
   EXPECT_CALL(*p_mock_function_if, Signature_noexcept()).WillOnce(Return("(int,uint32_t*)"));
   EXPECT_CALL(*p_mock_function_if, ParameterTypes_noexcept())
       .WillOnce(Return(std::vector<std::string>({"int", "uint32_t*"})));
   EXPECT_CALL(*p_mock_function_if, Parameters_noexcept())
-      .Times(2)
       .WillRepeatedly(Return(std::vector<std::pair<std::string, std::string>>({
           std::make_pair("int", "a"),
           std::make_pair("uint32_t *", "b"),

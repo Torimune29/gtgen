@@ -47,10 +47,10 @@ std::vector<ScopedMockFunction> InitializeScopedFunction(const std::vector<Scope
 
 void AddSingletonDefinition(const std::string &class_name, cppcodegen::Class *p_class) {
   // singleton settings for stub
-  std::string mock_singleton_signature = class_name + "& GetInstance()";
+  std::string mock_singleton_signature = "static " + class_name + "& GetInstance()";
   cppcodegen::Block singleton_getinstance(cppcodegen::definition_t, mock_singleton_signature);
   singleton_getinstance << "static " + class_name + " instance;"
-                        << "return &instance;";
+                        << "return instance;";
   *p_class << cppcodegen::AccessSpecifier::kPublic << "~" + class_name + "() = default;" << singleton_getinstance;
   *p_class << cppcodegen::AccessSpecifier::kPrivate << class_name + "() = default;";
 }
@@ -85,8 +85,7 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
 
     cppcodegen::Snippet body;
     // add now scope function
-    // only support free or class member function
-    if (it.kind == ScopeInfo::Kind::kGlobal || it.kind == ScopeInfo::Kind::kClass) {
+    if (it.kind != ScopeInfo::Kind::kAnonymousNamespace) {
       for (const auto &it_function : it.mock_function_declaration) {
         body << it_function;
       }
@@ -103,9 +102,10 @@ std::string GenerateMockBody(const std::vector<ScopedMockFunction> &map,
         body_all << (free_function_class << cppcodegen::AccessSpecifier::kPublic << body);
         break;
       }
-      case ScopeInfo::Kind::kNamespace: {
-        cppcodegen::Block namespace_block(cppcodegen::namespace_t, it.name);
-        body_all << (namespace_block << body);
+      case ScopeInfo::Kind::kNamespace: {  // convert class
+        cppcodegen::Class namespace_class(cppcodegen::class_t, mock_class_name + it.name);
+        AddSingletonDefinition(mock_class_name + it.name, &namespace_class);
+        body_all << (namespace_class << cppcodegen::AccessSpecifier::kPublic << body);
         break;
       }
       case ScopeInfo::Kind::kClass: {
@@ -175,27 +175,11 @@ bool GoogleMockHarness::Ready() noexcept {
   cppcodegen::Snippet stub_pre, stub_body;
   auto v_func = p_analyzer_->GetFunctions();
   for (const auto &it : v_func) {
-    if (it->Scope().FullName().empty()) {  // global
-      // stub_pre << std::string("#undef ") + it->Name();
-      cppcodegen::Block stub_definition(cppcodegen::definition_t, it->Declaration());
-      std::string actual_parameters = "(";
-      if (!it->Parameters().empty()) {
-        for (const auto &it_parameter : it->Parameters()) {
-          actual_parameters += it_parameter.second + ", ";
-        }
-        actual_parameters = actual_parameters.substr(0, actual_parameters.size() - 2);
-      }
-      actual_parameters += ");";
-      stub_definition << "return " + name_ + kMockFreeFunctionClassName + "::GetInstance()." + it->Name() +
-                             actual_parameters;
-      stub_body << std::move(stub_definition);
-    }
-
     GoogleMockLegacyDecorator decorator(it, public_only_);
     auto declaration = decorator.Declaration();
     if (!declaration.empty()) {
       AddMockFunction(&map, it->Scope().scope_names, declaration, it);
-      if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {
+      if (it->IsAbleToPolymorphic() && !it->Scope().scope_names.empty()) {  // add inheritance
         auto base_classes = it->BaseClasses();
         if (base_classes.empty()) {
           // target class is base
@@ -203,6 +187,26 @@ bool GoogleMockHarness::Ready() noexcept {
         } else {
           class_bases_map[it->Scope().scope_names.back()] = it->BaseClasses();
         }
+      } else {  // insert stub function definition
+        // stub_pre << std::string("#undef ") + it->Name();
+        cppcodegen::Block stub_definition(cppcodegen::definition_t, it->Declaration());
+        std::string actual_parameters = "(";
+        if (!it->Parameters().empty()) {
+          for (const auto &it_parameter : it->Parameters()) {
+            actual_parameters += it_parameter.second + ", ";
+          }
+          actual_parameters = actual_parameters.substr(0, actual_parameters.size() - 2);
+        }
+        actual_parameters += ");";
+        if (it->Scope().FullName().empty()) {
+          stub_definition << "return " + name_ + kMockFreeFunctionClassName + "::GetInstance()." + it->Name() +
+                                 actual_parameters;
+        } else {
+          stub_definition << "return " + name_ + it->Scope().FullName() + "::GetInstance()." + it->Name() +
+                                 actual_parameters;
+        }
+
+        stub_body << std::move(stub_definition);
       }
     }
   }
@@ -214,8 +218,8 @@ bool GoogleMockHarness::Ready() noexcept {
   file << std::string(kMockFileHeader) << std::string(kMockIncludeHeader);
   file << AddIncludes(p_analyzer_->GetIncludes()) << "\n";
   file << stub_pre;
-  file << stub_body;
   file << GenerateMockBody(map, class_bases_map, name_);
+  file << stub_body;
 
   body_ = file.Out();
 
