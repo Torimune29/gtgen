@@ -19,7 +19,7 @@ set(TEST_RUNNER_PARAMS "") # Any arguemnts to feed the test runner (change as ne
 # --------------------------------------------------------------------------------
 add_executable(${TEST_MAIN} ${TESTFILES})
 
-target_link_libraries(${TEST_MAIN} PRIVATE gtest_main gmock_main)
+target_link_libraries(${TEST_MAIN} PRIVATE pthread gtest_main gmock_main)
 set_target_properties(${TEST_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 target_set_warnings(${TEST_MAIN} ENABLE ALL DISABLE Annoying) # Set warnings (if needed).
 
@@ -28,8 +28,6 @@ set_target_properties(${TEST_MAIN} PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
-
-target_compile_definitions(${TEST_MAIN} PRIVATE GTEST_HAS_PTHREAD=1)
 
 add_test(
 

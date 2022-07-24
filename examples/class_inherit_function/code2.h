@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 
-class hoge {
+class hogehoge {
  public:
-  hoge() = default;
-  virtual ~hoge() = default;
+  hogehoge() = default;
+  virtual ~hogehoge() = default;
   virtual int class_inherit_function_bar(int a, const std::string b) const = 0;
 };

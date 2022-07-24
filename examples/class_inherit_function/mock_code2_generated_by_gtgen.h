@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class mock_hoge : public hoge {
+class mock_hogehoge : public hogehoge {
  public:
   MOCK_CONST_METHOD2(class_inherit_function_bar, int(int,std::string const));
   

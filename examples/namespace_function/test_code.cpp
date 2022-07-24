@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "code1.h"
-#include "mock_code2.h"
+#include "mock_code2_generated_by_gtgen.h"
 
 using ::testing::_;
 using ::testing::Invoke;
