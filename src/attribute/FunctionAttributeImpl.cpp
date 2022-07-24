@@ -61,6 +61,9 @@ std::string FunctionAttributeBase::ExceptionSuffix() const noexcept {
 }
 
 FunctionScope FunctionAttributeBase::Scope() const noexcept {
+  if (info_.scope.empty()) {
+    return FunctionScope(std::vector<std::string>({""}));
+  }
   return FunctionScope(info_.scope);
 }
 
